@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
+import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
 
 class Home extends StatefulWidget {
@@ -14,13 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String language = "اللّغة: العربيّة";
-  List<String> langs =[
-    "اللّغة: العربيّة",
-    "اللّغة: الإنكليزيّة",
-    "اللّغة: التركيّة",
-    "اللّغة: الألمانيّة"
-  ];
+  
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
@@ -92,105 +87,12 @@ class _HomeState extends State<Home> {
                       ))
                     ],
                   ),
-                  Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Container(
-                      margin: EdgeInsets.only(top: 20),
-                      width: viewport.getWidthscreen/2,
-                      child: DropdownButtonFormField<String?>(
-                        dropdownColor: Colors.blue,
-                        isDense: true,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white , width: 3)
-                          ) 
-                        ),
-                        value: language,
-                        onChanged: (value) {
-                          setState(() {
-                            language = value!;
-                          });
-                        },
-                        icon: Icon(Icons.expand_more),
-                        iconSize: 25,
-                        iconEnabledColor: Colors.white,
-                        items: langs.map(
-                          (String value) {
-                            return DropdownMenuItem<String>(
-                              alignment: Alignment.center,
-                              value: value,
-                              child:Text(value,style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 15)
-                      )
-                              );
-                          }).toList()
-                      ),
-                    ),
-                  ),
+                  Values.showLanguages(viewport.getWidthscreen/2),
                   InkWell(
                     onTap: () {
-                      showDialog(context: context,
-                       builder: (context) {
-                         return AlertDialog(
-                         backgroundColor: Colors.transparent,
-                         elevation: 0,
-                         content: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: viewport.getWidthscreen/1.1,
-                              child: TextButton(onPressed: (() {
-                                
-                              }),
-                              style: ButtonStyle(
-                                
-                        backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
-                        shape: MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(15),
-                               
-                        ))
-                      ),
-                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                   children: [
-                                  Text("00966 55 444 3333",style: TextStyle(color: Colors.blue[700] , fontSize: 15,
-                                  fontFamily: "Lato" ,fontWeight: FontWeight.bold)),
-                                    Text("مكالمة",style: TextStyle(color: Colors.blue[700] , fontSize: 15,
-                                  fontFamily: "Lato" ,fontWeight: FontWeight.bold)),
-                                  Icon(Icons.phone,color: Colors.blue[700],)
-                                ],
-                               )
-                               ),
-                            ),
-                             Container(
-                              width: viewport.getWidthscreen/1.1,
-                              
-                               child: TextButton(onPressed: (){
-                                 //cancle
-                                 Navigator.pop(context);
-                               },
-                               style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll<Color>(Colors.white),
-                        shape: MaterialStatePropertyAll<OutlinedBorder>(RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(15),
-                               
-                        ))
-                      ),
-                                child: Text("إالغاء",style: TextStyle(color: Colors.blue[700] , fontSize: 15,
-                                  fontFamily: "Lato" ,fontWeight: FontWeight.bold))),
-                             )
-                          ],
-                         ),
-                         );
-                       });
+                      Values.getDialog(context,viewport.getWidthscreen/1.1);
                     },
-                    child: Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Text("التّواصل مع الدعم",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 20)
-                          ),
-                    ),
+                    child: Values.speakWithSupport()
                   )
               ],
                   

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
+import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
 
 class Login extends StatefulWidget {
@@ -13,13 +15,6 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isRemember = false;
-  String language = "اللّغة: العربيّة";
-  List<String> langs =[
-    "اللّغة: العربيّة",
-    "اللّغة: الإنكليزيّة",
-    "اللّغة: التركيّة",
-    "اللّغة: الألمانيّة"
-  ];
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
@@ -139,14 +134,19 @@ class _LoginState extends State<Login> {
                       fontFamily: "Lato" , fontWeight: FontWeight.bold)),
                 ),
               ),
-              Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Text("نسيت كلمة المرور",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 15)
-                          ),
-                    ),
+              InkWell(
+                onTap: () {
+                  Get.toNamed("/forget_password");
+                },
+                child: Container(
+                        margin: EdgeInsets.only(top: 20),
+                        child: Text("نسيت كلمة المرور",
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 15)
+                            ),
+                      ),
+              ),
                     Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Text("ليس لديك حساب؟ اضغط هنا للتسجيل",
@@ -155,48 +155,13 @@ class _LoginState extends State<Login> {
                         color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 15)
                           ),
                     ),
-                    Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Container(
-                      margin: EdgeInsets.only(top: 20),
-                      width: viewport.getWidthscreen/2,
-                      child: DropdownButtonFormField<String?>(
-                        dropdownColor: Colors.blue,
-                        isDense: true,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white , width: 3)
-                          ) 
-                        ),
-                        value: language,
-                        onChanged: (value) {
-                          setState(() {
-                            language = value!;
-                          });
-                        },
-                        icon: Icon(Icons.expand_more),
-                        iconSize: 25,
-                        iconEnabledColor: Colors.white,
-                        items: langs.map(
-                          (String value) {
-                            return DropdownMenuItem<String>(
-                              alignment: Alignment.center,
-                              value: value,
-                              child:Text(value,style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 15)
-                      )
-                              );
-                          }).toList()
-                      ),
-                    ),
-                  ),
-                    Container(
-                      margin: EdgeInsets.only(top: 20),
-                      child: Text("التّواصل مع الدعم",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 15)
-                          ),
-                    )
+                    Values.showLanguages(viewport.getWidthscreen/2),
+                    InkWell(
+                    onTap: () {
+                      Values.getDialog(context,viewport.getWidthscreen/1.1);
+                    },
+                    child: Values.speakWithSupport()
+                  )
                 
               ],
             ),
