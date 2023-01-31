@@ -48,7 +48,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         child : Text("استعادة كلمة المرور:",style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 25))
                      )
                      ),
-                    values.showCountries(viewport.getWidthscreen/1.4,_formState),
+                    Obx(
+                      () {
+                      return values.showCountries(viewport.getWidthscreen/1.4,_formState);  
+                      },
+                      ),
           Container(
             margin: EdgeInsets.only(top: viewport.getHeightscreen/20),
                 width: viewport.getWidthscreen/1.1,

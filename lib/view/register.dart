@@ -41,7 +41,11 @@ class _RegisterState extends State<Register> {
                 ),
               ),
             ),
-            values.showCountries(viewport.getWidthscreen/1.4,_formState),
+            Obx(
+              () {
+              return values.showCountries(viewport.getWidthscreen/1.4,_formState);  
+              },
+            ),
             Container(
               width: viewport.getWidthscreen/1.4,
               child: Row(

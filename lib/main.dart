@@ -8,6 +8,7 @@ import 'package:said_lite/view/register.dart';
 import 'package:said_lite/view/terms.dart';
 import 'package:said_lite/view/verified.dart';
 
+import 'view/building_info.dart';
 import 'view/login.dart';
 
 void main() {
@@ -27,7 +28,8 @@ void main() {
         GetPage(name: "/term", page: () => const Term()),
         GetPage(name: "/verified", page: () =>  Verified(numberPhone: "")),
         GetPage(name: "/login", page: ()=>const Login()),
-        GetPage(name: "/forget_password", page: ()=> const ForgetPassword())
+        GetPage(name: "/forget_password", page: ()=> const ForgetPassword()),
+        GetPage(name: "/buildInfo", page: ()=> const BuildingInfo())
       ],
   );  
     },)

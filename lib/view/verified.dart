@@ -56,7 +56,7 @@ class _VerifiedState extends State<Verified> {
               width: viewport.getWidthscreen/1.2,
               child: ElevatedButton(
                 onPressed: () {
-              
+                    Get.toNamed("/buildInfo");
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

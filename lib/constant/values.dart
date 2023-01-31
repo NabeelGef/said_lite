@@ -75,6 +75,7 @@ class Values extends GetxController{
                     ),
                   );
   }
+  
   static void getDialog(BuildContext context , double width){
      showDialog(context: context,
                        builder: (context) {
@@ -156,17 +157,7 @@ class Values extends GetxController{
                                 child: Image.asset(value , height: 35,));
                           } ).toList(),
                          onChanged:(value) {
-                           saudi.value = value!;
-                           if(value==countries[0])
-                            {
-                              code.value = "+966 ";
-                            }else if (value==countries[1]){
-                              code.value = "+963 ";
-                            }else if (value==countries[2]){
-                              code.value = "+49 ";
-                            }else {
-                              code.value = "+1 ";
-                            }
+                           EditCountry(value);
                          }),
                     ),
                   ),
@@ -182,7 +173,7 @@ class Values extends GetxController{
                           return null;
                         },
                         onSaved: (newValue) {
-                          numberPhone.value = newValue!;
+                         saveNumber(newValue);
                         },
                         keyboardType: TextInputType.phone, 
                         cursorColor: Colors.black,
@@ -210,11 +201,29 @@ class Values extends GetxController{
               ),
             );
     }
+    void EditCountry(String? value){
+      saudi.value = value!;
+      if(value==countries[0])
+                            {
+                              code.value = "+966 ";
+                            }else if (value==countries[1]){
+                              code.value = "+963 ";
+                            }else if (value==countries[2]){
+                              code.value = "+49 ";
+                            }else {
+                              code.value = "+1 ";
+                            }
+    }
     bool CHECKNUMBERPHONE(GlobalKey<FormState>_formState) {
      if(_formState.currentState!.validate()){
          _formState.currentState!.save();
          return true;
        }
      return false;
+  }
+
+  void saveNumber(String? newValue) {
+      numberPhone.value = newValue!;
+                        
   }
   }
