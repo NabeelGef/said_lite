@@ -2,7 +2,9 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
+import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
 
 class BuildingInfo extends StatefulWidget {
@@ -13,6 +15,7 @@ class BuildingInfo extends StatefulWidget {
 }
 
 class _BuildingInfoState extends State<BuildingInfo> {
+  Values values = Get.find<Values>();
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
@@ -103,34 +106,41 @@ class _BuildingInfoState extends State<BuildingInfo> {
                             children: [
                               const SizedBox(width: 10),
                               Expanded(
-                                  child: DottedBorder(
-                                      borderType: BorderType.RRect,
-                                      radius: Radius.circular(20),
-                                      color: Colors.red,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: const [
-                                          Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: Text(
-                                                "إرفاق السّجل التّجاري\n  بامتداد " +
-                                                    "PNG أو PDF",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 15,
-                                                    fontFamily: "Lato",
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ),
-                                          Icon(
-                                            Icons.attach_file,
-                                            color: Colors.red,
-                                            size: 25,
-                                          ),
-                                        ],
-                                      ))),
+                                  child: InkWell(
+                                onTap: () {
+                                  Values.getDialogFile(
+                                      context,
+                                      viewport.getWidthscreen / 1.1,
+                                      viewport.getHeightscreen / 3);
+                                },
+                                child: DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: Radius.circular(20),
+                                    color: Colors.red,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: const [
+                                        Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: Text(
+                                              "إرفاق السّجل التّجاري\n  بامتداد " +
+                                                  "PNG أو PDF",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 15,
+                                                  fontFamily: "Lato",
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
+                                        Icon(
+                                          Icons.attach_file,
+                                          color: Colors.red,
+                                          size: 25,
+                                        ),
+                                      ],
+                                    )),
+                              )),
                               SizedBox(width: 10),
                               Expanded(
                                   child: Container(
@@ -173,34 +183,41 @@ class _BuildingInfoState extends State<BuildingInfo> {
                             children: [
                               const SizedBox(width: 10),
                               Expanded(
-                                  child: DottedBorder(
-                                      borderType: BorderType.RRect,
-                                      radius: Radius.circular(20),
-                                      color: Colors.green,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: const [
-                                          Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: Text(
-                                                "إرفاق الشّهادة الضريبيّة\n  بامتداد " +
-                                                    "PNG أو PDF",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.green,
-                                                    fontSize: 15,
-                                                    fontFamily: "Lato",
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ),
-                                          Icon(
-                                            Icons.attach_file,
-                                            color: Colors.green,
-                                            size: 25,
-                                          ),
-                                        ],
-                                      ))),
+                                  child: InkWell(
+                                onTap: () {
+                                  Values.getDialogFile(
+                                      context,
+                                      viewport.getWidthscreen / 1.1,
+                                      viewport.getHeightscreen / 3);
+                                },
+                                child: DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: Radius.circular(20),
+                                    color: Colors.green,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: const [
+                                        Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: Text(
+                                              "إرفاق الشّهادة الضريبيّة\n  بامتداد " +
+                                                  "PNG أو PDF",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 15,
+                                                  fontFamily: "Lato",
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
+                                        Icon(
+                                          Icons.attach_file,
+                                          color: Colors.green,
+                                          size: 25,
+                                        ),
+                                      ],
+                                    )),
+                              )),
                               SizedBox(width: 10),
                               Expanded(
                                   child: SizedBox(
@@ -243,34 +260,41 @@ class _BuildingInfoState extends State<BuildingInfo> {
                             children: [
                               const SizedBox(width: 10),
                               Expanded(
-                                  child: DottedBorder(
-                                      borderType: BorderType.RRect,
-                                      radius: Radius.circular(20),
-                                      color: Colors.green,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: const [
-                                          Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: Text(
-                                                "إرفاق الهويّة \n  بامتداد " +
-                                                    "PNG أو PDF",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.green,
-                                                    fontSize: 15,
-                                                    fontFamily: "Lato",
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ),
-                                          Icon(
-                                            Icons.attach_file,
-                                            color: Colors.green,
-                                            size: 25,
-                                          ),
-                                        ],
-                                      ))),
+                                  child: InkWell(
+                                onTap: () {
+                                  Values.getDialogFile(
+                                      context,
+                                      viewport.getWidthscreen / 1.1,
+                                      viewport.getHeightscreen / 3);
+                                },
+                                child: DottedBorder(
+                                    borderType: BorderType.RRect,
+                                    radius: Radius.circular(20),
+                                    color: Colors.green,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: const [
+                                        Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: Text(
+                                              "إرفاق الهويّة \n  بامتداد " +
+                                                  "PNG أو PDF",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize: 15,
+                                                  fontFamily: "Lato",
+                                                  fontWeight: FontWeight.bold)),
+                                        ),
+                                        Icon(
+                                          Icons.attach_file,
+                                          color: Colors.green,
+                                          size: 25,
+                                        ),
+                                      ],
+                                    )),
+                              )),
                               SizedBox(width: 10),
                               Expanded(
                                   child: SizedBox(
@@ -350,10 +374,19 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               color: Colors.transparent,
                               elevation: 20,
                               child: TextFormField(
+                                readOnly: true,
+                                textDirection: TextDirection.rtl,
+                                initialValue: values.numberPhone.value +
+                                    values.code.value,
                                 style: TextStyle(fontSize: 20),
                                 decoration: InputDecoration(
                                     fillColor: Colors.grey,
                                     filled: true,
+                                    enabled: false,
+                                    border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                        borderSide:
+                                            BorderSide(color: Colors.white)),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(15),
                                         borderSide:
@@ -434,13 +467,15 @@ class _BuildingInfoState extends State<BuildingInfo> {
                       Container(
                         margin: EdgeInsets.all(20),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed("/bunches");
+                          },
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               minimumSize: Size.fromHeight(50),
                               backgroundColor: Colors.blue),
-                          child: Text("حفظ ",
+                          child: const Text("حفظ ",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
