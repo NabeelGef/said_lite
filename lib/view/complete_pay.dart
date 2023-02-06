@@ -1,5 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/viewport.dart';
 
@@ -220,7 +221,9 @@ class _CompletePaymentState extends State<CompletePayment> {
                           shape: RoundedRectangleBorder(
                               side: BorderSide(color: Coloring.primary),
                               borderRadius: BorderRadius.circular(5))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.toNamed("/home");
+                      },
                       child: Text(
                         "الانتقال إلى الصفحة الرئيسية",
                         textDirection: TextDirection.rtl,

@@ -1,11 +1,13 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/view/bunches.dart';
 import 'package:said_lite/view/complete_pay.dart';
 import 'package:said_lite/view/forget_password.dart';
 import 'package:said_lite/view/home.dart';
+import 'package:said_lite/view/start.dart';
 import 'package:said_lite/view/register.dart';
 import 'package:said_lite/view/terms.dart';
 import 'package:said_lite/view/verified.dart';
@@ -24,7 +26,7 @@ void main() {
         builder: DevicePreview.appBuilder,
         initialRoute: "/",
         getPages: [
-          GetPage(name: "/", page: () => const Home()),
+          GetPage(name: "/", page: () => const Start()),
           GetPage(name: "/register", page: () => Register(isChecked: false)),
           GetPage(name: "/term", page: () => const Term()),
           GetPage(name: "/verified", page: () => Verified(numberPhone: "")),
@@ -32,6 +34,7 @@ void main() {
           GetPage(name: "/forget_password", page: () => const ForgetPassword()),
           GetPage(name: "/buildInfo", page: () => const BuildingInfo()),
           GetPage(name: "/bunches", page: () => const Bunches()),
+          GetPage(name: "/home", page: () => const Home())
         ],
       );
     },

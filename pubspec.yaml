@@ -33,6 +33,8 @@ dependencies:
   date_format: ^2.0.7
   device_preview: ^1.1.0
   dotted_border: ^2.0.0+3
+  qr_flutter: ^4.0.0
+  qr_code_scanner: ^1.0.1
   flutter:
     sdk: flutter
   flutter_otp_text_field: ^1.1.0+2

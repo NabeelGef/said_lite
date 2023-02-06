@@ -163,7 +163,26 @@ class Values extends GetxController {
           );
         });
   }
-
+   
+   static void dialogDrawer (BuildContext context)
+    showDialog(
+      context:context,
+      builder:(context){
+        return AlertDialog(
+         backgroundColor: Colors.transparent,
+         elevation: 0,
+         content: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: width,
+            )
+          ],
+         ),   
+        )
+      }
+    )
+   }
   static void getDialog(BuildContext context, double width) {
     showDialog(
         context: context,
