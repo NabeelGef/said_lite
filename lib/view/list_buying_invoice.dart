@@ -1,26 +1,25 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:said_lite/constant/colors.dart';
-import 'package:said_lite/constant/fabbar.dart';
-import 'package:said_lite/constant/values.dart';
-import 'package:said_lite/constant/viewport.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+import '../constant/colors.dart';
+import '../constant/fabbar.dart';
+import '../constant/values.dart';
+import '../constant/viewport.dart';
+
+class BuyingInvoice extends StatefulWidget {
+  const BuyingInvoice({super.key});
 
   @override
-  State<StatefulWidget> createState() => _HomeState();
+  State<BuyingInvoice> createState() => _BuyingInvoiceState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _BuyingInvoiceState extends State<BuyingInvoice>
+    with TickerProviderStateMixin {
   Barcode? result;
   bool invoiceselected = true;
   QRViewController? controller;
@@ -28,8 +27,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   TabController? tabController, tabControllerinvoice;
   int selectedpage = 3;
 
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
   @override
   void reassemble() {
     super.reassemble();
@@ -90,46 +87,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       SingleChildScrollView(
           child: Column(children: [
         Container(
-          margin: const EdgeInsets.all(15),
-          width: viewport.getWidthscreen / 1.1,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.blue, width: 3),
-            borderRadius: BorderRadius.circular(15),
-          ),
-          child: TabBar(
-              unselectedLabelColor: Colors.grey[800],
-              indicator: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(15)),
-              controller: tabController,
-              onTap: (value) {
-                setState(() {
-                  if (value == 0) {
-                    invoiceselected = true;
-                  } else {
-                    invoiceselected = false;
-                  }
-                });
-              },
-              tabs: [
-                Tab(
-                  child: Text("فاتورة مبيعات",
-                      style: TextStyle(
-                          color: Coloring.primary,
-                          fontSize: 15,
-                          fontFamily: "Lato",
-                          fontWeight: FontWeight.bold)),
-                ),
-                Tab(
-                  child: Text("فاتورة مشتريات",
-                      style: TextStyle(
-                          color: Coloring.primary,
-                          fontSize: 15,
-                          fontFamily: "Lato",
-                          fontWeight: FontWeight.bold)),
-                ),
-              ]),
-        ),
-        Container(
             width: viewport.getWidthscreen / 1.2,
             height: viewport.getHeightscreen / 3,
             child: _buildQrView(viewport, context)),
@@ -178,36 +135,67 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
               ),
               Container(
-                  width: viewport.getWidthscreen / 1.1,
+                  width: viewport.getWidthscreen,
                   height: viewport.getHeightscreen / 15,
-                  alignment: Alignment.centerRight,
-                  child: TextFormField(
-                    textDirection: TextDirection.rtl,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(width: 2, color: Colors.grey)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(width: 2, color: Colors.grey)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(width: 2, color: Colors.grey)),
-                        hintTextDirection: TextDirection.rtl,
-                        hintText: "بحث باسم المنتج أو رقم الباركود ...",
-                        hintStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15,
-                            fontFamily: "Lato",
-                            fontWeight: FontWeight.bold),
-                        suffixIcon: const Icon(
-                          Icons.search,
-                          color: Colors.grey,
-                          size: 35,
-                        )),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: viewport.getHeightscreen / 15,
+                          alignment: Alignment.center,
+                          decoration: const BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                bottomLeft: Radius.circular(15)),
+                          ),
+                          child: const Text("قائمة فواتير المشتريات",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: "Lato",
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          textDirection: TextDirection.rtl,
+                          decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15)),
+                                  borderSide:
+                                      BorderSide(width: 2, color: Colors.grey)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15)),
+                                  borderSide:
+                                      BorderSide(width: 2, color: Colors.grey)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15)),
+                                  borderSide:
+                                      BorderSide(width: 2, color: Colors.grey)),
+                              hintTextDirection: TextDirection.rtl,
+                              hintText: "بحث باسم المنتج  ...",
+                              hintStyle: TextStyle(
+                                  overflow: TextOverflow.visible,
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                  fontFamily: "Lato",
+                                  fontWeight: FontWeight.bold),
+                              suffixIcon: Icon(
+                                Icons.search,
+                                color: Colors.grey,
+                                size: 35,
+                              )),
+                        ),
+                      ),
+                    ],
                   )),
               Container(
                 margin: const EdgeInsets.all(15),
@@ -391,7 +379,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     dataRowHeight: viewport.getHeightscreen / 30,
                     columnSpacing: viewport.getWidthscreen / 5,
                     border: TableBorder.all(
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(15),
                             bottomLeft: Radius.circular(15)),
                         width: 3,
@@ -497,13 +485,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ),
       ])),
     ];
+
     return Scaffold(
         backgroundColor: Colors.white,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:
             FloatingActionButton(onPressed: () {}, child: Icon(Icons.qr_code)),
         bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               border: Border(top: BorderSide(width: 3, color: Colors.blue))),
           child: FABBottomAppBar(
             onTabSelected: (value) {
@@ -598,7 +587,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
                 onPressed: () {
                   Values.dialogDrawer(
-                      invoiceselected, context, viewport.getWidthscreen / 1.2);
+                      false, context, viewport.getWidthscreen / 1.2);
                 },
                 tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
@@ -658,42 +647,3 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.dispose();
   }
 }
-//Row(
-//   mainAxisAlignment: MainAxisAlignment.center,
-//   crossAxisAlignment: CrossAxisAlignment.center,
-//   children: <Widget>[
-//     Container(
-//       margin: const EdgeInsets.all(8),
-//       child: ElevatedButton(
-//           onPressed: () async {
-//             await controller?.toggleFlash();
-//             setState(() {});
-//           },
-//           child: FutureBuilder(
-//             future: controller?.getFlashStatus(),
-//             builder: (context, snapshot) {
-//               return Text('Flash: ${snapshot.data}');
-//             },
-//           )),
-//     ),
-//     Container(
-//       margin: const EdgeInsets.all(8),
-//       child: ElevatedButton(
-//           onPressed: () async {
-//             await controller?.flipCamera();
-//             setState(() {});
-//           },
-//           child: FutureBuilder(
-//             future: controller?.getCameraInfo(),
-//             builder: (context, snapshot) {
-//               if (snapshot.data != null) {
-//                 return Text(
-//                     'Camera facing ${describeEnum(snapshot.data!)}');
-//               } else {
-//                 return const Text('loading');
-//               }
-//             },
-//           )),
-//     )
-//   ],
-// ),

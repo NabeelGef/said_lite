@@ -1,26 +1,25 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:said_lite/constant/colors.dart';
-import 'package:said_lite/constant/fabbar.dart';
-import 'package:said_lite/constant/values.dart';
-import 'package:said_lite/constant/viewport.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+import '../constant/colors.dart';
+import '../constant/fabbar.dart';
+import '../constant/values.dart';
+import '../constant/viewport.dart';
+
+class SalesReturn extends StatefulWidget {
+  const SalesReturn({super.key});
 
   @override
-  State<StatefulWidget> createState() => _HomeState();
+  State<SalesReturn> createState() => _SalesReturnState();
 }
 
-class _HomeState extends State<Home> with TickerProviderStateMixin {
+class _SalesReturnState extends State<SalesReturn>
+    with TickerProviderStateMixin {
   Barcode? result;
   bool invoiceselected = true;
   QRViewController? controller;
@@ -178,37 +177,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
               ),
               Container(
-                  width: viewport.getWidthscreen / 1.1,
-                  height: viewport.getHeightscreen / 15,
-                  alignment: Alignment.centerRight,
-                  child: TextFormField(
-                    textDirection: TextDirection.rtl,
-                    decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(width: 2, color: Colors.grey)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(width: 2, color: Colors.grey)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide:
-                                const BorderSide(width: 2, color: Colors.grey)),
-                        hintTextDirection: TextDirection.rtl,
-                        hintText: "بحث باسم المنتج أو رقم الباركود ...",
-                        hintStyle: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15,
-                            fontFamily: "Lato",
-                            fontWeight: FontWeight.bold),
-                        suffixIcon: const Icon(
-                          Icons.search,
-                          color: Colors.grey,
-                          size: 35,
-                        )),
-                  )),
+                width: viewport.getWidthscreen / 1.1,
+                height: viewport.getHeightscreen / 15,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(15)),
+                child: const Text("فاتورة مبيعات رقم #45453",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: "Lato",
+                        fontWeight: FontWeight.bold)),
+              ),
               Container(
                 margin: const EdgeInsets.all(15),
                 height: viewport.getHeightscreen / 5,
@@ -391,7 +372,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     dataRowHeight: viewport.getHeightscreen / 30,
                     columnSpacing: viewport.getWidthscreen / 5,
                     border: TableBorder.all(
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(15),
                             bottomLeft: Radius.circular(15)),
                         width: 3,
@@ -503,7 +484,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         floatingActionButton:
             FloatingActionButton(onPressed: () {}, child: Icon(Icons.qr_code)),
         bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
               border: Border(top: BorderSide(width: 3, color: Colors.blue))),
           child: FABBottomAppBar(
             onTabSelected: (value) {
@@ -658,42 +639,3 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     super.dispose();
   }
 }
-//Row(
-//   mainAxisAlignment: MainAxisAlignment.center,
-//   crossAxisAlignment: CrossAxisAlignment.center,
-//   children: <Widget>[
-//     Container(
-//       margin: const EdgeInsets.all(8),
-//       child: ElevatedButton(
-//           onPressed: () async {
-//             await controller?.toggleFlash();
-//             setState(() {});
-//           },
-//           child: FutureBuilder(
-//             future: controller?.getFlashStatus(),
-//             builder: (context, snapshot) {
-//               return Text('Flash: ${snapshot.data}');
-//             },
-//           )),
-//     ),
-//     Container(
-//       margin: const EdgeInsets.all(8),
-//       child: ElevatedButton(
-//           onPressed: () async {
-//             await controller?.flipCamera();
-//             setState(() {});
-//           },
-//           child: FutureBuilder(
-//             future: controller?.getCameraInfo(),
-//             builder: (context, snapshot) {
-//               if (snapshot.data != null) {
-//                 return Text(
-//                     'Camera facing ${describeEnum(snapshot.data!)}');
-//               } else {
-//                 return const Text('loading');
-//               }
-//             },
-//           )),
-//     )
-//   ],
-// ),

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:said_lite/constant/colors.dart';
 
 import '../view/verified.dart';
 
@@ -163,26 +164,203 @@ class Values extends GetxController {
           );
         });
   }
-   
-   static void dialogDrawer (BuildContext context)
+
+  static void dialogDrawer(bool invoice, BuildContext context, double width) {
     showDialog(
-      context:context,
-      builder:(context){
-        return AlertDialog(
-         backgroundColor: Colors.transparent,
-         elevation: 0,
-         content: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              width: width,
-            )
-          ],
-         ),   
-        )
-      }
-    )
-   }
+        context: context,
+        builder: (context) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: AlertDialog(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.close,
+                          size: 50,
+                          color: Coloring.primary,
+                        ),
+                      )),
+                  if (invoice) ...[
+                    Container(
+                      width: width,
+                      child: TextButton(
+                        onPressed: (() {
+                          Get.toNamed("/list_sales");
+                        }),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.blue),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ))),
+                        child: const Text("قائمة المبيعات",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Lato",
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Container(
+                      width: width,
+                      child: TextButton(
+                        onPressed: (() {
+                          Get.toNamed("/sales_return");
+                        }),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.blue),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ))),
+                        child: const Text("مرتجع مبيع",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Lato",
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Container(
+                      width: width,
+                      child: TextButton(
+                        onPressed: (() {
+                          Get.toNamed("/add_product");
+                        }),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.blue),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ))),
+                        child: const Text("إضافة منتج",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Lato",
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    )
+                  ] else ...[
+                    Container(
+                      width: width,
+                      child: TextButton(
+                        onPressed: (() {
+                          Get.toNamed("/list_buying");
+                        }),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.blue),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ))),
+                        child: const Text("قائمة المشتريات",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Lato",
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Container(
+                      width: width,
+                      child: TextButton(
+                        onPressed: (() {
+                          Get.toNamed("/add_product");
+                        }),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.blue),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ))),
+                        child: const Text("إضافة منتج",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: "Lato",
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                  ]
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  static void completeAddProductDialog(
+      BuildContext context, double width, double height) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: AlertDialog(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              content: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: width,
+                    height: height,
+                    decoration: BoxDecoration(
+                        color: Coloring.primary,
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15))),
+                    child: const Text("تمت إضافة بيانات المنتج",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontFamily: "Lato",
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: width,
+                      height: height,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(15))),
+                      child: Text("حسناً",
+                          style: TextStyle(
+                              color: Coloring.primary,
+                              fontSize: 15,
+                              fontFamily: "Lato",
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   static void getDialog(BuildContext context, double width) {
     showDialog(
         context: context,
