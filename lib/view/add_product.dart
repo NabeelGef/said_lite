@@ -101,20 +101,16 @@ class _AddProductState extends State<AddProduct> {
                               hintTextDirection: TextDirection.rtl,
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      width: 2,
-                                      strokeAlign: StrokeAlign.inside,
-                                      color: Colors.grey),
+                                      width: 2, color: Colors.grey),
                                   borderRadius: BorderRadius.circular(25)),
                               enabledBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      width: 2,
-                                      strokeAlign: StrokeAlign.inside,
-                                      color: Colors.grey),
+                                      width: 2, color: Colors.grey),
                                   borderRadius: BorderRadius.circular(25)),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      width: 2,
-                                      strokeAlign: StrokeAlign.inside),
+                                    width: 2,
+                                  ),
                                   borderRadius: BorderRadius.circular(25))),
                         ),
                       ),
@@ -130,21 +126,17 @@ class _AddProductState extends State<AddProduct> {
                               hintText: "اسم المنتج",
                               hintTextDirection: TextDirection.rtl,
                               border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 2,
-                                      strokeAlign: StrokeAlign.inside,
-                                      color: Colors.grey),
+                                  borderSide:
+                                      BorderSide(width: 2, color: Colors.grey),
                                   borderRadius: BorderRadius.circular(25)),
                               enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 2,
-                                      strokeAlign: StrokeAlign.inside,
-                                      color: Colors.grey),
+                                  borderSide:
+                                      BorderSide(width: 2, color: Colors.grey),
                                   borderRadius: BorderRadius.circular(25)),
                               focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      width: 2,
-                                      strokeAlign: StrokeAlign.inside),
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                  ),
                                   borderRadius: BorderRadius.circular(25))),
                         ),
                       ),
@@ -169,23 +161,19 @@ class _AddProductState extends State<AddProduct> {
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 2,
-                                            strokeAlign: StrokeAlign.inside,
-                                            color: Colors.grey),
+                                        borderSide: BorderSide(
+                                            width: 2, color: Colors.grey),
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 2,
-                                            strokeAlign: StrokeAlign.inside,
-                                            color: Colors.grey),
+                                        borderSide: BorderSide(
+                                            width: 2, color: Colors.grey),
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     focusedBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                            width: 2,
-                                            strokeAlign: StrokeAlign.inside),
+                                        borderSide: BorderSide(
+                                          width: 2,
+                                        ),
                                         borderRadius:
                                             BorderRadius.circular(25))),
                               ),
@@ -204,22 +192,18 @@ class _AddProductState extends State<AddProduct> {
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
                                         borderSide: const BorderSide(
-                                            width: 2,
-                                            strokeAlign: StrokeAlign.inside,
-                                            color: Colors.grey),
+                                            width: 2, color: Colors.grey),
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
-                                            width: 2,
-                                            strokeAlign: StrokeAlign.inside,
-                                            color: Colors.grey),
+                                            width: 2, color: Colors.grey),
                                         borderRadius:
                                             BorderRadius.circular(25)),
                                     focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
-                                            width: 2,
-                                            strokeAlign: StrokeAlign.inside),
+                                          width: 2,
+                                        ),
                                         borderRadius:
                                             BorderRadius.circular(25))),
                               ),

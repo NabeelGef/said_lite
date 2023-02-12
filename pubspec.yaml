@@ -33,13 +33,15 @@ dependencies:
   date_format: ^2.0.7
   device_preview: ^1.1.0
   dotted_border: ^2.0.0+3
-  qr_flutter: ^4.0.0
-  qr_code_scanner: ^1.0.1
   flutter:
     sdk: flutter
   flutter_otp_text_field: ^1.1.0+2
   flutter_switch: ^0.3.2
   get: ^4.6.5
+  qr_code_scanner: ^1.0.1
+  qr_flutter: ^4.0.0
+  syncfusion_flutter_core: ^20.4.48
+  syncfusion_flutter_datagrid: ^20.4.48
   timer_count_down: ^2.2.0
 
 dev_dependencies:
