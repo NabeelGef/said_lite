@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/viewport.dart';
 
+import '../constant/values.dart';
+
 class CompletePayment extends StatefulWidget {
   String typeBunch;
   int price;
@@ -14,6 +16,14 @@ class CompletePayment extends StatefulWidget {
 }
 
 class _CompletePaymentState extends State<CompletePayment> {
+  Values values = Get.find();
+  @override
+  void initState() {
+    values.typeBunch.value = widget.typeBunch;
+    values.price.value = widget.price;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);

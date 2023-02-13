@@ -12,6 +12,9 @@ import 'package:said_lite/constant/fabbar.dart';
 import 'package:said_lite/constant/person.dart';
 import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
+import 'package:said_lite/view/profile.dart';
+import 'package:said_lite/view/statistics.dart';
+import 'package:said_lite/view/support.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_core/core.dart';
 import 'package:syncfusion_flutter_core/core.dart';
@@ -37,8 +40,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   TabController? tabController, tabControllerinvoice;
   int selectedpage = 3;
-  GlobalKey<SfDataGridState> _sfkey = GlobalKey();
-  DataGridController sfcontroller = DataGridController();
   static List<Map<String, dynamic>> field = [
     {
       'element': [
@@ -105,11 +106,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
     Screen viewport = Screen(context);
     List<Widget> pages = [
-      Container(child: Text("Store")),
-      Container(child: Text("support")),
-      Container(child: Text("chart")),
+      Profile(),
+      Support(),
+      Statistics(),
       SingleChildScrollView(
           child: Column(children: [
         Container(
@@ -155,8 +159,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         Container(
             width: viewport.getWidthscreen / 1.2,
             height: viewport.getHeightscreen / 3,
-            child: Image.asset(
-                "assets/images/edit.png")), //_buildQrView(viewport, context)
+            child: _buildQrView(viewport, context)
+            // Image.asset(
+            //     "assets/images/edit.png")
+            ), //_buildQrView(viewport, context)
         FittedBox(
           fit: BoxFit.contain,
           child: Column(
@@ -247,11 +253,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         data: SfDataGridThemeData(
                             gridLineColor: Colors.grey, gridLineStrokeWidth: 3),
                         child: SfDataGrid(
-                          key: _sfkey,
                           shrinkWrapColumns: false,
                           swipeMaxOffset: 50,
                           allowSwiping: true,
-                          controller: sfcontroller,
                           endSwipeActionsBuilder:
                               (context, dataGridRow, rowIndex) {
                             return Container(
@@ -345,9 +349,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                                 Navigator.pop(
                                                                     context);
 
-                                                                DialogElement(
+                                                                Values.DialogElement(
                                                                     context,
                                                                     rowIndex,
+                                                                    _formeditable,
+                                                                    field,
+                                                                    dataGrid,
                                                                     viewport);
                                                               },
                                                             ),
@@ -383,9 +390,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                                               onTap: () {
                                                                 Navigator.pop(
                                                                     context);
-                                                                DialogPrice(
+                                                                Values.DialogPrice(
                                                                     context,
                                                                     rowIndex,
+                                                                    _formeditable2,
+                                                                    field,
+                                                                    dataGrid,
                                                                     viewport);
                                                               },
                                                             ),
@@ -741,7 +751,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ])),
     ];
     return Scaffold(
-        backgroundColor: Colors.white,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton:
             FloatingActionButton(onPressed: () {}, child: Icon(Icons.qr_code)),
@@ -752,6 +761,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             onTabSelected: (value) {
               setState(() {
                 selectedpage = value;
+                print("selectedpage = $selectedpage");
               });
             },
             items: [
@@ -782,75 +792,79 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             notchedShape: const CircularNotchedRectangle(),
           ),
         ),
-        appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: 65,
-          actions: [
-            Column(
-              children: [
-                Container(
-                  height: 20,
-                  margin: const EdgeInsets.only(right: 15),
-                  child: Text("ميني سوبر ماركت",
-                      style: TextStyle(
-                          color: Coloring.primary,
-                          fontSize: 15,
-                          fontFamily: "Lato",
-                          fontWeight: FontWeight.bold)),
+        appBar: selectedpage == 3
+            ? AppBar(
+                elevation: 0,
+                toolbarHeight: 65,
+                actions: [
+                  Column(
+                    children: [
+                      Container(
+                        height: 20,
+                        margin: const EdgeInsets.only(right: 15),
+                        child: Text("ميني سوبر ماركت",
+                            style: TextStyle(
+                                color: Coloring.primary,
+                                fontSize: 15,
+                                fontFamily: "Lato",
+                                fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        height: 20,
+                        margin: const EdgeInsets.only(right: 15),
+                        child: const Text("...كاشير احمد, مرحبا بك",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 15,
+                                fontFamily: "Lato",
+                                fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        height: 20,
+                        margin: const EdgeInsets.only(right: 15),
+                        child: Text(
+                          formatDate(DateTime.now(), [
+                            '  ',
+                            HH,
+                            ':',
+                            nn,
+                            am,
+                            ',',
+                            yyyy,
+                            '/',
+                            mm,
+                            '/',
+                            D,
+                          ]),
+                          style:
+                              TextStyle(color: Colors.grey[800], fontSize: 12),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      icon: Icon(
+                        Icons.reorder,
+                        color: Coloring.primary,
+                        size: 44, // Changing Drawer Icon Size
+                      ),
+                      onPressed: () {
+                        Values.dialogDrawer(invoiceselected, context,
+                            viewport.getWidthscreen / 1.2);
+                      },
+                      tooltip: MaterialLocalizations.of(context)
+                          .openAppDrawerTooltip,
+                    );
+                  },
                 ),
-                Container(
-                  height: 20,
-                  margin: const EdgeInsets.only(right: 15),
-                  child: const Text("...كاشير احمد, مرحبا بك",
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 15,
-                          fontFamily: "Lato",
-                          fontWeight: FontWeight.bold)),
-                ),
-                Container(
-                  height: 20,
-                  margin: const EdgeInsets.only(right: 15),
-                  child: Text(
-                    formatDate(DateTime.now(), [
-                      '  ',
-                      HH,
-                      ':',
-                      nn,
-                      am,
-                      ',',
-                      yyyy,
-                      '/',
-                      mm,
-                      '/',
-                      D,
-                    ]),
-                    style: TextStyle(color: Colors.grey[800], fontSize: 12),
-                  ),
-                )
-              ],
-            )
-          ],
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Icon(
-                  Icons.reorder,
-                  color: Coloring.primary,
-                  size: 44, // Changing Drawer Icon Size
-                ),
-                onPressed: () {
-                  Values.dialogDrawer(
-                      invoiceselected, context, viewport.getWidthscreen / 1.2);
-                },
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
-          backgroundColor: Colors.white,
-          systemOverlayStyle:
-              const SystemUiOverlayStyle(statusBarColor: Colors.white),
-        ),
+                backgroundColor: Colors.white,
+                systemOverlayStyle:
+                    const SystemUiOverlayStyle(statusBarColor: Colors.white),
+              )
+            : null,
         body: pages.elementAt(selectedpage));
   }
 
@@ -902,358 +916,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   }
 
   GlobalKey<FormState> _formeditable = GlobalKey();
-  void DialogElement(BuildContext context, int index, Screen viewport) {
-    String newname = "";
-    String newprice = "";
-    showDialog(
-        context: context,
-        builder: (context) {
-          return BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: AlertDialog(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  content: Container(
-                    alignment: Alignment.center,
-                    height: viewport.getHeightscreen / 3,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Form(
-                      key: _formeditable,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerRight,
-                            margin: EdgeInsets.only(right: 20),
-                            child: const Text(
-                              "تعديل العنصر",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontFamily: "Lato",
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: viewport.getWidthscreen / 2,
-                            height: viewport.getHeightscreen / 20,
-                            child: TextFormField(
-                              readOnly: true,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.grey,
-                                  hintTextDirection: TextDirection.rtl,
-                                  hintText: "باركود المنتج",
-                                  hintStyle: TextStyle(
-                                      color: Colors.blue[300],
-                                      fontSize: 15,
-                                      fontFamily: "Lato",
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          Container(
-                            width: viewport.getWidthscreen / 2,
-                            height: viewport.getHeightscreen / 20,
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "يجب ملئ المنتج";
-                                }
-                                return null;
-                              },
-                              onSaved: (newValue) {
-                                newname = newValue!;
-                              },
-                              textDirection: TextDirection.rtl,
-                              decoration: const InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintTextDirection: TextDirection.rtl,
-                                  hintText: "اسم المنتج",
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 15,
-                                      fontFamily: "Lato",
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          Container(
-                            width: viewport.getWidthscreen / 2,
-                            height: viewport.getHeightscreen / 20,
-                            child: TextFormField(
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "يجب ملئ المنتج";
-                                }
-                                return null;
-                              },
-                              onSaved: (newValue) {
-                                newprice = newValue!;
-                              },
-                              keyboardType: TextInputType.number,
-                              textDirection: TextDirection.rtl,
-                              decoration: const InputDecoration(
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintTextDirection: TextDirection.rtl,
-                                  hintText: "سعر المنتج",
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontSize: 15,
-                                      fontFamily: "Lato",
-                                      fontWeight: FontWeight.bold)),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              InkWell(
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: viewport.getWidthscreen / 6,
-                                  decoration: BoxDecoration(
-                                    color: Coloring.primary,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: const Text("إلغاء",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontFamily: "Lato",
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              InkWell(
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  width: viewport.getWidthscreen / 6,
-                                  decoration: BoxDecoration(
-                                    color: Coloring.primary,
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  child: const Text("حفظ",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontFamily: "Lato",
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                                onTap: () {
-                                  if (_formeditable.currentState!.validate()) {
-                                    _formeditable.currentState!.save();
-                                    field[index]['element'][0]['name'] =
-                                        newname;
-                                    field[index]['price'][0]['price'] =
-                                        newprice;
-
-                                    dataGrid.setList(field);
-                                    dataGrid.updateDataGridSource();
-                                    Navigator.pop(context);
-                                  }
-                                },
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )));
-        });
-  }
 
   GlobalKey<FormState> _formeditable2 = GlobalKey();
-  void DialogPrice(BuildContext context, int index, Screen viewport) {
-    String newprice = "", newtotal = "";
-    showDialog(
-        context: context,
-        builder: (context) {
-          return BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: AlertDialog(
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
-                  content: Container(
-                    alignment: Alignment.center,
-                    height: viewport.getHeightscreen / 3,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Form(
-                        key: _formeditable2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Container(
-                              alignment: Alignment.centerRight,
-                              margin: EdgeInsets.only(right: 20),
-                              child: const Text(
-                                "تعديل السعر",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontFamily: "Lato",
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Text("الإجمالي",
-                                          style: TextStyle(
-                                              color: Coloring.primary,
-                                              fontSize: 15,
-                                              fontFamily: "Lato",
-                                              fontWeight: FontWeight.bold)),
-                                      Container(
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return "يجب ملئ الحقل";
-                                            }
-                                            return null;
-                                          },
-                                          onSaved: (newValue) {
-                                            newtotal = newValue!;
-                                          },
-                                          decoration: const InputDecoration(
-                                              fillColor: Colors.white,
-                                              filled: true),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Text("الضريبة",
-                                          style: TextStyle(
-                                              color: Coloring.primary,
-                                              fontSize: 15,
-                                              fontFamily: "Lato",
-                                              fontWeight: FontWeight.bold)),
-                                      Container(
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          readOnly: true,
-                                          decoration: const InputDecoration(
-                                              fillColor: Colors.grey,
-                                              filled: true),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Text("السعر",
-                                          style: TextStyle(
-                                              color: Coloring.primary,
-                                              fontSize: 15,
-                                              fontFamily: "Lato",
-                                              fontWeight: FontWeight.bold)),
-                                      Container(
-                                        child: TextFormField(
-                                          keyboardType: TextInputType.number,
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return "يجب ملئ الحقل";
-                                            }
-                                            return null;
-                                          },
-                                          onSaved: (newValue) {
-                                            newprice = newValue!;
-                                          },
-                                          decoration: const InputDecoration(
-                                              fillColor: Colors.white,
-                                              filled: true),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                InkWell(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: viewport.getWidthscreen / 6,
-                                    decoration: BoxDecoration(
-                                      color: Coloring.primary,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: const Text("حفظ",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  onTap: () {
-                                    if (_formeditable2.currentState!
-                                        .validate()) {
-                                      _formeditable2.currentState!.save();
-                                      field[index]['price'][0]['price'] =
-                                          newprice;
-                                      field[index]['price'][0]['total'] =
-                                          newtotal;
-
-                                      dataGrid.setList(field);
-                                      dataGrid.updateDataGridSource();
-                                      Navigator.pop(context);
-                                    }
-                                  },
-                                ),
-                                InkWell(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    width: viewport.getWidthscreen / 6,
-                                    decoration: BoxDecoration(
-                                      color: Coloring.primary,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: const Text("إلغاء",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 15,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  onTap: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
-                        )),
-                  )));
-        });
-  }
 }
 /*Row(
   mainAxisAlignment: MainAxisAlignment.center,

@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/values.dart';
+import 'package:said_lite/view/about.dart';
 import 'package:said_lite/view/add_product.dart';
 import 'package:said_lite/view/bunches.dart';
+import 'package:said_lite/view/common_question.dart';
 import 'package:said_lite/view/complete_pay.dart';
 import 'package:said_lite/view/forget_password.dart';
 import 'package:said_lite/view/home.dart';
 import 'package:said_lite/view/list_buying_invoice.dart';
 import 'package:said_lite/view/list_sales_invoice.dart';
 import 'package:said_lite/view/sales_return.dart';
+import 'package:said_lite/view/send_message.dart';
 import 'package:said_lite/view/start.dart';
 import 'package:said_lite/view/register.dart';
 import 'package:said_lite/view/terms.dart';
@@ -42,7 +45,10 @@ void main() {
           GetPage(name: "/list_sales", page: () => const SalesInvoice()),
           GetPage(name: "/list_buying", page: () => const BuyingInvoice()),
           GetPage(name: "/sales_return", page: () => const SalesReturn()),
-          GetPage(name: "/add_product", page: () => const AddProduct())
+          GetPage(name: "/add_product", page: () => const AddProduct()),
+          GetPage(name: "/send_message", page: () => const SendMessage()),
+          GetPage(name: "/common_question", page: () => const CommonQuestion()),
+          GetPage(name: "/about", page: () => const About())
         ],
       );
     },

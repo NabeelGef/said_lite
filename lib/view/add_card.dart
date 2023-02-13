@@ -5,6 +5,7 @@ import 'package:said_lite/constant/viewport.dart';
 import 'package:said_lite/view/payment_page.dart';
 
 import '../constant/colors.dart';
+import 'complete_pay.dart';
 
 class AddCard extends StatefulWidget {
   String content;
@@ -275,10 +276,14 @@ class _AddCardState extends State<AddCard> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white, elevation: 0),
                             onPressed: (() {
-                              Get.off(PaymentPage(
-                                  content: widget.content,
-                                  price: widget.price,
-                                  isCommon: widget.isCommon));
+                              Get.to(CompletePayment(
+                                  typeBunch: widget.content == "الباقة اليومية"
+                                      ? "اليومي"
+                                      : widget.content == "الباقة الشّهريّة"
+                                          ? "الشّهريّ"
+                                          : "السنوي",
+                                  price: widget.price));
+                              ;
                             }),
                             child: const Text(
                               "إضافة البطاقة",

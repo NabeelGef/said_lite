@@ -217,12 +217,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 hintTextDirection: TextDirection.rtl,
                                 contentPadding: EdgeInsets.all(10),
                                 prefixIcon: InkWell(
-                                  onTap: () {
-                                    Get.to(AddCard(
-                                        content: widget.content,
-                                        price: widget.price,
-                                        isCommon: widget.isCommon));
-                                  },
+                                  onTap: () {},
                                   child: Icon(
                                     Icons.keyboard_arrow_down,
                                     color: Coloring.primary,
@@ -242,13 +237,10 @@ class _PaymentPageState extends State<PaymentPage> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white, elevation: 0),
                             onPressed: (() {
-                              Get.to(CompletePayment(
-                                  typeBunch: widget.content == "الباقة اليومية"
-                                      ? "اليومي"
-                                      : widget.content == "الباقة الشّهريّة"
-                                          ? "الشّهريّ"
-                                          : "السنوي",
-                                  price: widget.price));
+                              Get.to(AddCard(
+                                  content: widget.content,
+                                  price: widget.price,
+                                  isCommon: widget.isCommon));
                             }),
                             child: const Text(
                               "إتمام الدفع",

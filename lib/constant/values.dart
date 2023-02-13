@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 
 import '../view/verified.dart';
+import 'data_grid.dart';
+import 'viewport.dart';
 
 class Values extends GetxController {
   RxString saudi = "assets/images/saudi.png".obs;
@@ -16,7 +18,8 @@ class Values extends GetxController {
   ];
   RxString code = "+966 ".obs;
   RxString numberPhone = "".obs;
-
+  RxString typeBunch = "".obs;
+  RxInt price = 0.obs;
   static RxString language = "اللّغة: العربيّة".obs;
   static List<String> langs = [
     "اللّغة: العربيّة",
@@ -361,6 +364,371 @@ class Values extends GetxController {
         });
   }
 
+  static void DialogElement(
+      BuildContext context,
+      int index,
+      GlobalKey<FormState> _formeditable,
+      List<Map<String, dynamic>> field,
+      DataGrid dataGrid,
+      Screen viewport) {
+    String newname = "";
+    String newprice = "";
+    showDialog(
+        context: context,
+        builder: (context) {
+          return BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: AlertDialog(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  content: Container(
+                    alignment: Alignment.center,
+                    height: viewport.getHeightscreen / 3,
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Form(
+                      key: _formeditable,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.only(right: 20),
+                            child: const Text(
+                              "تعديل العنصر",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: "Lato",
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Container(
+                            width: viewport.getWidthscreen / 2,
+                            height: viewport.getHeightscreen / 20,
+                            child: TextFormField(
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.grey,
+                                  hintTextDirection: TextDirection.rtl,
+                                  hintText: "باركود المنتج",
+                                  hintStyle: TextStyle(
+                                      color: Colors.blue[300],
+                                      fontSize: 15,
+                                      fontFamily: "Lato",
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          Container(
+                            width: viewport.getWidthscreen / 2,
+                            height: viewport.getHeightscreen / 20,
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "يجب ملئ المنتج";
+                                }
+                                return null;
+                              },
+                              onSaved: (newValue) {
+                                newname = newValue!;
+                              },
+                              textDirection: TextDirection.rtl,
+                              decoration: const InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintTextDirection: TextDirection.rtl,
+                                  hintText: "اسم المنتج",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                      fontFamily: "Lato",
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          Container(
+                            width: viewport.getWidthscreen / 2,
+                            height: viewport.getHeightscreen / 20,
+                            child: TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "يجب ملئ المنتج";
+                                }
+                                return null;
+                              },
+                              onSaved: (newValue) {
+                                newprice = newValue!;
+                              },
+                              keyboardType: TextInputType.number,
+                              textDirection: TextDirection.rtl,
+                              decoration: const InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintTextDirection: TextDirection.rtl,
+                                  hintText: "سعر المنتج",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                      fontFamily: "Lato",
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: viewport.getWidthscreen / 6,
+                                  decoration: BoxDecoration(
+                                    color: Coloring.primary,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: const Text("إلغاء",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontFamily: "Lato",
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              InkWell(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: viewport.getWidthscreen / 6,
+                                  decoration: BoxDecoration(
+                                    color: Coloring.primary,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: const Text("حفظ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontFamily: "Lato",
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                onTap: () {
+                                  if (_formeditable.currentState!.validate()) {
+                                    _formeditable.currentState!.save();
+                                    field[index]['element'][0]['name'] =
+                                        newname;
+                                    field[index]['price'][0]['price'] =
+                                        newprice;
+
+                                    dataGrid.setList(field);
+                                    dataGrid.updateDataGridSource();
+                                    Navigator.pop(context);
+                                  }
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  )));
+        });
+  }
+
+  static void DialogPrice(
+    BuildContext context,
+    int index,
+    GlobalKey<FormState> _formeditable2,
+    List<Map<String, dynamic>> field,
+    DataGrid dataGrid,
+    Screen viewport,
+  ) {
+    String newprice = "", newtotal = "";
+    showDialog(
+        context: context,
+        builder: (context) {
+          return BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: AlertDialog(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  content: Container(
+                    alignment: Alignment.center,
+                    height: viewport.getHeightscreen / 3,
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Form(
+                        key: _formeditable2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              margin: EdgeInsets.only(right: 20),
+                              child: const Text(
+                                "تعديل السعر",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontFamily: "Lato",
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text("الإجمالي",
+                                          style: TextStyle(
+                                              color: Coloring.primary,
+                                              fontSize: 15,
+                                              fontFamily: "Lato",
+                                              fontWeight: FontWeight.bold)),
+                                      Container(
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return "يجب ملئ الحقل";
+                                            }
+                                            return null;
+                                          },
+                                          onSaved: (newValue) {
+                                            newtotal = newValue!;
+                                          },
+                                          decoration: const InputDecoration(
+                                              fillColor: Colors.white,
+                                              filled: true),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text("الضريبة",
+                                          style: TextStyle(
+                                              color: Coloring.primary,
+                                              fontSize: 15,
+                                              fontFamily: "Lato",
+                                              fontWeight: FontWeight.bold)),
+                                      Container(
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          readOnly: true,
+                                          decoration: const InputDecoration(
+                                              fillColor: Colors.grey,
+                                              filled: true),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      Text("السعر",
+                                          style: TextStyle(
+                                              color: Coloring.primary,
+                                              fontSize: 15,
+                                              fontFamily: "Lato",
+                                              fontWeight: FontWeight.bold)),
+                                      Container(
+                                        child: TextFormField(
+                                          keyboardType: TextInputType.number,
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return "يجب ملئ الحقل";
+                                            }
+                                            return null;
+                                          },
+                                          onSaved: (newValue) {
+                                            newprice = newValue!;
+                                          },
+                                          decoration: const InputDecoration(
+                                              fillColor: Colors.white,
+                                              filled: true),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: viewport.getWidthscreen / 6,
+                                    decoration: BoxDecoration(
+                                      color: Coloring.primary,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: const Text("حفظ",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: "Lato",
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  onTap: () {
+                                    if (_formeditable2.currentState!
+                                        .validate()) {
+                                      _formeditable2.currentState!.save();
+                                      field[index]['price'][0]['price'] =
+                                          newprice;
+                                      field[index]['price'][0]['total'] =
+                                          newtotal;
+
+                                      dataGrid.setList(field);
+                                      dataGrid.updateDataGridSource();
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                ),
+                                InkWell(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    width: viewport.getWidthscreen / 6,
+                                    decoration: BoxDecoration(
+                                      color: Coloring.primary,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: const Text("إلغاء",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                            fontFamily: "Lato",
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        )),
+                  )));
+        });
+  }
+
   static void getDialog(BuildContext context, double width) {
     showDialog(
         context: context,
@@ -521,5 +889,59 @@ class Values extends GetxController {
 
   void saveNumber(String? newValue) {
     numberPhone.value = newValue!;
+  }
+
+  static void DialogCompleteMessage(Screen viewport, BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25)),
+              content: Container(
+                color: Colors.white,
+                height: viewport.getHeightscreen / 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      "تم استلام رسالتك\nوسنقوم بالرد عليك في أقرب فرصة",
+                      style: TextStyle(
+                          color: Coloring.primary,
+                          fontSize: 15,
+                          fontFamily: "Lato",
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                    Center(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: viewport.getWidthscreen / 1.1,
+                          height: viewport.getHeightscreen / 20,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          child: const Text("حسنا",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: "Lato",
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

@@ -375,9 +375,8 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               elevation: 20,
                               child: TextFormField(
                                 readOnly: true,
-                                textDirection: TextDirection.rtl,
-                                initialValue: values.numberPhone.value +
-                                    values.code.value,
+                                initialValue: values.code.value +
+                                    values.numberPhone.value,
                                 style: TextStyle(fontSize: 20),
                                 decoration: InputDecoration(
                                     fillColor: Colors.grey,

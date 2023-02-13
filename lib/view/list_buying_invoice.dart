@@ -1,12 +1,16 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:date_format/date_format.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../constant/colors.dart';
+import '../constant/data_grid.dart';
 import '../constant/fabbar.dart';
 import '../constant/values.dart';
 import '../constant/viewport.dart';
@@ -36,8 +40,47 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
     controller!.pauseCamera();
   }
 
+  List<Map<String, dynamic>> field = [
+    {
+      'element': [
+        {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
+      ],
+      'price': [
+        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
+      ]
+    },
+    {
+      'element': [
+        {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
+      ],
+      'price': [
+        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
+      ]
+    },
+    {
+      'element': [
+        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
+      ],
+      'price': [
+        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
+      ]
+    },
+    {
+      'element': [
+        {'name': 'طحين', 'type': 'كيلو', 'number': '5'}
+      ],
+      'price': [
+        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
+      ]
+    }
+  ];
+  late DataGrid dataGrid;
+  GlobalKey<FormState> _formeditable = GlobalKey();
+  GlobalKey<FormState> _formeditable2 = GlobalKey();
+
   @override
   void initState() {
+    dataGrid = DataGrid(field: field);
     tabController = TabController(length: 2, vsync: this);
     tabControllerinvoice = TabController(length: 2, vsync: this);
     super.initState();
@@ -46,40 +89,6 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
-    List<Map<String, dynamic>> field = [
-      {
-        'element': [
-          {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
-        ],
-        'price': [
-          {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-        ]
-      },
-      {
-        'element': [
-          {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
-        ],
-        'price': [
-          {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-        ]
-      },
-      {
-        'element': [
-          {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-        ],
-        'price': [
-          {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-        ]
-      },
-      {
-        'element': [
-          {'name': 'طحين', 'type': 'كيلو', 'number': '5'}
-        ],
-        'price': [
-          {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-        ]
-      }
-    ];
     List<Widget> pages = [
       Container(child: Text("Store")),
       Container(child: Text("support")),
@@ -199,7 +208,7 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                   )),
               Container(
                 margin: const EdgeInsets.all(15),
-                height: viewport.getHeightscreen / 5,
+                width: viewport.getWidthscreen / 1.1,
                 child: Directionality(
                   textDirection: TextDirection.rtl,
                   child: Scrollbar(
@@ -207,162 +216,385 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                     radius: Radius.circular(25),
                     scrollbarOrientation: ScrollbarOrientation.left,
                     child: SingleChildScrollView(
-                      child: DataTable(
-                        dataRowHeight: viewport.getHeightscreen / 10,
-                        columnSpacing: viewport.getWidthscreen / 5,
-                        border: TableBorder.all(
-                            borderRadius: BorderRadius.circular(15),
-                            width: 3,
-                            color: Colors.grey),
-                        dividerThickness: 5,
-                        columns: const [
-                          DataColumn(
-                              label: Text("العنصر",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 15,
-                                    fontFamily: "Lato",
-                                    fontWeight: FontWeight.bold,
-                                  ))),
-                          DataColumn(
-                            label: Text("الكمية",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
+                      child: SfDataGridTheme(
+                        data: SfDataGridThemeData(
+                            gridLineColor: Colors.grey, gridLineStrokeWidth: 3),
+                        child: SfDataGrid(
+                          shrinkWrapColumns: false,
+                          swipeMaxOffset: 50,
+                          allowSwiping: true,
+                          endSwipeActionsBuilder:
+                              (context, dataGridRow, rowIndex) {
+                            return Container(
+                                color: Colors.blue,
+                                child: IconButton(
                                   color: Colors.blue,
-                                  fontSize: 15,
-                                  fontFamily: "Lato",
-                                  fontWeight: FontWeight.bold,
-                                )),
-                          ),
-                          DataColumn(
-                              label: Text("السعر",
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return BackdropFilter(
+                                            filter: ImageFilter.blur(
+                                                sigmaX: 10, sigmaY: 10),
+                                            child: AlertDialog(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              elevation: 0,
+                                              content: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    width: viewport
+                                                            .getWidthscreen /
+                                                        1.1,
+                                                    height: viewport
+                                                            .getHeightscreen /
+                                                        10,
+                                                    decoration: const BoxDecoration(
+                                                        color: Colors.blue,
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        15),
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        15))),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        const Text(
+                                                            ":التعديل على",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 15,
+                                                                fontFamily:
+                                                                    "Lato",
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold)),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            InkWell(
+                                                              child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                width: viewport
+                                                                        .getWidthscreen /
+                                                                    6,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Coloring
+                                                                      .primary,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                ),
+                                                                child: const Text(
+                                                                    "العنصر",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontFamily:
+                                                                            "Lato",
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                              ),
+                                                              onTap: () {
+                                                                Navigator.pop(
+                                                                    context);
+
+                                                                Values.DialogElement(
+                                                                    context,
+                                                                    rowIndex,
+                                                                    _formeditable,
+                                                                    field,
+                                                                    dataGrid,
+                                                                    viewport);
+                                                              },
+                                                            ),
+                                                            InkWell(
+                                                              child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                width: viewport
+                                                                        .getWidthscreen /
+                                                                    6,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Coloring
+                                                                      .primary,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              15),
+                                                                ),
+                                                                child: const Text(
+                                                                    "السعر",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        fontSize:
+                                                                            15,
+                                                                        fontFamily:
+                                                                            "Lato",
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
+                                                              ),
+                                                              onTap: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                                Values.DialogPrice(
+                                                                    context,
+                                                                    rowIndex,
+                                                                    _formeditable2,
+                                                                    field,
+                                                                    dataGrid,
+                                                                    viewport);
+                                                              },
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width: viewport
+                                                              .getWidthscreen /
+                                                          1.1,
+                                                      height: viewport
+                                                              .getHeightscreen /
+                                                          20,
+                                                      decoration: const BoxDecoration(
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          15),
+                                                                  bottomLeft: Radius
+                                                                      .circular(
+                                                                          15))),
+                                                      child: Text("إلغاء",
+                                                          style: TextStyle(
+                                                              color: Coloring
+                                                                  .primary,
+                                                              fontSize: 15,
+                                                              fontFamily:
+                                                                  "Lato",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  icon: Image.asset("assets/images/edit.png"),
+                                ));
+                          },
+                          startSwipeActionsBuilder:
+                              (context, dataGridRow, rowIndex) {
+                            return Container(
+                              color: Colors.red,
+                              child: IconButton(
+                                color: Coloring.primary,
+                                icon: Image.asset("assets/images/delete.png"),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return BackdropFilter(
+                                          filter: ImageFilter.blur(
+                                              sigmaX: 10, sigmaY: 10),
+                                          child: AlertDialog(
+                                            backgroundColor: Colors.transparent,
+                                            elevation: 0,
+                                            content: Container(
+                                              alignment: Alignment.center,
+                                              width:
+                                                  viewport.getWidthscreen / 1.1,
+                                              height:
+                                                  viewport.getHeightscreen / 5,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.blue,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15)),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  const Text(
+                                                      "هل تريد حذف العنصر من الفاتورة",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 15,
+                                                          fontFamily: "Lato",
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      InkWell(
+                                                        child: Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: viewport
+                                                                  .getWidthscreen /
+                                                              6,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Coloring
+                                                                .primary,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                          ),
+                                                          child: const Text(
+                                                              "لا",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      "Lato",
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      ),
+                                                      InkWell(
+                                                        child: Container(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          width: viewport
+                                                                  .getWidthscreen /
+                                                              6,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Coloring
+                                                                .primary,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                          ),
+                                                          child: const Text(
+                                                              "نعم",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 15,
+                                                                  fontFamily:
+                                                                      "Lato",
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                        ),
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          dataGrid.test
+                                                              .removeAt(
+                                                                  rowIndex);
+                                                          dataGrid
+                                                              .updateDataGridSource();
+                                                        },
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                  // dataGridRow.getCells().map((datacell) {
+                                  //   if (datacell.columnName == 'element') {
+                                  //     print("element===>${datacell.value[0]}");
+                                  //   } else if (datacell.columnName ==
+                                  //       'quantities') {
+                                  //     print(
+                                  //         "First quantities ===>${datacell.value[0]}");
+                                  //   } else {
+                                  //     print("Price===>${datacell.value[0]}");
+                                  //   }
+                                  // });
+                                },
+                              ),
+                            );
+                          },
+                          gridLinesVisibility: GridLinesVisibility.both,
+                          defaultColumnWidth: 150,
+                          source: dataGrid,
+                          rowHeight: 100,
+                          headerRowHeight: 25,
+                          columns: [
+                            GridColumn(
+                                columnName: 'element',
+                                label: const Text("العنصر",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 15,
+                                      fontFamily: "Lato",
+                                      fontWeight: FontWeight.bold,
+                                    ))),
+                            GridColumn(
+                              width: 50,
+                              columnName: 'quantities',
+                              label: const Text("الكمية",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: Colors.blue,
                                     fontSize: 15,
                                     fontFamily: "Lato",
                                     fontWeight: FontWeight.bold,
-                                  )))
-                        ],
-                        rows: [
-                          for (var item in field)
-                            DataRow(cells: [
-                              DataCell(Row(
-                                textDirection: TextDirection.rtl,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(item['element']![0]['name'],
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                        fontFamily: "Lato",
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  Text(item['element']![0]['type'],
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                        fontFamily: "Lato",
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  Text(item['element']![0]['number'],
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                        fontFamily: "Lato",
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                ],
-                              )),
-                              DataCell(SingleChildScrollView(
-                                child: Column(
-                                  children: [
-                                    for (int i = 0; i < 100; i++) ...[
-                                      Text(i.toString(),
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 20,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Divider(thickness: 5),
-                                    ]
-                                  ],
-                                ),
-                              )),
-                              DataCell(Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    textDirection: TextDirection.rtl,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const Text("السعر:",
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 10,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(item['price']![0]['price'],
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 15,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                  Row(
-                                    textDirection: TextDirection.rtl,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      const Text("الضريبة",
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 10,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(item['price']![0]['Tax'],
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 15,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  ),
-                                  Row(
-                                    textDirection: TextDirection.rtl,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      const Text("الإجمالي",
-                                          style: TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 10,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                      Text(item['price']![0]['total'],
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 15,
-                                            fontFamily: "Lato",
-                                            fontWeight: FontWeight.bold,
-                                          ))
-                                    ],
-                                  )
-                                ],
-                              ))
-                            ])
-                        ],
+                                  )),
+                            ),
+                            GridColumn(
+                                columnName: 'price',
+                                label: const Text("السعر",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 15,
+                                      fontFamily: "Lato",
+                                      fontWeight: FontWeight.bold,
+                                    )))
+                          ],
+                        ),
                       ),
                     ),
                   ),
