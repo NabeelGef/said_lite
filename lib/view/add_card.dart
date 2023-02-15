@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
 import 'package:said_lite/view/payment_page.dart';
 
@@ -23,7 +24,7 @@ class AddCard extends StatefulWidget {
 
 class _AddCardState extends State<AddCard> {
   bool isRemember = false;
-
+  Values values = Get.find();
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
@@ -276,6 +277,8 @@ class _AddCardState extends State<AddCard> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white, elevation: 0),
                             onPressed: (() {
+                              values.typeBunch.value = widget.content;
+                              values.price.value = widget.price;
                               Get.to(CompletePayment(
                                   typeBunch: widget.content == "الباقة اليومية"
                                       ? "اليومي"

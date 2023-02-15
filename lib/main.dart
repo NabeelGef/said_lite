@@ -6,6 +6,7 @@ import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/view/about.dart';
 import 'package:said_lite/view/add_product.dart';
 import 'package:said_lite/view/bunches.dart';
+import 'package:said_lite/view/chat.dart';
 import 'package:said_lite/view/common_question.dart';
 import 'package:said_lite/view/complete_pay.dart';
 import 'package:said_lite/view/forget_password.dart';
@@ -16,6 +17,7 @@ import 'package:said_lite/view/sales_return.dart';
 import 'package:said_lite/view/send_message.dart';
 import 'package:said_lite/view/start.dart';
 import 'package:said_lite/view/register.dart';
+import 'package:said_lite/view/subscribe_management.dart';
 import 'package:said_lite/view/terms.dart';
 import 'package:said_lite/view/verified.dart';
 
@@ -48,7 +50,12 @@ void main() {
           GetPage(name: "/add_product", page: () => const AddProduct()),
           GetPage(name: "/send_message", page: () => const SendMessage()),
           GetPage(name: "/common_question", page: () => const CommonQuestion()),
-          GetPage(name: "/about", page: () => const About())
+          GetPage(name: "/about", page: () => const About()),
+          GetPage(
+            name: "/subscribe_management",
+            page: () => const SubscribeManagement(),
+          ),
+          GetPage(name: "/chat", page: () => const Chat())
         ],
       );
     },

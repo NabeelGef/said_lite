@@ -54,22 +54,27 @@ class _SupportState extends State<Support> {
                   SizedBox(
                     height: viewport.getHeightscreen / 20,
                   ),
-                  Container(
-                    width: viewport.getWidthscreen / 1.5,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(width: 2, color: Coloring.primary),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: ListTile(
-                        leading: Image.asset("assets/images/chat.png"),
-                        title: Text("المحادثة المباشرة",
-                            style: TextStyle(
-                                color: Coloring.primary,
-                                fontSize: 20,
-                                fontFamily: "Lato",
-                                fontWeight: FontWeight.bold)),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("/chat");
+                    },
+                    child: Container(
+                      width: viewport.getWidthscreen / 1.5,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(width: 2, color: Coloring.primary),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: ListTile(
+                          leading: Image.asset("assets/images/chat.png"),
+                          title: Text("المحادثة المباشرة",
+                              style: TextStyle(
+                                  color: Coloring.primary,
+                                  fontSize: 20,
+                                  fontFamily: "Lato",
+                                  fontWeight: FontWeight.bold)),
+                        ),
                       ),
                     ),
                   ),

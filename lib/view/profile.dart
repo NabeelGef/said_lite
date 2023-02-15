@@ -48,7 +48,11 @@ class _ProfileState extends State<Profile> {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: InkWell(
+                          onTap: () {
+                            Get.toNamed("/buildInfo");
+                          },
+                          child: Icon(Icons.arrow_forward_ios)),
                       leading: Image.asset("assets/images/store.png"),
                       title: Text("معلومات المنشأة",
                           style: TextStyle(
@@ -65,7 +69,11 @@ class _ProfileState extends State<Profile> {
                   Directionality(
                     textDirection: TextDirection.rtl,
                     child: ListTile(
-                      trailing: Icon(Icons.arrow_forward_ios),
+                      trailing: InkWell(
+                          onTap: () {
+                            Get.toNamed("/subscribe_management");
+                          },
+                          child: Icon(Icons.arrow_forward_ios)),
                       leading: Image.asset("assets/images/subscribe.png"),
                       title: Text("إدارة الاشتراك",
                           style: TextStyle(

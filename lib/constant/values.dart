@@ -9,6 +9,7 @@ import 'data_grid.dart';
 import 'viewport.dart';
 
 class Values extends GetxController {
+  
   RxString saudi = "assets/images/saudi.png".obs;
   List<String> countries = [
     "assets/images/saudi.png",

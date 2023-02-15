@@ -16,11 +16,8 @@ class CompletePayment extends StatefulWidget {
 }
 
 class _CompletePaymentState extends State<CompletePayment> {
-  Values values = Get.find();
   @override
   void initState() {
-    values.typeBunch.value = widget.typeBunch;
-    values.price.value = widget.price;
     super.initState();
   }
 
@@ -232,7 +229,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                               side: BorderSide(color: Coloring.primary),
                               borderRadius: BorderRadius.circular(5))),
                       onPressed: () {
-                        Get.toNamed("/home");
+                        Get.offAllNamed("/home");
                       },
                       child: Text(
                         "الانتقال إلى الصفحة الرئيسية",
