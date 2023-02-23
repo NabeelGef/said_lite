@@ -15,7 +15,6 @@ class SalesInvoice extends StatefulWidget {
 }
 
 class _SalesInvoiceState extends State<SalesInvoice> {
-  int selectedpage = 3;
   var field = [
     {"ID": "#1", "Invoicenum": "654223", "Invoicesum": "2.50"},
     {"ID": "#2", "Invoicenum": "654223", "Invoicesum": "2.50"},
@@ -28,11 +27,8 @@ class _SalesInvoiceState extends State<SalesInvoice> {
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
-    List<Widget> pages = [
-      Container(child: Text("Store")),
-      Container(child: Text("support")),
-      Container(child: Text("chart")),
-      SingleChildScrollView(
+    return SafeArea(
+      child: SingleChildScrollView(
         child: Column(
           children: [
             Card(
@@ -48,7 +44,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                     style: TextStyle(
                         color: Coloring.primary,
                         fontSize: 15,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold)),
               ),
             ),
@@ -61,7 +57,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                     style: TextStyle(
                         color: Coloring.primary,
                         fontSize: 15,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold)),
                 Card(
                   elevation: 5,
@@ -71,7 +67,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                       Icon(Icons.calendar_month)
                     ],
@@ -81,7 +77,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                     style: TextStyle(
                         color: Coloring.primary,
                         fontSize: 15,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold)),
                 Card(
                   elevation: 5,
@@ -91,7 +87,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                       Icon(Icons.calendar_month)
                     ],
@@ -122,11 +118,11 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                       hintTextDirection: TextDirection.rtl,
                       hintText: "بحث برقم الفاتورة ...",
                       contentPadding: EdgeInsets.zero,
-                      hintStyle: const TextStyle(
+                      hintStyle: TextStyle(
                           overflow: TextOverflow.fade,
                           color: Colors.grey,
                           fontSize: 15,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold),
                       suffixIcon: const Icon(
                         Icons.search,
@@ -152,14 +148,14 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                           width: 3,
                           color: Colors.grey),
                       dividerThickness: 5,
-                      columns: const [
+                      columns: [
                         DataColumn(
                             label: Text("ID",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Colors.blue,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold,
                                 ))),
                         DataColumn(
@@ -168,7 +164,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold,
                               )),
                         ),
@@ -178,7 +174,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold,
                               )),
                         ),
@@ -187,27 +183,27 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                         for (var item in field) ...[
                           DataRow(cells: [
                             DataCell(Text(item['ID']!,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold,
                                 ))),
                             DataCell(Text(item['Invoicenum']!,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold,
                                 ))),
                             DataCell(Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(item['Invoicesum']!,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold,
                                     )),
                                 Icon(Icons.history, color: Coloring.primary),
@@ -246,7 +242,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                               backgroundColor: Colors.blue[800],
                               color: Colors.blue,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold,
                             ))),
                     DataColumn(
@@ -256,7 +252,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                               backgroundColor: Colors.blue[800],
                               color: Colors.blue,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold,
                             ))),
                     DataColumn(
@@ -266,18 +262,18 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                               backgroundColor: Colors.blue[800],
                               color: Colors.blue,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold,
                             ))),
                   ],
-                  rows: const [
+                  rows: [
                     DataRow(cells: [
                       DataCell(Text("45",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold,
                           ))),
                       DataCell(Text("0.7125",
@@ -285,7 +281,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold,
                           ))),
                       DataCell(Text("5.4625",
@@ -293,7 +289,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold,
                           )))
                     ])
@@ -303,116 +299,7 @@ class _SalesInvoiceState extends State<SalesInvoice> {
             ),
           ],
         ),
-      )
-    ];
-    return Scaffold(
-      backgroundColor: Colors.white,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.qr_code)),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            border: Border(top: BorderSide(width: 3, color: Colors.blue))),
-        child: FABBottomAppBar(
-          onTabSelected: (value) {
-            setState(() {
-              selectedpage = value;
-            });
-          },
-          items: [
-            FABBottomAppBarItem(
-                iconData: Icon(Icons.storefront_sharp,
-                    color: selectedpage == 0 ? Coloring.primary : Colors.grey),
-                text: ""),
-            FABBottomAppBarItem(
-                iconData: Icon(Icons.headset_mic,
-                    color: selectedpage == 1 ? Coloring.primary : Colors.grey),
-                text: ""),
-            FABBottomAppBarItem(
-                iconData: Icon(Icons.equalizer,
-                    color: selectedpage == 2 ? Coloring.primary : Colors.grey),
-                text: ""),
-            FABBottomAppBarItem(
-                iconData: Icon(Icons.home,
-                    color: selectedpage == 3 ? Coloring.primary : Colors.grey),
-                text: ""),
-          ],
-          backgroundColor: Colors.white,
-          centerItemText: '',
-          color: Colors.grey,
-          notchedShape: const CircularNotchedRectangle(),
-        ),
       ),
-      appBar: AppBar(
-        elevation: 0,
-        toolbarHeight: 65,
-        actions: [
-          Column(
-            children: [
-              Container(
-                height: 20,
-                margin: const EdgeInsets.only(right: 15),
-                child: Text("ميني سوبر ماركت",
-                    style: TextStyle(
-                        color: Coloring.primary,
-                        fontSize: 15,
-                        fontFamily: "Lato",
-                        fontWeight: FontWeight.bold)),
-              ),
-              Container(
-                height: 20,
-                margin: const EdgeInsets.only(right: 15),
-                child: const Text("...كاشير احمد, مرحبا بك",
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 15,
-                        fontFamily: "Lato",
-                        fontWeight: FontWeight.bold)),
-              ),
-              Container(
-                height: 20,
-                margin: const EdgeInsets.only(right: 15),
-                child: Text(
-                  formatDate(DateTime.now(), [
-                    '  ',
-                    HH,
-                    ':',
-                    nn,
-                    am,
-                    ',',
-                    yyyy,
-                    '/',
-                    mm,
-                    '/',
-                    D,
-                  ]),
-                  style: TextStyle(color: Colors.grey[800], fontSize: 12),
-                ),
-              )
-            ],
-          )
-        ],
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: Icon(
-                Icons.reorder,
-                color: Coloring.primary,
-                size: 44, // Changing Drawer Icon Size
-              ),
-              onPressed: () {
-                Values.dialogDrawer(
-                    true, context, viewport.getWidthscreen / 1.2);
-              },
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
-        backgroundColor: Colors.white,
-        systemOverlayStyle:
-            const SystemUiOverlayStyle(statusBarColor: Colors.white),
-      ),
-      body: pages.elementAt(selectedpage),
     );
   }
 }

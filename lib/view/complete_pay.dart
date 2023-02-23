@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/viewport.dart';
+import 'package:said_lite/view/home_page.dart';
 
 import '../constant/values.dart';
 
@@ -29,17 +30,13 @@ class _CompletePaymentState extends State<CompletePayment> {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(50),
-            alignment: Alignment.centerLeft,
-            child: Icon(Icons.close, size: 35, color: Colors.white),
-          ),
-          Container(
+            margin: EdgeInsets.all(60),
             alignment: Alignment.center,
-            child: const Text("صفحة الدّفع",
+            child: Text("صفحة الدّفع",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 30,
-                    fontFamily: "Lato",
+                    fontFamily: Values.fontFamily,
                     fontWeight: FontWeight.bold)),
           ),
           Container(
@@ -50,20 +47,20 @@ class _CompletePaymentState extends State<CompletePayment> {
           Container(
             alignment: Alignment.center,
             margin: EdgeInsets.only(top: 10),
-            child: const Text("شكراً لك",
+            child: Text("شكراً لك",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
-                    fontFamily: "Lato",
+                    fontFamily: Values.fontFamily,
                     fontWeight: FontWeight.bold)),
           ),
           Container(
             alignment: Alignment.center,
-            child: const Text("تمت عملية الدفع بنجاح",
+            child: Text("تمت عملية الدفع بنجاح",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
-                    fontFamily: "Lato",
+                    fontFamily: Values.fontFamily,
                     fontWeight: FontWeight.bold)),
           ),
           Container(
@@ -83,7 +80,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                         style: TextStyle(
                             color: Coloring.primary,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                   Container(
@@ -105,7 +102,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                           subtitle: Row(
                             textDirection: TextDirection.rtl,
@@ -114,13 +111,13 @@ class _CompletePaymentState extends State<CompletePayment> {
                                   style: TextStyle(
                                       color: Coloring.primary,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold)),
                               Text("ر.س",
                                   style: TextStyle(
                                       color: Coloring.primary,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold))
                             ],
                           ))),
@@ -148,7 +145,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                     style: TextStyle(
                         color: Coloring.primary,
                         fontSize: 15,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold),
                     textDirection: TextDirection.rtl,
@@ -162,7 +159,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                       style: TextStyle(
                           color: Coloring.primary,
                           fontSize: 15,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -178,7 +175,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -188,7 +185,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                         style: TextStyle(
                             color: Coloring.primary,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold),
                       )
                     ],
@@ -205,7 +202,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -215,7 +212,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                         style: TextStyle(
                             color: Coloring.primary,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold),
                       )
                     ],
@@ -229,7 +226,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                               side: BorderSide(color: Coloring.primary),
                               borderRadius: BorderRadius.circular(5))),
                       onPressed: () {
-                        Get.offAllNamed("/home");
+                        Get.offAll(HomePage());
                       },
                       child: Text(
                         "الانتقال إلى الصفحة الرئيسية",
@@ -237,7 +234,7 @@ class _CompletePaymentState extends State<CompletePayment> {
                         style: TextStyle(
                             color: Coloring.primary,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold),
                       ),
                     ),

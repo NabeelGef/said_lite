@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:said_lite/constant/values.dart';
 
 import '../constant/colors.dart';
 import '../constant/viewport.dart';
@@ -29,7 +30,7 @@ class _ProfileState extends State<Profile> {
                       style: TextStyle(
                           color: Coloring.primary,
                           fontSize: 25,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold))),
             ),
             SizedBox(
@@ -58,7 +59,7 @@ class _ProfileState extends State<Profile> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 20,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
                   ),
@@ -79,7 +80,7 @@ class _ProfileState extends State<Profile> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 20,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
                   ),
@@ -100,7 +101,7 @@ class _ProfileState extends State<Profile> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 20,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
                   ),
@@ -120,7 +121,7 @@ class _ProfileState extends State<Profile> {
                         style: TextStyle(
                             color: Coloring.primary,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                   Container(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/edge.dart';
 import 'package:said_lite/constant/lable.dart';
+import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/view/payment_page.dart';
 import 'package:said_lite/constant/viewport.dart';
 
@@ -21,13 +22,13 @@ class _BunchesState extends State<Bunches> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const Center(
+            Center(
               heightFactor: 3,
               child: Text("اختر الباقة المناسبة",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
-                      fontFamily: "Lato",
+                      fontFamily: Values.fontFamily,
                       fontWeight: FontWeight.bold)),
             ),
             InkWell(
@@ -86,7 +87,7 @@ class _BunchesState extends State<Bunches> {
     Screen viewport = Screen(context);
     return Container(
       width: viewport.getWidthscreen / 1.5,
-      height: viewport.getHeightscreen / 2.7,
+      height: viewport.getHeightscreen / 2.3,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: Column(
@@ -106,7 +107,7 @@ class _BunchesState extends State<Bunches> {
                             style: TextStyle(
                                 color: Coloring.primary,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     ),
@@ -118,7 +119,7 @@ class _BunchesState extends State<Bunches> {
                   style: TextStyle(
                       color: Coloring.primary,
                       fontSize: 20,
-                      fontFamily: "Lato",
+                      fontFamily: Values.fontFamily,
                       fontWeight: FontWeight.bold)),
             ),
             Divider(
@@ -133,7 +134,7 @@ class _BunchesState extends State<Bunches> {
                     style: TextStyle(
                         color: Coloring.primary,
                         fontSize: 20,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold)),
                 SizedBox(
                   width: 10,
@@ -142,7 +143,7 @@ class _BunchesState extends State<Bunches> {
                     style: TextStyle(
                         color: Coloring.primary,
                         fontSize: 50,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold))
               ],
             ),
@@ -150,14 +151,14 @@ class _BunchesState extends State<Bunches> {
                 style: TextStyle(
                     color: Coloring.primary,
                     fontSize: 15,
-                    fontFamily: "Lato",
+                    fontFamily: Values.fontFamily,
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold)),
             Text("عند نهاية الاشتراك ",
                 style: TextStyle(
                     color: Coloring.primary,
                     fontSize: 15,
-                    fontFamily: "Lato",
+                    fontFamily: Values.fontFamily,
                     decoration: TextDecoration.underline,
                     fontWeight: FontWeight.bold)),
             ElevatedButton(
@@ -173,7 +174,7 @@ class _BunchesState extends State<Bunches> {
                     style: TextStyle(
                         color: Coloring.primary,
                         fontSize: 15,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold)))
           ],
         ),

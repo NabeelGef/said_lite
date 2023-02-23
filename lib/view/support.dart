@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 
+import '../constant/values.dart';
 import '../constant/viewport.dart';
 
 class Support extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SupportState extends State<Support> {
                       style: TextStyle(
                           color: Coloring.primary,
                           fontSize: 25,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold))),
             ),
             SizedBox(
@@ -72,7 +73,7 @@ class _SupportState extends State<Support> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -99,7 +100,7 @@ class _SupportState extends State<Support> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -126,7 +127,7 @@ class _SupportState extends State<Support> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -149,7 +150,7 @@ class _SupportState extends State<Support> {
                             style: TextStyle(
                                 color: Coloring.primary,
                                 fontSize: 20,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     ),
@@ -163,7 +164,7 @@ class _SupportState extends State<Support> {
                         style: TextStyle(
                             color: Coloring.primary,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                   Container(

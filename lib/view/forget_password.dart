@@ -21,79 +21,91 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     Values values = Get.find<Values>();
     Screen viewport = Screen(context);
     return Scaffold(
-      body: Container(
-         width: viewport.getWidthscreen,
-         height: viewport.getHeightscreen,
-         color: Coloring.primary,
-         child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                      margin: EdgeInsets.only(top: viewport.getHeightscreen/20),
-                      child: Column(
-                        children: [
-                             Text("Said Lite",
-                                  style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 35)
-                                  ),
-                                  Text("المحاسبي",
-                              style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 35)
-                              )
-                        ],
-                      ),
-                     ),
-                     Center(
-                      child: Container(
-                      margin: EdgeInsets.only(top: viewport.getHeightscreen/12),
-                        child : Text("استعادة كلمة المرور:",style: TextStyle(color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 25))
-                     )
-                     ),
-                    Obx(
-                      () {
-                      return values.showCountries(viewport.getWidthscreen/1.4,_formState);  
-                      },
-                      ),
-          Container(
-            margin: EdgeInsets.only(top: viewport.getHeightscreen/20),
-                width: viewport.getWidthscreen/1.1,
-                child: ElevatedButton(
-                  onPressed: () {
-                   //send a new number phone
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)
+        body: Container(
+            width: viewport.getWidthscreen,
+            height: viewport.getHeightscreen,
+            color: Coloring.primary,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(children: [
+                  Container(
+                    margin: EdgeInsets.only(top: viewport.getHeightscreen / 20),
+                    child: Column(
+                      children: [
+                        Text("Said Lite",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: Values.fontFamily,
+                                fontSize: 35)),
+                        Text("المحاسبي",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: Values.fontFamily,
+                                fontSize: 35))
+                      ],
                     ),
-                    minimumSize: Size.fromHeight(50),
-                    backgroundColor: Colors.blue
                   ),
-                  child: Text("إرسال ", style: TextStyle(color: Colors.white , fontSize: 15,
-                      fontFamily: "Lato" , fontWeight: FontWeight.bold)),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: Text("الرجوع إلى صفحة تسجيل الدّخول",
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.white , fontWeight: FontWeight.bold , fontFamily: "Lato",fontSize: 15)
-                          ),
-                      ),
-              ),
-                    Values.showLanguages(viewport.getWidthscreen/2),
-            
+                  Center(
+                      child: Container(
+                          margin: EdgeInsets.only(
+                              top: viewport.getHeightscreen / 12),
+                          child: Text("استعادة كلمة المرور:",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: Values.fontFamily,
+                                  fontSize: 25)))),
+                  Obx(
+                    () {
+                      return values.showCountries(
+                          viewport.getWidthscreen / 1.4, _formState, null);
+                    },
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: viewport.getHeightscreen / 20),
+                    width: viewport.getWidthscreen / 1.1,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        //send a new number phone
+                      },
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          minimumSize: Size.fromHeight(50),
+                          backgroundColor: Colors.blue),
+                      child: Text("إرسال ",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: Values.fontFamily,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
                   InkWell(
                     onTap: () {
-                      Values.getDialog(context,viewport.getWidthscreen/1.1);
+                      Navigator.pop(context);
                     },
-                    child: Values.speakWithSupport()
-                  )
-         ]),
-      ),
-    )));
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Text("الرجوع إلى صفحة تسجيل الدّخول",
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: Values.fontFamily,
+                              fontSize: 15)),
+                    ),
+                  ),
+                  InkWell(
+                      onTap: () {
+                        Values.getDialog(
+                            context, viewport.getWidthscreen / 1.1);
+                      },
+                      child: Values.speakWithSupport(context))
+                ]),
+              ),
+            )));
   }
 }

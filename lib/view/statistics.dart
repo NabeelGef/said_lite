@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:said_lite/constant/viewport.dart';
 
 import '../constant/colors.dart';
+import '../constant/values.dart';
 
 class Statistics extends StatefulWidget {
   const Statistics({super.key});
@@ -40,25 +41,25 @@ class _StatisticsState extends State<Statistics> {
                       Container(
                         height: viewport.getHeightscreen / 20,
                         margin: const EdgeInsets.only(right: 15),
-                        child: const Text("ميني سوبر ماركت",
+                        child: Text("ميني سوبر ماركت",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                       Container(
-                        height: viewport.getHeightscreen / 30,
+                        height: viewport.getHeightscreen / 20,
                         margin: const EdgeInsets.only(right: 15),
-                        child: const Text("...كاشير احمد, مرحبا بك",
+                        child: Text("...كاشير احمد, مرحبا بك",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                       Container(
-                        height: 20,
+                        height: viewport.getHeightscreen / 40,
                         margin: const EdgeInsets.only(right: 15),
                         child: Text(
                           formatDate(DateTime.now(), [
@@ -74,7 +75,10 @@ class _StatisticsState extends State<Statistics> {
                             '/',
                             D,
                           ]),
-                          style: TextStyle(color: Colors.white, fontSize: 15),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontFamily: Values.fontFamily),
                         ),
                       )
                     ],
@@ -98,7 +102,7 @@ class _StatisticsState extends State<Statistics> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -111,7 +115,7 @@ class _StatisticsState extends State<Statistics> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -127,6 +131,7 @@ class _StatisticsState extends State<Statistics> {
                   height: viewport.getHeightscreen / 10,
                   width: viewport.getWidthscreen / 1.1,
                   child: Row(
+                    textDirection: TextDirection.rtl,
                     children: [
                       Expanded(
                         child: Center(
@@ -134,7 +139,7 @@ class _StatisticsState extends State<Statistics> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -147,7 +152,7 @@ class _StatisticsState extends State<Statistics> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -160,13 +165,13 @@ class _StatisticsState extends State<Statistics> {
                       left: viewport.getWidthscreen / 10,
                       top: viewport.getHeightscreen / 100),
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.print),
                       Text("طباعة",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold))
                     ],
                   ),
@@ -190,7 +195,7 @@ class _StatisticsState extends State<Statistics> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -203,7 +208,7 @@ class _StatisticsState extends State<Statistics> {
                               style: TextStyle(
                                   color: Coloring.primary,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -216,13 +221,13 @@ class _StatisticsState extends State<Statistics> {
                       left: viewport.getWidthscreen / 10,
                       top: viewport.getHeightscreen / 100),
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(Icons.print),
                       Text("طباعة",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold))
                     ],
                   ),

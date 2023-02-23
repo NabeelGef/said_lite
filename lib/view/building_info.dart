@@ -36,19 +36,19 @@ class _BuildingInfoState extends State<BuildingInfo> {
                 Container(
                   margin: EdgeInsets.only(right: 20),
                   alignment: Alignment.centerRight,
-                  child: const Directionality(
+                  child: Directionality(
                     textDirection: TextDirection.rtl,
                     child: Text("معلومات المنشأة:",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                 ),
                 Card(
                   elevation: 5,
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: EdgeInsets.symmetric(horizontal: 10),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15)),
                   child: Column(
@@ -65,7 +65,7 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           SizedBox(
@@ -99,48 +99,51 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           Row(
                             children: [
                               const SizedBox(width: 10),
                               Expanded(
+                                  flex: 2,
                                   child: InkWell(
-                                onTap: () {
-                                  Values.getDialogFile(
-                                      context,
-                                      viewport.getWidthscreen / 1.1,
-                                      viewport.getHeightscreen / 3);
-                                },
-                                child: DottedBorder(
-                                    borderType: BorderType.RRect,
-                                    radius: Radius.circular(20),
-                                    color: Colors.red,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Text(
-                                              "إرفاق السّجل التّجاري\n  بامتداد " +
-                                                  "PNG أو PDF",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.red,
-                                                  fontSize: 15,
-                                                  fontFamily: "Lato",
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                        Icon(
-                                          Icons.attach_file,
-                                          color: Colors.red,
-                                          size: 25,
-                                        ),
-                                      ],
-                                    )),
-                              )),
+                                    onTap: () {
+                                      Values.getDialogFile(
+                                          context,
+                                          viewport.getWidthscreen / 1.1,
+                                          viewport.getHeightscreen / 3);
+                                    },
+                                    child: DottedBorder(
+                                        borderType: BorderType.RRect,
+                                        radius: Radius.circular(20),
+                                        color: Colors.green,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Text(
+                                                  "إرفاق السّجل التّجاري\n  بامتداد " +
+                                                      "PNG أو PDF",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.green,
+                                                      fontSize: 15,
+                                                      fontFamily:
+                                                          Values.fontFamily,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            Icon(
+                                              Icons.attach_file,
+                                              color: Colors.green,
+                                              size: 25,
+                                            ),
+                                          ],
+                                        )),
+                                  )),
                               SizedBox(width: 10),
                               Expanded(
                                   child: Container(
@@ -176,49 +179,52 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           Row(
                             children: [
-                              const SizedBox(width: 10),
+                              const SizedBox(width: 5),
                               Expanded(
+                                  flex: 2,
                                   child: InkWell(
-                                onTap: () {
-                                  Values.getDialogFile(
-                                      context,
-                                      viewport.getWidthscreen / 1.1,
-                                      viewport.getHeightscreen / 3);
-                                },
-                                child: DottedBorder(
-                                    borderType: BorderType.RRect,
-                                    radius: Radius.circular(20),
-                                    color: Colors.green,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Text(
-                                              "إرفاق الشّهادة الضريبيّة\n  بامتداد " +
-                                                  "PNG أو PDF",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontSize: 15,
-                                                  fontFamily: "Lato",
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                        Icon(
-                                          Icons.attach_file,
-                                          color: Colors.green,
-                                          size: 25,
-                                        ),
-                                      ],
-                                    )),
-                              )),
-                              SizedBox(width: 10),
+                                    onTap: () {
+                                      Values.getDialogFile(
+                                          context,
+                                          viewport.getWidthscreen / 1.1,
+                                          viewport.getHeightscreen / 3);
+                                    },
+                                    child: DottedBorder(
+                                        borderType: BorderType.RRect,
+                                        radius: Radius.circular(20),
+                                        color: Colors.green,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Text(
+                                                  "إرفاق الشّهادة الضريبيّة\n  بامتداد " +
+                                                      "PNG أو PDF",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.green,
+                                                      fontSize: 15,
+                                                      fontFamily:
+                                                          Values.fontFamily,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            Icon(
+                                              Icons.attach_file,
+                                              color: Colors.green,
+                                              size: 25,
+                                            ),
+                                          ],
+                                        )),
+                                  )),
+                              SizedBox(width: 5),
                               Expanded(
                                   child: SizedBox(
                                 height: viewport.getHeightscreen / 20,
@@ -253,68 +259,78 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const SizedBox(width: 10),
+                              const SizedBox(
+                                width: 10,
+                              ),
                               Expanded(
-                                  child: InkWell(
-                                onTap: () {
-                                  Values.getDialogFile(
-                                      context,
-                                      viewport.getWidthscreen / 1.1,
-                                      viewport.getHeightscreen / 3);
-                                },
-                                child: DottedBorder(
-                                    borderType: BorderType.RRect,
-                                    radius: Radius.circular(20),
-                                    color: Colors.green,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: const [
-                                        Directionality(
-                                          textDirection: TextDirection.rtl,
-                                          child: Text(
-                                              "إرفاق الهويّة \n  بامتداد " +
-                                                  "PNG أو PDF",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.green,
-                                                  fontSize: 15,
-                                                  fontFamily: "Lato",
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                        Icon(
-                                          Icons.attach_file,
-                                          color: Colors.green,
-                                          size: 25,
-                                        ),
-                                      ],
-                                    )),
-                              )),
-                              SizedBox(width: 10),
+                                flex: 2,
+                                child: InkWell(
+                                  onTap: () {
+                                    Values.getDialogFile(
+                                        context,
+                                        viewport.getWidthscreen / 1.1,
+                                        viewport.getHeightscreen / 3);
+                                  },
+                                  child: DottedBorder(
+                                      borderType: BorderType.RRect,
+                                      radius: Radius.circular(20),
+                                      color: Colors.green,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: Text(
+                                                "إرفاق الهويّة \n  بامتداد " +
+                                                    "PNG أو PDF",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize: 15,
+                                                    fontFamily:
+                                                        Values.fontFamily,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Icon(
+                                            Icons.attach_file,
+                                            color: Colors.green,
+                                            size: 25,
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
                               Expanded(
-                                  child: SizedBox(
-                                height: viewport.getHeightscreen / 20,
-                                child: Material(
-                                  color: Colors.transparent,
-                                  elevation: 20,
-                                  child: TextFormField(
-                                    style: TextStyle(fontSize: 20),
-                                    decoration: InputDecoration(
-                                        fillColor: Colors.white,
-                                        filled: true,
-                                        enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            borderSide: BorderSide(
-                                                color: Colors.white))),
+                                child: Container(
+                                  height: viewport.getHeightscreen / 20,
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    elevation: 20,
+                                    child: TextFormField(
+                                      style: TextStyle(fontSize: 20),
+                                      decoration: InputDecoration(
+                                          fillColor: Colors.white,
+                                          filled: true,
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              borderSide: BorderSide(
+                                                  color: Colors.white))),
+                                    ),
                                   ),
                                 ),
-                              ))
+                              )
                             ],
                           )
                         ],
@@ -330,7 +346,7 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           SizedBox(
@@ -364,7 +380,7 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           Container(
@@ -406,7 +422,7 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           SizedBox(
@@ -440,7 +456,7 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     style: TextStyle(
                                         color: Coloring.primary,
                                         fontSize: 15,
-                                        fontFamily: "Lato",
+                                        fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
                           SizedBox(
@@ -474,11 +490,11 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                   borderRadius: BorderRadius.circular(20)),
                               minimumSize: Size.fromHeight(50),
                               backgroundColor: Colors.blue),
-                          child: const Text("حفظ ",
+                          child: Text("حفظ ",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),

@@ -50,11 +50,11 @@ class _AddCardState extends State<AddCard> {
                       color: Coloring.primary,
                     )),
               ),
-              const Text("صفحة الدّفع",
+              Text("صفحة الدّفع",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
-                      fontFamily: "Lato",
+                      fontFamily: Values.fontFamily,
                       fontWeight: FontWeight.bold)),
               SizedBox(
                 height: 100,
@@ -72,24 +72,14 @@ class _AddCardState extends State<AddCard> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              padding: EdgeInsets.only(top: 30, left: 30),
-                              alignment: Alignment.centerLeft,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Icon(Icons.close,
-                                    color: Coloring.primary, size: 30),
-                              ),
-                            ),
-                            Container(
+                              width: viewport.getWidthscreen,
                               alignment: Alignment.centerRight,
                               padding: EdgeInsets.only(top: 30, right: 30),
-                              child: const Text("إضافة بطاقة",
+                              child: Text("إضافة بطاقة",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 25,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold)),
                             )
                           ],
@@ -97,13 +87,13 @@ class _AddCardState extends State<AddCard> {
                         Container(
                           alignment: Alignment.centerRight,
                           padding: const EdgeInsets.only(right: 30),
-                          child: const Directionality(
+                          child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Text("تقبل",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold))),
                         ),
                         Padding(
@@ -120,13 +110,13 @@ class _AddCardState extends State<AddCard> {
                         Container(
                           alignment: Alignment.centerRight,
                           padding: EdgeInsets.only(right: 30, top: 15),
-                          child: const Directionality(
+                          child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Text("رقم البطاقة: ",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold))),
                         ),
                         Container(
@@ -158,13 +148,13 @@ class _AddCardState extends State<AddCard> {
                               children: [
                                 Container(
                                   margin: EdgeInsets.only(top: 15),
-                                  child: const Directionality(
+                                  child: Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: Text("تاريخ انتهاء الصلاحية:",
                                           style: TextStyle(
                                               color: Colors.blue,
                                               fontSize: 15,
-                                              fontFamily: "Lato",
+                                              fontFamily: Values.fontFamily,
                                               fontWeight: FontWeight.bold))),
                                 ),
                                 Container(
@@ -199,13 +189,13 @@ class _AddCardState extends State<AddCard> {
                                   margin: EdgeInsets.only(
                                     top: 15,
                                   ),
-                                  child: const Directionality(
+                                  child: Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: Text("CVV",
                                           style: TextStyle(
                                               color: Colors.blue,
                                               fontSize: 15,
-                                              fontFamily: "Lato",
+                                              fontFamily: Values.fontFamily,
                                               fontWeight: FontWeight.bold))),
                                 ),
                                 Container(
@@ -244,7 +234,7 @@ class _AddCardState extends State<AddCard> {
                                   style: TextStyle(
                                       color: Coloring.primary,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold)),
                             ),
                             Spacer(),
@@ -268,7 +258,7 @@ class _AddCardState extends State<AddCard> {
                         ),
                         Container(
                           margin: EdgeInsets.only(top: 15),
-                          width: viewport.getWidthscreen / 3.5,
+                          width: viewport.getWidthscreen / 2,
                           decoration: BoxDecoration(
                               border: Border.all(color: Coloring.primary)
                               // borderRadius: BorderRadius.circular(10),
@@ -288,11 +278,13 @@ class _AddCardState extends State<AddCard> {
                                   price: widget.price));
                               ;
                             }),
-                            child: const Text(
+                            child: Text(
                               "إضافة البطاقة",
                               style: TextStyle(
-                                color: Colors.blue,
-                              ),
+                                  color: Coloring.primary,
+                                  fontSize: 15,
+                                  fontFamily: Values.fontFamily,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         )

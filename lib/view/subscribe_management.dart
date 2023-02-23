@@ -37,12 +37,12 @@ class _SubscribeManagementState extends State<SubscribeManagement> {
                   color: Coloring.primary,
                 )),
           ),
-          const Text("صفحة \n إدارة الاشتراك",
+          Text("صفحة \n إدارة الاشتراك",
               textDirection: TextDirection.rtl,
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 30,
-                  fontFamily: "Lato",
+                  fontFamily: Values.fontFamily,
                   fontWeight: FontWeight.bold)),
           SizedBox(
             height: 100,
@@ -61,7 +61,7 @@ class _SubscribeManagementState extends State<SubscribeManagement> {
                       style: TextStyle(
                           color: Coloring.primary,
                           fontSize: 25,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold)),
                 ),
                 Container(
@@ -71,7 +71,7 @@ class _SubscribeManagementState extends State<SubscribeManagement> {
                       style: TextStyle(
                           color: Coloring.primary,
                           fontSize: 25,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold)),
                 ),
                 Container(
@@ -84,7 +84,7 @@ class _SubscribeManagementState extends State<SubscribeManagement> {
                       style: TextStyle(
                           color: Coloring.primary,
                           fontSize: 20,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold)),
                 ),
                 Container(
@@ -92,22 +92,22 @@ class _SubscribeManagementState extends State<SubscribeManagement> {
                   alignment: Alignment.centerLeft,
                   child: Row(
                     children: [
-                      const Directionality(
+                      Directionality(
                           textDirection: TextDirection.rtl,
                           child: Text("ر.س",
                               style: TextStyle(
                                   color: Colors.blue,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold))),
                       SizedBox(width: 10),
                       Directionality(
                           textDirection: TextDirection.rtl,
                           child: Text(values.price.value.toString(),
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: Colors.blue,
                                   fontSize: 50,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)))
                     ],
                   ),
@@ -128,7 +128,7 @@ class _SubscribeManagementState extends State<SubscribeManagement> {
                       style: TextStyle(
                           color: Coloring.primary,
                           fontSize: 15,
-                          fontFamily: "Lato",
+                          fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold),
                     ),
                   ),

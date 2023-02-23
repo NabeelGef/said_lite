@@ -38,13 +38,13 @@ class _LoginState extends State<Login> {
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontSize: 35)),
                           Text("المحاسبي",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontSize: 35))
                         ],
                       ),
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontSize: 25)));
                   },
                 )),
@@ -142,7 +142,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -157,7 +157,7 @@ class _LoginState extends State<Login> {
                             decoration: TextDecoration.underline,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontSize: 15)),
                   ),
                 ),
@@ -172,16 +172,15 @@ class _LoginState extends State<Login> {
                             decoration: TextDecoration.underline,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontSize: 15)),
                   ),
                 ),
-                Values.showLanguages(viewport.getWidthscreen / 2),
                 InkWell(
                     onTap: () {
                       Values.getDialog(context, viewport.getWidthscreen / 1.1);
                     },
-                    child: Values.speakWithSupport())
+                    child: Values.speakWithSupport(context))
               ],
             ),
           ),

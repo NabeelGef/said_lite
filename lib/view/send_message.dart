@@ -53,22 +53,22 @@ class _SendMessageState extends State<SendMessage> {
                     alignment: Alignment.centerRight,
                     margin:
                         EdgeInsets.only(right: viewport.getWidthscreen / 10),
-                    child: const Text("...مرحباً",
+                    child: Text("...مرحباً",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 35,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                   Container(
                     alignment: Alignment.centerRight,
                     margin:
                         EdgeInsets.only(right: viewport.getWidthscreen / 10),
-                    child: const Text("كيف يمكننا مساعدتك؟",
+                    child: Text("كيف يمكننا مساعدتك؟",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                 ],
@@ -89,7 +89,7 @@ class _SendMessageState extends State<SendMessage> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 20,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
                     Container(
@@ -112,7 +112,7 @@ class _SendMessageState extends State<SendMessage> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 20,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
                     Container(
@@ -135,7 +135,7 @@ class _SendMessageState extends State<SendMessage> {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 20,
-                              fontFamily: "Lato",
+                              fontFamily: Values.fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
                     Container(
@@ -164,11 +164,11 @@ class _SendMessageState extends State<SendMessage> {
                             color: Colors.blue,
                             borderRadius: BorderRadius.circular(25),
                           ),
-                          child: const Text("إرسال",
+                          child: Text("إرسال",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),

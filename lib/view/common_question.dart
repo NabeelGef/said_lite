@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/viewport.dart';
 
+import '../constant/values.dart';
+
 class CommonQuestion extends StatefulWidget {
   const CommonQuestion({super.key});
 
@@ -44,7 +46,7 @@ class _CommonQuestionState extends State<CommonQuestion> {
                             style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 20,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold))
                       ],
                     ),
@@ -67,18 +69,18 @@ class _CommonQuestionState extends State<CommonQuestion> {
                               )
                             : const Icon(Icons.remove,
                                 size: 25, color: Colors.white),
-                        title: const Text("ماهو تطبيق said lite؟",
+                        title: Text("ماهو تطبيق said lite؟",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
-                        children: const [
+                        children: [
                           Text("برنامج محاسبي  مبسط لإدارة الحسابات",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold))
                         ]),
                   ),
@@ -103,18 +105,18 @@ class _CommonQuestionState extends State<CommonQuestion> {
                               )
                             : const Icon(Icons.remove,
                                 size: 25, color: Colors.white),
-                        title: const Text("ماهي خدمات هذا التطبيق؟",
+                        title: Text("ماهي خدمات هذا التطبيق؟",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
-                        children: const [
+                        children: [
                           Text("برنامج محاسبي  مبسط لإدارة الحسابات",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold))
                         ]),
                   ),
@@ -139,18 +141,18 @@ class _CommonQuestionState extends State<CommonQuestion> {
                               )
                             : const Icon(Icons.remove,
                                 size: 25, color: Colors.white),
-                        title: const Text("هل بياناتي آمنة؟",
+                        title: Text("هل بياناتي آمنة؟",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
-                        children: const [
+                        children: [
                           Text("برنامج محاسبي  مبسط لإدارة الحسابات",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold))
                         ]),
                   ),
@@ -175,18 +177,18 @@ class _CommonQuestionState extends State<CommonQuestion> {
                               )
                             : const Icon(Icons.remove,
                                 size: 25, color: Colors.white),
-                        title: const Text("هل يمكنني استرداد المبلغ المدفوع؟",
+                        title: Text("هل يمكنني استرداد المبلغ المدفوع؟",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
-                        children: const [
+                        children: [
                           Text("برنامج محاسبي  مبسط لإدارة الحسابات",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold))
                         ]),
                   ),
@@ -195,11 +197,11 @@ class _CommonQuestionState extends State<CommonQuestion> {
                     alignment: Alignment.centerRight,
                     margin:
                         EdgeInsets.only(right: viewport.getWidthscreen / 10),
-                    child: const Text(":البيانات الإلزامية من العميل",
+                    child: Text(":البيانات الإلزامية من العميل",
                         style: TextStyle(
                             color: Colors.blue,
                             fontSize: 20,
-                            fontFamily: "Lato",
+                            fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                   Container(
@@ -210,11 +212,11 @@ class _CommonQuestionState extends State<CommonQuestion> {
                           textDirection: TextDirection.rtl,
                           children: [
                             Image.asset("assets/images/point.png"),
-                            const Text("الاسم",
+                            Text("الاسم",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold))
                           ],
                         ),
@@ -222,11 +224,11 @@ class _CommonQuestionState extends State<CommonQuestion> {
                           textDirection: TextDirection.rtl,
                           children: [
                             Image.asset("assets/images/point.png"),
-                            const Text("الايميل",
+                            Text("الايميل",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold))
                           ],
                         ),
@@ -234,11 +236,11 @@ class _CommonQuestionState extends State<CommonQuestion> {
                           textDirection: TextDirection.rtl,
                           children: [
                             Image.asset("assets/images/point.png"),
-                            const Text("رقم الجوال",
+                            Text("رقم الجوال",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold))
                           ],
                         ),
@@ -246,11 +248,11 @@ class _CommonQuestionState extends State<CommonQuestion> {
                           textDirection: TextDirection.rtl,
                           children: [
                             Image.asset("assets/images/point.png"),
-                            const Text("المدينة",
+                            Text("المدينة",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold))
                           ],
                         ),
@@ -258,11 +260,11 @@ class _CommonQuestionState extends State<CommonQuestion> {
                           textDirection: TextDirection.rtl,
                           children: [
                             Image.asset("assets/images/point.png"),
-                            const Text("النشاط",
+                            Text("النشاط",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold))
                           ],
                         ),

@@ -9,6 +9,7 @@ import 'package:said_lite/view/complete_pay.dart';
 
 import '../constant/edge.dart';
 import '../constant/lable.dart';
+import '../constant/values.dart';
 
 class PaymentPage extends StatefulWidget {
   String content;
@@ -51,14 +52,14 @@ class _PaymentPageState extends State<PaymentPage> {
                       color: Coloring.primary,
                     )),
               ),
-              const Text("صفحة الدّفع",
+              Text("صفحة الدّفع",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
-                      fontFamily: "Lato",
+                      fontFamily: Values.fontFamily,
                       fontWeight: FontWeight.bold)),
               SizedBox(
-                height: 100,
+                height: viewport.getHeightscreen / 20,
               ),
               Container(
                   width: viewport.getWidthscreen,
@@ -75,16 +76,16 @@ class _PaymentPageState extends State<PaymentPage> {
                                 padding: EdgeInsets.only(top: 20),
                                 alignment: Alignment.centerLeft,
                                 child: Label(
-                                  triangleHeight: 20,
+                                  triangleHeight: 15,
                                   edge: Edge.RIGHT,
                                   child: Container(
                                     color: Colors.blue,
-                                    width: viewport.getWidthscreen / 4,
+                                    width: viewport.getWidthscreen / 3,
                                     child: Text("الباقة الشّائعة",
                                         style: TextStyle(
                                             color: Coloring.primary,
                                             fontSize: 15,
-                                            fontFamily: "Lato",
+                                            fontFamily: Values.fontFamily,
                                             fontWeight: FontWeight.bold)),
                                   ),
                                 ),
@@ -96,22 +97,22 @@ class _PaymentPageState extends State<PaymentPage> {
                           child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Text(widget.content,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 25,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold))),
                         ),
                         Container(
                           alignment: Alignment.centerRight,
                           padding: const EdgeInsets.only(right: 15),
-                          child: const Directionality(
+                          child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Text("باقة سائد لايت المحاسبي \n الشهري",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold))),
                         ),
                         Container(
@@ -119,22 +120,22 @@ class _PaymentPageState extends State<PaymentPage> {
                           alignment: Alignment.centerLeft,
                           child: Row(
                             children: [
-                              const Directionality(
+                              Directionality(
                                   textDirection: TextDirection.rtl,
                                   child: Text("ر.س",
                                       style: TextStyle(
                                           color: Colors.blue,
                                           fontSize: 15,
-                                          fontFamily: "Lato",
+                                          fontFamily: Values.fontFamily,
                                           fontWeight: FontWeight.bold))),
                               SizedBox(width: 10),
                               Directionality(
                                   textDirection: TextDirection.rtl,
                                   child: Text(widget.price.toString(),
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: Colors.blue,
                                           fontSize: 50,
-                                          fontFamily: "Lato",
+                                          fontFamily: Values.fontFamily,
                                           fontWeight: FontWeight.bold)))
                             ],
                           ),
@@ -142,14 +143,14 @@ class _PaymentPageState extends State<PaymentPage> {
                         Container(
                           alignment: Alignment.centerRight,
                           padding: EdgeInsets.only(right: 35),
-                          child: const Directionality(
+                          child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Text(
                                   "تحدد الباقة تلقائياً عند نهاية الاشتراك",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold))),
                         ),
                         Container(
@@ -188,13 +189,13 @@ class _PaymentPageState extends State<PaymentPage> {
                         Container(
                           alignment: Alignment.centerRight,
                           margin: EdgeInsets.only(top: 15, right: 35),
-                          child: const Directionality(
+                          child: Directionality(
                               textDirection: TextDirection.rtl,
                               child: Text("الدفع عبر:",
                                   style: TextStyle(
                                       color: Colors.blue,
                                       fontSize: 20,
-                                      fontFamily: "Lato",
+                                      fontFamily: Values.fontFamily,
                                       fontWeight: FontWeight.bold))),
                         ),
                         Container(
@@ -227,8 +228,8 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 15),
-                          width: viewport.getWidthscreen / 3,
+                          margin: EdgeInsets.only(top: 10),
+                          width: viewport.getWidthscreen / 2,
                           decoration: BoxDecoration(
                               border: Border.all(color: Coloring.primary)
                               // borderRadius: BorderRadius.circular(10),
@@ -242,14 +243,14 @@ class _PaymentPageState extends State<PaymentPage> {
                                   price: widget.price,
                                   isCommon: widget.isCommon));
                             }),
-                            child: const Text(
-                              "إتمام الدفع",
-                              style: TextStyle(
-                                color: Colors.blue,
-                              ),
-                            ),
+                            child: Text("إتمام الدفع",
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 20,
+                                    fontFamily: Values.fontFamily,
+                                    fontWeight: FontWeight.bold)),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ))

@@ -1,16 +1,27 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
+import 'package:said_lite/constant/scalesize.dart';
+import 'package:said_lite/view/list_buying_invoice.dart';
+import 'package:said_lite/view/list_sales_invoice.dart';
+import 'package:said_lite/view/sales_return.dart';
 
+import '../view/add_product.dart';
+import '../view/home.dart';
+import '../view/profile.dart';
+import '../view/statistics.dart';
+import '../view/support.dart';
 import '../view/verified.dart';
 import 'data_grid.dart';
 import 'viewport.dart';
 
 class Values extends GetxController {
-  
   RxString saudi = "assets/images/saudi.png".obs;
+  static String fontFamily = "Arabic";
   List<String> countries = [
     "assets/images/saudi.png",
     "assets/images/syria.png",
@@ -36,52 +47,73 @@ class Values extends GetxController {
     return s;
   }
 
-  static Widget speakWithSupport() {
+  static Widget speakWithSupport(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 20),
-      child: Text("التّواصل مع الدعم",
-          style: TextStyle(
-              decoration: TextDecoration.underline,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Lato",
-              fontSize: 15)),
+      margin: EdgeInsets.only(top: 20.dp),
+      child: Text(
+        "التّواصل مع الدعم",
+        style: TextStyle(
+            decoration: TextDecoration.underline,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Lato",
+            fontSize: 20.dp),
+      ),
     );
   }
 
-  static Widget showLanguages(double width) {
+  static Widget showLanguages(
+      double width, double Height, BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: 20.dp),
         width: width,
+        height: Height,
         child: DropdownButtonFormField<String?>(
+            isExpanded: true,
             dropdownColor: Colors.blue,
             isDense: true,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 3))),
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 3,
+                    ))),
             value: language.value,
             onChanged: (value) {
               language.value = value!;
             },
             icon: Icon(Icons.expand_more),
-            iconSize: 25,
+            iconSize: 30.dp,
             iconEnabledColor: Colors.white,
             items: langs.map((String value) {
               return DropdownMenuItem<String>(
                   alignment: Alignment.center,
                   value: value,
-                  child: Text(value,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Lato",
-                          fontSize: 15)));
+                  child: Text(
+                    value,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Lato",
+                        fontSize: 20.dp),
+                  ));
             }).toList()),
       ),
     );
   }
+
+  String namePage = "Home";
+  get getNamePage => this.namePage;
+
+  set setNamePage(namePage) {
+    this.namePage = namePage;
+    update();
+  }
+
+  static RxBool invoiceselected = true.obs;
 
   static void getDialogFile(BuildContext context, double width, double height) {
     showModalBottomSheet(
@@ -169,7 +201,10 @@ class Values extends GetxController {
         });
   }
 
-  static void dialogDrawer(bool invoice, BuildContext context, double width) {
+  void dialogDrawer(
+    BuildContext context,
+    double width,
+  ) {
     showDialog(
         context: context,
         builder: (context) {
@@ -193,12 +228,13 @@ class Values extends GetxController {
                           color: Coloring.primary,
                         ),
                       )),
-                  if (invoice) ...[
+                  if (invoiceselected.value) ...[
                     Container(
                       width: width,
                       child: TextButton(
                         onPressed: (() {
-                          Get.toNamed("/list_sales");
+                          setNamePage = "Home";
+                          Navigator.pop(context);
                         }),
                         style: ButtonStyle(
                             backgroundColor:
@@ -207,11 +243,11 @@ class Values extends GetxController {
                                 RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ))),
-                        child: const Text("قائمة المبيعات",
+                        child: Text("الصفحة الرئيسية",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     ),
@@ -219,7 +255,8 @@ class Values extends GetxController {
                       width: width,
                       child: TextButton(
                         onPressed: (() {
-                          Get.toNamed("/sales_return");
+                          setNamePage = "list_sales";
+                          Navigator.pop(context);
                         }),
                         style: ButtonStyle(
                             backgroundColor:
@@ -228,11 +265,11 @@ class Values extends GetxController {
                                 RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ))),
-                        child: const Text("مرتجع مبيع",
+                        child: Text("قائمة المبيعات",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     ),
@@ -240,7 +277,8 @@ class Values extends GetxController {
                       width: width,
                       child: TextButton(
                         onPressed: (() {
-                          Get.toNamed("/add_product");
+                          setNamePage = "sales_return";
+                          Navigator.pop(context);
                         }),
                         style: ButtonStyle(
                             backgroundColor:
@@ -249,11 +287,33 @@ class Values extends GetxController {
                                 RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ))),
-                        child: const Text("إضافة منتج",
+                        child: Text("مرتجع مبيع",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: fontFamily,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Container(
+                      width: width,
+                      child: TextButton(
+                        onPressed: (() {
+                          setNamePage = "add_product";
+                          Navigator.pop(context);
+                        }),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.blue),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ))),
+                        child: Text("إضافة منتج",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     )
@@ -262,7 +322,8 @@ class Values extends GetxController {
                       width: width,
                       child: TextButton(
                         onPressed: (() {
-                          Get.toNamed("/list_buying");
+                          setNamePage = "Home";
+                          Navigator.pop(context);
                         }),
                         style: ButtonStyle(
                             backgroundColor:
@@ -271,11 +332,11 @@ class Values extends GetxController {
                                 RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ))),
-                        child: const Text("قائمة المشتريات",
+                        child: Text("الصفحة الرئيسية",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     ),
@@ -283,7 +344,8 @@ class Values extends GetxController {
                       width: width,
                       child: TextButton(
                         onPressed: (() {
-                          Get.toNamed("/add_product");
+                          setNamePage = "list_buying";
+                          Navigator.pop(context);
                         }),
                         style: ButtonStyle(
                             backgroundColor:
@@ -292,11 +354,33 @@ class Values extends GetxController {
                                 RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ))),
-                        child: const Text("إضافة منتج",
+                        child: Text("قائمة المشتريات",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
-                                fontFamily: "Lato",
+                                fontFamily: fontFamily,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    Container(
+                      width: width,
+                      child: TextButton(
+                        onPressed: (() {
+                          setNamePage = "add_product";
+                          Navigator.pop(context);
+                        }),
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll<Color>(Colors.blue),
+                            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ))),
+                        child: Text("إضافة منتج",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontFamily: fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     ),
@@ -306,6 +390,25 @@ class Values extends GetxController {
             ),
           );
         });
+  }
+
+  List<Widget> getPages() {
+    return [
+      Profile(),
+      Support(),
+      Statistics(),
+      getNamePage == "Home"
+          ? Home()
+          : getNamePage == "list_sales"
+              ? SalesInvoice()
+              : getNamePage == "add_product"
+                  ? AddProduct()
+                  : getNamePage == "list_buying"
+                      ? BuyingInvoice()
+                      : getNamePage == "sales_return"
+                          ? SalesReturn()
+                          : Container(child: Text("error"))
+    ];
   }
 
   static void completeAddProductDialog(
@@ -330,11 +433,11 @@ class Values extends GetxController {
                         borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15))),
-                    child: const Text("تمت إضافة بيانات المنتج",
+                    child: Text("تمت إضافة بيانات المنتج",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 15,
-                            fontFamily: "Lato",
+                            fontFamily: fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
                   InkWell(
@@ -354,7 +457,7 @@ class Values extends GetxController {
                           style: TextStyle(
                               color: Coloring.primary,
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: fontFamily,
                               fontWeight: FontWeight.bold)),
                     ),
                   )
@@ -396,12 +499,12 @@ class Values extends GetxController {
                           Container(
                             alignment: Alignment.centerRight,
                             margin: EdgeInsets.only(right: 20),
-                            child: const Text(
+                            child: Text(
                               "تعديل العنصر",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: fontFamily,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -418,7 +521,7 @@ class Values extends GetxController {
                                   hintStyle: TextStyle(
                                       color: Colors.blue[300],
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: fontFamily,
                                       fontWeight: FontWeight.bold)),
                             ),
                           ),
@@ -436,7 +539,7 @@ class Values extends GetxController {
                                 newname = newValue!;
                               },
                               textDirection: TextDirection.rtl,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
                                   hintTextDirection: TextDirection.rtl,
@@ -444,7 +547,7 @@ class Values extends GetxController {
                                   hintStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: fontFamily,
                                       fontWeight: FontWeight.bold)),
                             ),
                           ),
@@ -463,7 +566,7 @@ class Values extends GetxController {
                               },
                               keyboardType: TextInputType.number,
                               textDirection: TextDirection.rtl,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
                                   hintTextDirection: TextDirection.rtl,
@@ -471,7 +574,7 @@ class Values extends GetxController {
                                   hintStyle: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
-                                      fontFamily: "Lato",
+                                      fontFamily: fontFamily,
                                       fontWeight: FontWeight.bold)),
                             ),
                           ),
@@ -486,11 +589,11 @@ class Values extends GetxController {
                                     color: Coloring.primary,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: const Text("إلغاء",
+                                  child: Text("إلغاء",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 15,
-                                          fontFamily: "Lato",
+                                          fontFamily: fontFamily,
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 onTap: () {
@@ -505,11 +608,11 @@ class Values extends GetxController {
                                     color: Coloring.primary,
                                     borderRadius: BorderRadius.circular(15),
                                   ),
-                                  child: const Text("حفظ",
+                                  child: Text("حفظ",
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 15,
-                                          fontFamily: "Lato",
+                                          fontFamily: fontFamily,
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 onTap: () {
@@ -536,14 +639,23 @@ class Values extends GetxController {
   }
 
   static void DialogPrice(
-    BuildContext context,
-    int index,
-    GlobalKey<FormState> _formeditable2,
-    List<Map<String, dynamic>> field,
-    DataGrid dataGrid,
-    Screen viewport,
-  ) {
+      BuildContext context,
+      int index,
+      GlobalKey<FormState> _formeditable2,
+      List<Map<String, dynamic>> field,
+      DataGrid dataGrid,
+      Screen viewport,
+      String oldPrice,
+      String oldtotal) {
     String newprice = "", newtotal = "";
+    RxDouble quantities = dataGrid.getIndex.obs;
+    TextEditingController _controlPrice = TextEditingController(text: oldPrice);
+    TextEditingController _controlwithoutTax = TextEditingController(
+        text: (double.parse(oldPrice) * quantities.value).toString());
+    TextEditingController _controlTax = TextEditingController(
+      text: (double.parse(_controlwithoutTax.text) * 0.15).toString(),
+    );
+    TextEditingController _controltotal = TextEditingController(text: oldtotal);
     showDialog(
         context: context,
         builder: (context) {
@@ -554,7 +666,7 @@ class Values extends GetxController {
                   elevation: 0,
                   content: Container(
                     alignment: Alignment.center,
-                    height: viewport.getHeightscreen / 3,
+                    height: viewport.getHeightscreen / 2,
                     decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(15)),
@@ -566,13 +678,33 @@ class Values extends GetxController {
                             Container(
                               alignment: Alignment.centerRight,
                               margin: EdgeInsets.only(right: 20),
-                              child: const Text(
+                              child: Text(
                                 "تعديل السعر",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 15,
-                                    fontFamily: "Lato",
+                                    fontFamily: fontFamily,
                                     fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Text(" الإجمالي قبل الضريبة",
+                                style: TextStyle(
+                                    color: Coloring.primary,
+                                    fontSize: 15,
+                                    fontFamily: fontFamily,
+                                    fontWeight: FontWeight.bold)),
+                            Container(
+                              width: viewport.getWidthscreen / 3,
+                              child: TextFormField(
+                                controller: _controlwithoutTax,
+                                keyboardType: TextInputType.number,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: fontFamily,
+                                    fontWeight: FontWeight.bold),
+                                decoration: const InputDecoration(
+                                    fillColor: Colors.grey, filled: true),
                               ),
                             ),
                             Row(
@@ -587,19 +719,40 @@ class Values extends GetxController {
                                           style: TextStyle(
                                               color: Coloring.primary,
                                               fontSize: 15,
-                                              fontFamily: "Lato",
+                                              fontFamily: fontFamily,
                                               fontWeight: FontWeight.bold)),
                                       Container(
                                         child: TextFormField(
+                                          controller: _controltotal,
+                                          onChanged: (value) {
+                                            _controlPrice.text = value.isEmpty
+                                                ? 0.0.toStringAsFixed(1)
+                                                : (double.parse(value) /
+                                                        (quantities.value *
+                                                            1.15))
+                                                    .toStringAsFixed(1);
+                                            _controlwithoutTax.text =
+                                                (quantities.value *
+                                                        double.parse(
+                                                            _controlPrice.text))
+                                                    .toString();
+                                            _controlTax.text = (0.15 *
+                                                    double.parse(
+                                                        _controlwithoutTax
+                                                            .text))
+                                                .toStringAsFixed(1);
+                                          },
                                           keyboardType: TextInputType.number,
+                                          style: TextStyle(
+                                              color: Coloring.primary,
+                                              fontSize: 20,
+                                              fontFamily: fontFamily,
+                                              fontWeight: FontWeight.bold),
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return "يجب ملئ الحقل";
                                             }
                                             return null;
-                                          },
-                                          onSaved: (newValue) {
-                                            newtotal = newValue!;
                                           },
                                           decoration: const InputDecoration(
                                               fillColor: Colors.white,
@@ -619,10 +772,16 @@ class Values extends GetxController {
                                           style: TextStyle(
                                               color: Coloring.primary,
                                               fontSize: 15,
-                                              fontFamily: "Lato",
+                                              fontFamily: fontFamily,
                                               fontWeight: FontWeight.bold)),
                                       Container(
                                         child: TextFormField(
+                                          controller: _controlTax,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontFamily: fontFamily,
+                                              fontWeight: FontWeight.bold),
                                           keyboardType: TextInputType.number,
                                           readOnly: true,
                                           decoration: const InputDecoration(
@@ -643,19 +802,41 @@ class Values extends GetxController {
                                           style: TextStyle(
                                               color: Coloring.primary,
                                               fontSize: 15,
-                                              fontFamily: "Lato",
+                                              fontFamily: fontFamily,
                                               fontWeight: FontWeight.bold)),
                                       Container(
                                         child: TextFormField(
+                                          controller: _controlPrice,
                                           keyboardType: TextInputType.number,
+                                          style: TextStyle(
+                                              color: Coloring.primary,
+                                              fontSize: 20,
+                                              fontFamily: fontFamily,
+                                              fontWeight: FontWeight.bold),
                                           validator: (value) {
                                             if (value!.isEmpty) {
                                               return "يجب ملئ الحقل";
                                             }
                                             return null;
                                           },
-                                          onSaved: (newValue) {
-                                            newprice = newValue!;
+                                          onChanged: (value) {
+                                            _controlwithoutTax.text =
+                                                value.isEmpty
+                                                    ? 0.0.toString()
+                                                    : (quantities *
+                                                            double.parse(value))
+                                                        .toStringAsFixed(1);
+                                            _controlTax.text = (0.15 *
+                                                    double.parse(
+                                                        _controlwithoutTax
+                                                            .text))
+                                                .toStringAsFixed(1);
+                                            _controltotal.text = (double.parse(
+                                                        _controlTax.text) +
+                                                    double.parse(
+                                                        _controlwithoutTax
+                                                            .text))
+                                                .toStringAsFixed(1);
                                           },
                                           decoration: const InputDecoration(
                                               fillColor: Colors.white,
@@ -670,6 +851,50 @@ class Values extends GetxController {
                                 ),
                               ],
                             ),
+                            Text(" الكمية",
+                                style: TextStyle(
+                                    color: Coloring.primary,
+                                    fontSize: 15,
+                                    fontFamily: fontFamily,
+                                    fontWeight: FontWeight.bold)),
+                            Container(
+                              width: viewport.getWidthscreen / 4,
+                              height: viewport.getHeightscreen / 10,
+                              color: Colors.grey,
+                              child: CupertinoPicker(
+                                  useMagnifier: true,
+                                  scrollController: FixedExtentScrollController(
+                                      initialItem:
+                                          quantities.value.toInt() - 1),
+                                  itemExtent: 35,
+                                  onSelectedItemChanged: (value) {
+                                    quantities.value = value.toDouble() + 1;
+                                    _controlwithoutTax.text =
+                                        (double.parse(_controlPrice.text) *
+                                                quantities.value)
+                                            .toStringAsFixed(1);
+                                    _controlTax.text =
+                                        (double.parse(_controlwithoutTax.text) *
+                                                0.15)
+                                            .toStringAsFixed(1);
+                                    _controltotal.text =
+                                        (double.parse(_controlwithoutTax.text) +
+                                                double.parse(_controlTax.text))
+                                            .toStringAsFixed(1);
+                                  },
+                                  children: [
+                                    for (int i = 1; i < 1000; i++) ...[
+                                      Text(i.toString(),
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20,
+                                            fontFamily: Values.fontFamily,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      //Divider(thickness: 5),
+                                    ]
+                                  ]),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -681,11 +906,11 @@ class Values extends GetxController {
                                       color: Coloring.primary,
                                       borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child: const Text("حفظ",
+                                    child: Text("حفظ",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 15,
-                                            fontFamily: "Lato",
+                                            fontFamily: fontFamily,
                                             fontWeight: FontWeight.bold)),
                                   ),
                                   onTap: () {
@@ -693,10 +918,12 @@ class Values extends GetxController {
                                         .validate()) {
                                       _formeditable2.currentState!.save();
                                       field[index]['price'][0]['price'] =
-                                          newprice;
+                                          _controlPrice.text;
                                       field[index]['price'][0]['total'] =
-                                          newtotal;
-
+                                          _controltotal.text;
+                                      field[index]['price'][0]['Tax'] =
+                                          _controlTax.text;
+                                      dataGrid.editIndex(quantities.value);
                                       dataGrid.setList(field);
                                       dataGrid.updateDataGridSource();
                                       Navigator.pop(context);
@@ -711,11 +938,11 @@ class Values extends GetxController {
                                       color: Coloring.primary,
                                       borderRadius: BorderRadius.circular(15),
                                     ),
-                                    child: const Text("إلغاء",
+                                    child: Text("إلغاء",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 15,
-                                            fontFamily: "Lato",
+                                            fontFamily: fontFamily,
                                             fontWeight: FontWeight.bold)),
                                   ),
                                   onTap: () {
@@ -758,13 +985,13 @@ class Values extends GetxController {
                               style: TextStyle(
                                   color: Colors.blue[700],
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: fontFamily,
                                   fontWeight: FontWeight.bold)),
                           Text("مكالمة",
                               style: TextStyle(
                                   color: Colors.blue[700],
                                   fontSize: 15,
-                                  fontFamily: "Lato",
+                                  fontFamily: fontFamily,
                                   fontWeight: FontWeight.bold)),
                           Icon(
                             Icons.phone,
@@ -791,7 +1018,7 @@ class Values extends GetxController {
                           style: TextStyle(
                               color: Colors.blue[700],
                               fontSize: 15,
-                              fontFamily: "Lato",
+                              fontFamily: fontFamily,
                               fontWeight: FontWeight.bold))),
                 )
               ],
@@ -800,9 +1027,27 @@ class Values extends GetxController {
         });
   }
 
-  Widget showCountries(double width, GlobalKey<FormState> _formState) {
+// DropdownButtonHideUnderline(
+  //   child: DropdownButton<String>(
+  //       iconEnabledColor: Colors.black,
+  //       value: saudi.value,
+  //       items: countries.map((String value) {
+  //         return DropdownMenuItem(
+  //             value: value,
+  //             child: Image.asset(
+  //               value,
+  //               height: 35,
+  //             ));
+  //       }).toList(),
+  //       onChanged: (value) {
+  //         EditCountry(value);
+  //       }),
+  // ),
+  Widget showCountries(
+      double width, GlobalKey<FormState> _formState, String? numberPhone) {
     return Container(
       width: width,
+      height: width / 5,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.white),
@@ -810,30 +1055,13 @@ class Values extends GetxController {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                  iconEnabledColor: Colors.black,
-                  icon: Icon(Icons.expand_more),
-                  value: saudi.value,
-                  items: countries.map((String value) {
-                    return DropdownMenuItem(
-                        value: value,
-                        child: Image.asset(
-                          value,
-                          height: 35,
-                        ));
-                  }).toList(),
-                  onChanged: (value) {
-                    EditCountry(value);
-                  }),
-            ),
-          ),
+          Expanded(child: Image.asset("assets/images/saudi.png")),
           Expanded(
             flex: 3,
             child: Form(
               key: _formState,
               child: TextFormField(
+                initialValue: numberPhone,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "يجب ملئ الحقل ";
@@ -944,5 +1172,251 @@ class Values extends GetxController {
             ),
           );
         });
+  }
+
+  static Widget DialogEdit(
+      BuildContext context,
+      Screen viewport,
+      int rowIndex,
+      GlobalKey<FormState> _formeditable,
+      GlobalKey<FormState> _formeditable2,
+      List<Map<String, dynamic>> field,
+      DataGrid dataGrid) {
+    return Container(
+        color: Colors.blue,
+        child: IconButton(
+          color: Colors.blue,
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: AlertDialog(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      content: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            width: viewport.getWidthscreen / 1.1,
+                            height: viewport.getHeightscreen / 10,
+                            decoration: const BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    topLeft: Radius.circular(15))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(":التعديل على",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontFamily: Values.fontFamily,
+                                        fontWeight: FontWeight.bold)),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    InkWell(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: viewport.getWidthscreen / 6,
+                                        decoration: BoxDecoration(
+                                          color: Coloring.primary,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Text("العنصر",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontFamily: Values.fontFamily,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      onTap: () {
+                                        Navigator.pop(context);
+
+                                        Values.DialogElement(
+                                            context,
+                                            rowIndex,
+                                            _formeditable,
+                                            field,
+                                            dataGrid,
+                                            viewport);
+                                      },
+                                    ),
+                                    InkWell(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: viewport.getWidthscreen / 6,
+                                        decoration: BoxDecoration(
+                                          color: Coloring.primary,
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: Text("السعر",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15,
+                                                fontFamily: Values.fontFamily,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        Values.DialogPrice(
+                                            context,
+                                            rowIndex,
+                                            _formeditable2,
+                                            field,
+                                            dataGrid,
+                                            viewport,
+                                            field[rowIndex]['price'][0]
+                                                ['price'],
+                                            field[rowIndex]['price'][0]
+                                                ['total']);
+                                      },
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: viewport.getWidthscreen / 1.1,
+                              height: viewport.getHeightscreen / 20,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(15),
+                                      bottomLeft: Radius.circular(15))),
+                              child: Text("إلغاء",
+                                  style: TextStyle(
+                                      color: Coloring.primary,
+                                      fontSize: 15,
+                                      fontFamily: Values.fontFamily,
+                                      fontWeight: FontWeight.bold)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                });
+          },
+          icon: Image.asset("assets/images/edit.png"),
+        ));
+  }
+
+  static Widget DialogDelete(
+      BuildContext context,
+      Screen viewport,
+      int rowIndex,
+      GlobalKey<FormState> formeditable,
+      GlobalKey<FormState> formeditable2,
+      List<Map<String, dynamic>> field,
+      DataGrid dataGrid) {
+    return Container(
+      color: Colors.red,
+      child: IconButton(
+        color: Coloring.primary,
+        icon: Image.asset("assets/images/delete.png"),
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: AlertDialog(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                    content: Container(
+                      alignment: Alignment.center,
+                      width: viewport.getWidthscreen / 1.1,
+                      height: viewport.getHeightscreen / 5,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(15)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text("هل تريد حذف العنصر من الفاتورة",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: Values.fontFamily,
+                                  fontWeight: FontWeight.bold)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              InkWell(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: viewport.getWidthscreen / 6,
+                                  decoration: BoxDecoration(
+                                    color: Coloring.primary,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Text("لا",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontFamily: Values.fontFamily,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              InkWell(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  width: viewport.getWidthscreen / 6,
+                                  decoration: BoxDecoration(
+                                    color: Coloring.primary,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Text("نعم",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontFamily: Values.fontFamily,
+                                          fontWeight: FontWeight.bold)),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  dataGrid.test.removeAt(rowIndex);
+                                  dataGrid.updateDataGridSource();
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              });
+          // dataGridRow.getCells().map((datacell) {
+          //   if (datacell.columnName == 'element') {
+          //     print("element===>${datacell.value[0]}");
+          //   } else if (datacell.columnName ==
+          //       'quantities') {
+          //     print(
+          //         "First quantities ===>${datacell.value[0]}");
+          //   } else {
+          //     print("Price===>${datacell.value[0]}");
+          //   }
+          // });
+        },
+      ),
+    );
   }
 }

@@ -5,6 +5,8 @@ import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/viewport.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+import '../constant/values.dart';
+
 class Chat extends StatefulWidget {
   const Chat({super.key});
 
@@ -68,11 +70,11 @@ class _ChatState extends State<Chat> {
                           child: Image.asset("assets/images/chat2.png")),
                       Container(
                         margin: EdgeInsets.only(top: 40, bottom: 20),
-                        child: const Text("المحادثة المباشرة",
+                        child: Text("المحادثة المباشرة",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 30,
-                                fontFamily: "Lato",
+                                fontFamily: Values.fontFamily,
                                 fontWeight: FontWeight.bold)),
                       ),
                     ]),
@@ -117,7 +119,7 @@ class _ChatState extends State<Chat> {
                                       style: TextStyle(
                                           color: Coloring.primary,
                                           fontSize: 10,
-                                          fontFamily: "Lato",
+                                          fontFamily: Values.fontFamily,
                                           fontWeight: FontWeight.bold)),
                                 ),
                                 Container(
@@ -146,7 +148,7 @@ class _ChatState extends State<Chat> {
                                       style: TextStyle(
                                           color: Coloring.primary,
                                           fontSize: 20,
-                                          fontFamily: "Lato",
+                                          fontFamily: Values.fontFamily,
                                           fontWeight: FontWeight.bold)),
                                 ),
                               ],

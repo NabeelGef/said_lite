@@ -23,17 +23,17 @@ class _AddProductState extends State<AddProduct> {
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool isRemember = false;
-  int selectedpage = 3;
 
   @override
   Widget build(BuildContext context) {
-    Screen viewport = Screen(context);
+    SystemChrome.setSystemUIOverlayStyle(
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
 
-    List<Widget> pages = [
-      Container(child: Text("Store")),
-      Container(child: Text("support")),
-      Container(child: Text("chart")),
-      Container(
+    Screen viewport = Screen(context);
+    Values values = Get.find();
+
+    return SafeArea(
+      child: Container(
           width: viewport.getWidthscreen,
           height: viewport.getHeightscreen,
           decoration: BoxDecoration(
@@ -48,7 +48,7 @@ class _AddProductState extends State<AddProduct> {
               alignment: Alignment.centerLeft,
               child: InkWell(
                   onTap: () {
-                    Get.offNamed("/home");
+                    values.setNamePage = "Home";
                   },
                   child:
                       const Icon(Icons.close, size: 35, color: Colors.white)),
@@ -56,11 +56,11 @@ class _AddProductState extends State<AddProduct> {
             Container(
                 margin: EdgeInsets.only(bottom: 20),
                 alignment: Alignment.center,
-                child: const Text("ميني سوبر ماركت",
+                child: Text("ميني سوبر ماركت",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
-                        fontFamily: "Lato",
+                        fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold))),
             Container(
               alignment: Alignment.center,
@@ -71,11 +71,11 @@ class _AddProductState extends State<AddProduct> {
             Container(
               alignment: Alignment.centerRight,
               margin: EdgeInsets.only(right: 20, top: 20),
-              child: const Text("بيانات المنتج",
+              child: Text("بيانات المنتج",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
-                      fontFamily: "Lato",
+                      fontFamily: Values.fontFamily,
                       fontWeight: FontWeight.bold)),
             ),
             Container(
@@ -152,7 +152,7 @@ class _AddProductState extends State<AddProduct> {
                                 style: TextStyle(
                                     color: Coloring.primary,
                                     fontSize: 20,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold)),
                             Container(
                               width: viewport.getWidthscreen / 5,
@@ -182,7 +182,7 @@ class _AddProductState extends State<AddProduct> {
                                 style: TextStyle(
                                     color: Coloring.primary,
                                     fontSize: 20,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold)),
                             Container(
                               width: viewport.getWidthscreen / 5,
@@ -221,7 +221,7 @@ class _AddProductState extends State<AddProduct> {
                                 style: TextStyle(
                                     color: Colors.blue[400],
                                     fontSize: 15,
-                                    fontFamily: "Lato",
+                                    fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold)),
                           ),
                           Container(
@@ -261,11 +261,11 @@ class _AddProductState extends State<AddProduct> {
                                 viewport.getWidthscreen / 1.5,
                                 viewport.getHeightscreen / 20);
                           }),
-                          child: const Text("حفظ",
+                          child: Text("حفظ",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
-                                  fontFamily: "Lato",
+                                  fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
                       ),
@@ -274,53 +274,8 @@ class _AddProductState extends State<AddProduct> {
                 ),
               ),
             )
-          ])))
-    ];
-
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton:
-            FloatingActionButton(onPressed: () {}, child: Icon(Icons.qr_code)),
-        bottomNavigationBar: Container(
-          decoration: const BoxDecoration(
-              border: Border(top: BorderSide(width: 3, color: Colors.blue))),
-          child: FABBottomAppBar(
-            onTabSelected: (value) {
-              setState(() {
-                selectedpage = value;
-              });
-            },
-            items: [
-              FABBottomAppBarItem(
-                  iconData: Icon(Icons.storefront_sharp,
-                      color:
-                          selectedpage == 0 ? Coloring.primary : Colors.grey),
-                  text: ""),
-              FABBottomAppBarItem(
-                  iconData: Icon(Icons.headset_mic,
-                      color:
-                          selectedpage == 1 ? Coloring.primary : Colors.grey),
-                  text: ""),
-              FABBottomAppBarItem(
-                  iconData: Icon(Icons.equalizer,
-                      color:
-                          selectedpage == 2 ? Coloring.primary : Colors.grey),
-                  text: ""),
-              FABBottomAppBarItem(
-                  iconData: Icon(Icons.home,
-                      color:
-                          selectedpage == 3 ? Coloring.primary : Colors.grey),
-                  text: ""),
-            ],
-            backgroundColor: Colors.white,
-            centerItemText: '',
-            color: Colors.grey,
-            notchedShape: const CircularNotchedRectangle(),
-          ),
-        ),
-        body: pages.elementAt(selectedpage));
+          ]))),
+    );
   }
 
   Widget _buildQrView(Screen viewport, BuildContext context) {

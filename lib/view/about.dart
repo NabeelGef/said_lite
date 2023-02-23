@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:said_lite/constant/viewport.dart';
 
+import '../constant/values.dart';
+
 class About extends StatefulWidget {
   const About({super.key});
 
@@ -45,13 +47,13 @@ class _AboutState extends State<About> {
             Container(
               margin: EdgeInsets.only(top: viewport.getHeightscreen / 5),
               alignment: Alignment.center,
-              child: const Text(
+              child: Text(
                   "تم إصدار هذا البرنامج\nمن فريق سائد لتقنية المعلومات",
                   textAlign: TextAlign.right,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
-                      fontFamily: "Lato",
+                      fontFamily: Values.fontFamily,
                       fontWeight: FontWeight.bold)),
             )
           ],
