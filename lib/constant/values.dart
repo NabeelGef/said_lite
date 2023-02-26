@@ -6,10 +6,14 @@ import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/scalesize.dart';
+import 'package:said_lite/controller/invoice_controller.dart';
 import 'package:said_lite/view/list_buying_invoice.dart';
 import 'package:said_lite/view/list_sales_invoice.dart';
 import 'package:said_lite/view/sales_return.dart';
 
+import '../model/invoice.dart';
+import '../model/invoice_item.dart';
+import '../model/item.dart';
 import '../view/add_product.dart';
 import '../view/home.dart';
 import '../view/profile.dart';
@@ -32,6 +36,41 @@ class Values extends GetxController {
   RxString numberPhone = "".obs;
   RxString typeBunch = "".obs;
   RxInt price = 0.obs;
+  static Invoice invoice = Invoice(
+      date: DateTime.now(),
+      total: 500.0,
+      vat: 100.0,
+      net: 200.0,
+      invoiceItems: [
+        InvoiceItem(
+            item: Item(
+                name: "ميراندا",
+                purchasePrice: 200,
+                salePrice: 500,
+                vatRate: 0.15),
+            total: 575,
+            quantity: 1,
+            vat: 75),
+        InvoiceItem(
+            item: Item(
+                name: "طحين",
+                purchasePrice: 200,
+                salePrice: 1500,
+                vatRate: 0.15),
+            total: 1725,
+            quantity: 1,
+            vat: 225),
+        InvoiceItem(
+            item: Item(
+                name: "لبن",
+                purchasePrice: 200,
+                salePrice: 1000,
+                vatRate: 0.15),
+            total: 1150,
+            quantity: 1,
+            vat: 150)
+      ]);
+
   static RxString language = "اللّغة: العربيّة".obs;
   static List<String> langs = [
     "اللّغة: العربيّة",
@@ -472,7 +511,7 @@ class Values extends GetxController {
       BuildContext context,
       int index,
       GlobalKey<FormState> _formeditable,
-      List<Map<String, dynamic>> field,
+      Invoice invoice,
       DataGrid dataGrid,
       Screen viewport) {
     String newname = "";
@@ -618,12 +657,12 @@ class Values extends GetxController {
                                 onTap: () {
                                   if (_formeditable.currentState!.validate()) {
                                     _formeditable.currentState!.save();
-                                    field[index]['element'][0]['name'] =
-                                        newname;
-                                    field[index]['price'][0]['price'] =
-                                        newprice;
+                                    invoice.getInvoiceItems[index].getItem
+                                        .setName = newname;
+                                    invoice.getInvoiceItems[index].getItem
+                                        .setSalePrice = double.parse(newprice);
 
-                                    dataGrid.setList(field);
+                                    dataGrid.setList(invoice);
                                     dataGrid.updateDataGridSource();
                                     Navigator.pop(context);
                                   }
@@ -642,20 +681,22 @@ class Values extends GetxController {
       BuildContext context,
       int index,
       GlobalKey<FormState> _formeditable2,
-      List<Map<String, dynamic>> field,
+      Invoice invoice,
       DataGrid dataGrid,
       Screen viewport,
-      String oldPrice,
-      String oldtotal) {
+      double oldPrice,
+      double oldtotal) {
     String newprice = "", newtotal = "";
-    RxDouble quantities = dataGrid.getIndex.obs;
-    TextEditingController _controlPrice = TextEditingController(text: oldPrice);
-    TextEditingController _controlwithoutTax = TextEditingController(
-        text: (double.parse(oldPrice) * quantities.value).toString());
+    double quantities = invoice.getInvoiceItems[index].getQuantity.toDouble();
+    TextEditingController _controlPrice =
+        TextEditingController(text: oldPrice.toString());
+    TextEditingController _controlwithoutTax =
+        TextEditingController(text: (oldPrice * quantities).toString());
     TextEditingController _controlTax = TextEditingController(
       text: (double.parse(_controlwithoutTax.text) * 0.15).toString(),
     );
-    TextEditingController _controltotal = TextEditingController(text: oldtotal);
+    TextEditingController _controltotal =
+        TextEditingController(text: oldtotal.toString());
     showDialog(
         context: context,
         builder: (context) {
@@ -728,11 +769,10 @@ class Values extends GetxController {
                                             _controlPrice.text = value.isEmpty
                                                 ? 0.0.toStringAsFixed(1)
                                                 : (double.parse(value) /
-                                                        (quantities.value *
-                                                            1.15))
+                                                        (quantities * 1.15))
                                                     .toStringAsFixed(1);
                                             _controlwithoutTax.text =
-                                                (quantities.value *
+                                                (quantities *
                                                         double.parse(
                                                             _controlPrice.text))
                                                     .toString();
@@ -864,14 +904,13 @@ class Values extends GetxController {
                               child: CupertinoPicker(
                                   useMagnifier: true,
                                   scrollController: FixedExtentScrollController(
-                                      initialItem:
-                                          quantities.value.toInt() - 1),
+                                      initialItem: quantities.toInt() - 1),
                                   itemExtent: 35,
                                   onSelectedItemChanged: (value) {
-                                    quantities.value = value.toDouble() + 1;
+                                    quantities = value.toDouble() + 1;
                                     _controlwithoutTax.text =
                                         (double.parse(_controlPrice.text) *
-                                                quantities.value)
+                                                quantities)
                                             .toStringAsFixed(1);
                                     _controlTax.text =
                                         (double.parse(_controlwithoutTax.text) *
@@ -917,14 +956,22 @@ class Values extends GetxController {
                                     if (_formeditable2.currentState!
                                         .validate()) {
                                       _formeditable2.currentState!.save();
-                                      field[index]['price'][0]['price'] =
-                                          _controlPrice.text;
-                                      field[index]['price'][0]['total'] =
-                                          _controltotal.text;
-                                      field[index]['price'][0]['Tax'] =
-                                          _controlTax.text;
-                                      dataGrid.editIndex(quantities.value);
-                                      dataGrid.setList(field);
+                                      invoice.getInvoiceItems[index].getItem
+                                              .setSalePrice =
+                                          double.parse(_controlPrice.text);
+                                      invoice.getInvoiceItems[index].setTotal =
+                                          double.parse(_controltotal.text);
+                                      invoice.getInvoiceItems[index].setVat =
+                                          double.parse(_controlTax.text);
+                                      invoice.getInvoiceItems[index]
+                                          .setQuantity = quantities.toInt();
+                                      dataGrid.editIndex(
+                                          index,
+                                          invoice.getInvoiceItems[index]
+                                                  .getQuantity
+                                                  .toDouble() -
+                                              1);
+                                      dataGrid.setList(invoice);
                                       dataGrid.updateDataGridSource();
                                       Navigator.pop(context);
                                     }
@@ -1180,7 +1227,7 @@ class Values extends GetxController {
       int rowIndex,
       GlobalKey<FormState> _formeditable,
       GlobalKey<FormState> _formeditable2,
-      List<Map<String, dynamic>> field,
+      Invoice invoice,
       DataGrid dataGrid) {
     return Container(
         color: Colors.blue,
@@ -1243,7 +1290,7 @@ class Values extends GetxController {
                                             context,
                                             rowIndex,
                                             _formeditable,
-                                            field,
+                                            invoice,
                                             dataGrid,
                                             viewport);
                                       },
@@ -1270,13 +1317,13 @@ class Values extends GetxController {
                                             context,
                                             rowIndex,
                                             _formeditable2,
-                                            field,
+                                            invoice,
                                             dataGrid,
                                             viewport,
-                                            field[rowIndex]['price'][0]
-                                                ['price'],
-                                            field[rowIndex]['price'][0]
-                                                ['total']);
+                                            invoice.getInvoiceItems[rowIndex]
+                                                .getItem.getSalePrice,
+                                            invoice.getInvoiceItems[rowIndex]
+                                                .getTotal);
                                       },
                                     ),
                                   ],
@@ -1321,7 +1368,6 @@ class Values extends GetxController {
       int rowIndex,
       GlobalKey<FormState> formeditable,
       GlobalKey<FormState> formeditable2,
-      List<Map<String, dynamic>> field,
       DataGrid dataGrid) {
     return Container(
       color: Colors.red,
@@ -1392,7 +1438,8 @@ class Values extends GetxController {
                                 ),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  dataGrid.test.removeAt(rowIndex);
+                                  invoice.getInvoiceItems.removeAt(rowIndex);
+                                  dataGrid.setList(invoice);
                                   dataGrid.updateDataGridSource();
                                 },
                               ),

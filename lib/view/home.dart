@@ -1,7 +1,3 @@
-import 'dart:developer';
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:date_format/date_format.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +10,7 @@ import 'package:said_lite/constant/fabbar.dart';
 import 'package:said_lite/constant/person.dart';
 import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
+import 'package:said_lite/controller/invoice_controller.dart';
 import 'package:said_lite/model/item.dart';
 import 'package:said_lite/view/profile.dart';
 import 'package:said_lite/view/statistics.dart';
@@ -28,6 +25,9 @@ import 'package:syncfusion_flutter_core/localizations.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_core/tooltip_internal.dart';
 import 'package:syncfusion_flutter_core/zoomable_internal.dart';
+
+import '../model/invoice.dart';
+import '../model/invoice_item.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -44,100 +44,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   int selectedpage = 3;
   ScrollController _scrollControlList = ScrollController();
   ScrollController _scrollControlGrid = ScrollController();
-
-  static List<Map<String, dynamic>> field = [
-    {
-      'element': [
-        {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '575'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '575'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'طحين', 'type': 'كيلو', 'number': '5'}
-      ],
-      'price': [
-        {'price': '1000', 'Tax': '150', 'total': '1150'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مرتديلا', 'type': 'علبة', 'number': '8'}
-      ],
-      'price': [
-        {'price': '5000', 'Tax': '750', 'total': '5750'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '575'}
-      ]
-    },
-  ];
-  static List<Map<String, dynamic>> field2 = [
-    {
-      'element': [
-        {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '575'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '575'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'طحين', 'type': 'كيلو', 'number': '5'}
-      ],
-      'price': [
-        {'price': '1000', 'Tax': '150', 'total': '1150'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مرتديلا', 'type': 'علبة', 'number': '8'}
-      ],
-      'price': [
-        {'price': '5000', 'Tax': '750', 'total': '5750'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '575'}
-      ]
-    },
-  ];
+  List<InvoiceItem> invoiceitems = [];
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
+  InvoiceController invoiceController =
+      Get.put(InvoiceController(invoice: Values.invoice), permanent: true);
 
   List<Person> persons = <Person>[];
   late DataGrid dataGrid;
   @override
   void initState() {
-    dataGrid = DataGrid(field: field);
+    dataGrid = DataGrid(invoice: Values.invoice);
     tabController = TabController(length: 2, vsync: this);
     if (Values.invoiceselected.isTrue) {
       tabController!.index = 0;
@@ -262,35 +180,37 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   width: viewport.getWidthscreen,
                   child: Container(
                     margin: const EdgeInsets.only(top: 50),
-                    child: ListView.builder(
-                        controller: _scrollControlList,
-                        itemCount: field.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              SizedBox(
-                                height: viewport.getHeightscreen / 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    "assets/images/edit.png",
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                  Image.asset("assets/images/delete.png",
-                                      width: 30, height: 30)
-                                ],
-                              ),
-                              SizedBox(
-                                height: viewport.getHeightscreen / 20,
-                              ),
-                            ],
-                          );
-                        }),
+                    child: GetBuilder<InvoiceController>(builder: (controller) {
+                      return ListView.builder(
+                          controller: _scrollControlList,
+                          itemCount: controller.invoice.getInvoiceItems.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                SizedBox(
+                                  height: viewport.getHeightscreen / 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/edit.png",
+                                      width: 30,
+                                      height: 30,
+                                    ),
+                                    Image.asset("assets/images/delete.png",
+                                        width: 30, height: 30)
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: viewport.getHeightscreen / 20,
+                                ),
+                              ],
+                            );
+                          });
+                    }),
                   ),
                 ),
                 Container(
@@ -310,34 +230,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               gridLineStrokeWidth: 2),
                           child: SfDataGrid(
                             verticalScrollController: _scrollControlGrid,
-                            onCellTap: (details) {
-                              double quantities = dataGrid.getIndex;
-                              field2[details.rowColumnIndex.rowIndex - 1]
-                                  ['price'][0]['Tax'] = (quantities *
-                                      double.parse(field[
-                                          details.rowColumnIndex.rowIndex -
-                                              1]['price'][0]['price']) *
-                                      0.15)
-                                  .toString();
-
-                              // field2[details.rowColumnIndex.rowIndex - 1]
-                              //     ['price'][0]['price'] = (quantities *
-                              //         double.parse(field[
-                              //             details.rowColumnIndex.rowIndex -
-                              //                 1]['price'][0]['price']))
-                              //     .toString();
-                              field2[details.rowColumnIndex.rowIndex - 1]
-                                  ['price'][0]['total'] = (quantities *
-                                          double.parse(field2[
-                                                  details.rowColumnIndex.rowIndex - 1]
-                                              ['price'][0]['price']) +
-                                      double.parse(
-                                          field2[details.rowColumnIndex.rowIndex - 1]
-                                              ['price'][0]['Tax']))
-                                  .toString();
-                              dataGrid.setList(field2);
-                              dataGrid.updateDataGridSource();
-                            },
                             gridLinesVisibility: GridLinesVisibility.both,
                             defaultColumnWidth: viewport.getHeightscreen / 6,
                             source: dataGrid,
@@ -354,7 +246,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   rowIndex,
                                   _formeditable,
                                   _formeditable2,
-                                  field2,
+                                  invoiceController.invoice,
                                   dataGrid);
                             },
                             startSwipeActionsBuilder:
@@ -365,7 +257,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   rowIndex,
                                   _formeditable,
                                   _formeditable2,
-                                  field2,
                                   dataGrid);
                             },
                             columns: [

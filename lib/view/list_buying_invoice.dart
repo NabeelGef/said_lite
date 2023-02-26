@@ -15,6 +15,7 @@ import '../constant/data_grid.dart';
 import '../constant/fabbar.dart';
 import '../constant/values.dart';
 import '../constant/viewport.dart';
+import '../controller/invoice_controller.dart';
 
 class BuyingInvoice extends StatefulWidget {
   const BuyingInvoice({super.key});
@@ -43,90 +44,14 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
     controller!.pauseCamera();
   }
 
-  static List<Map<String, dynamic>> field2 = [
-    {
-      'element': [
-        {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '425'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '425'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'طحين', 'type': 'كيلو', 'number': '5'}
-      ],
-      'price': [
-        {'price': '1000', 'Tax': '150', 'total': '850'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مرتديلا', 'type': 'علبة', 'number': '8'}
-      ],
-      'price': [
-        {'price': '5000', 'Tax': '750', 'total': '4250'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-      ],
-      'price': [
-        {'price': '500', 'Tax': '75', 'total': '425'}
-      ]
-    },
-  ];
-
-  List<Map<String, dynamic>> field = [
-    {
-      'element': [
-        {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
-      ],
-      'price': [
-        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'ميراندا', 'type': 'حبّة', 'number': '5'}
-      ],
-      'price': [
-        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'مشروب', 'type': 'حبّة', 'number': '2.50'}
-      ],
-      'price': [
-        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-      ]
-    },
-    {
-      'element': [
-        {'name': 'طحين', 'type': 'كيلو', 'number': '5'}
-      ],
-      'price': [
-        {'price': '3.74', 'Tax': '1.26', 'total': '5'}
-      ]
-    }
-  ];
   late DataGrid dataGrid;
   GlobalKey<FormState> _formeditable = GlobalKey();
   GlobalKey<FormState> _formeditable2 = GlobalKey();
+  InvoiceController invoiceController = Get.find();
 
   @override
   void initState() {
-    dataGrid = DataGrid(field: field);
+    dataGrid = DataGrid(invoice: Values.invoice);
     tabController = TabController(length: 2, vsync: this);
     if (Values.invoiceselected.isTrue) {
       tabController!.index = 0;
@@ -180,7 +105,7 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                               topLeft: Radius.circular(15),
                               bottomLeft: Radius.circular(15)),
                         ),
-                        child:  Text("قائمة فواتير المشتريات",
+                        child: Text("قائمة فواتير المشتريات",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -191,7 +116,7 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                     Expanded(
                       child: TextFormField(
                         textDirection: TextDirection.rtl,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
@@ -235,35 +160,37 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                   width: viewport.getWidthscreen,
                   child: Container(
                     margin: const EdgeInsets.only(top: 50),
-                    child: ListView.builder(
-                        controller: _scrollControlList,
-                        itemCount: field.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              SizedBox(
-                                height: viewport.getHeightscreen / 10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.asset(
-                                    "assets/images/edit.png",
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                  Image.asset("assets/images/delete.png",
-                                      width: 30, height: 30)
-                                ],
-                              ),
-                              SizedBox(
-                                height: viewport.getHeightscreen / 20,
-                              ),
-                            ],
-                          );
-                        }),
+                    child: GetBuilder<InvoiceController>(builder: (controller) {
+                      return ListView.builder(
+                          controller: _scrollControlList,
+                          itemCount: controller.invoice.getInvoiceItems.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                SizedBox(
+                                  height: viewport.getHeightscreen / 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/edit.png",
+                                      width: 30,
+                                      height: 30,
+                                    ),
+                                    Image.asset("assets/images/delete.png",
+                                        width: 30, height: 30)
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: viewport.getHeightscreen / 20,
+                                ),
+                              ],
+                            );
+                          });
+                    }),
                   ),
                 ),
                 Container(
@@ -283,33 +210,6 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                               gridLineStrokeWidth: 2),
                           child: SfDataGrid(
                             verticalScrollController: _scrollControlGrid,
-                            onCellTap: (details) {
-                              double quantities = dataGrid.getIndex;
-                              field2[details.rowColumnIndex.rowIndex - 1]
-                                  ['price'][0]['Tax'] = (quantities *
-                                      double.parse(field[
-                                          details.rowColumnIndex.rowIndex -
-                                              1]['price'][0]['price']) *
-                                      0.15)
-                                  .toString();
-
-                              field2[details.rowColumnIndex.rowIndex - 1]
-                                  ['price'][0]['price'] = (quantities *
-                                      double.parse(field[
-                                          details.rowColumnIndex.rowIndex -
-                                              1]['price'][0]['price']))
-                                  .toString();
-                              field2[details.rowColumnIndex.rowIndex - 1]
-                                  ['price'][0]['total'] = (double.parse(field2[
-                                          details.rowColumnIndex.rowIndex -
-                                              1]['price'][0]['price']) +
-                                      double.parse(
-                                          field2[details.rowColumnIndex.rowIndex - 1]
-                                              ['price'][0]['Tax']))
-                                  .toString();
-                              dataGrid.setList(field2);
-                              dataGrid.updateDataGridSource();
-                            },
                             gridLinesVisibility: GridLinesVisibility.both,
                             defaultColumnWidth: viewport.getHeightscreen / 6,
                             source: dataGrid,
@@ -326,7 +226,7 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                                   rowIndex,
                                   _formeditable,
                                   _formeditable2,
-                                  field,
+                                  invoiceController.invoice,
                                   dataGrid);
                             },
                             startSwipeActionsBuilder:
@@ -337,7 +237,6 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                                   rowIndex,
                                   _formeditable,
                                   _formeditable2,
-                                  field,
                                   dataGrid);
                             },
                             columns: [
@@ -433,22 +332,26 @@ class _BuyingInvoiceState extends State<BuyingInvoice>
                     ],
                     rows: [
                       DataRow(cells: [
-                        DataCell(Text("4.75",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20,
-                              fontFamily: Values.fontFamily,
-                              fontWeight: FontWeight.bold,
-                            ))),
-                        DataCell(Text("0.15",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 20,
-                              fontFamily: Values.fontFamily,
-                              fontWeight: FontWeight.bold,
-                            ))),
+                        DataCell(Obx(() {
+                          return Text(dataGrid.getSumFirst.toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 20,
+                                fontFamily: Values.fontFamily,
+                                fontWeight: FontWeight.bold,
+                              ));
+                        })),
+                        DataCell(Obx(() {
+                          return Text(dataGrid.getTaxFinal.toString(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 20,
+                                fontFamily: Values.fontFamily,
+                                fontWeight: FontWeight.bold,
+                              ));
+                        })),
                         DataCell(
                           Obx(() {
                             return Text(dataGrid.getsumFinal.toString(),

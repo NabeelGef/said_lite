@@ -98,11 +98,11 @@ class _BunchesState extends State<Bunches> {
                     width: double.infinity,
                     alignment: Alignment.centerLeft,
                     child: Label(
-                      triangleHeight: 20,
+                      triangleHeight: 15,
                       edge: Edge.RIGHT,
                       child: Container(
                         color: Colors.blue,
-                        width: viewport.getWidthscreen / 4,
+                        width: viewport.getWidthscreen / 3,
                         child: Text("الباقة الشّائعة",
                             style: TextStyle(
                                 color: Coloring.primary,

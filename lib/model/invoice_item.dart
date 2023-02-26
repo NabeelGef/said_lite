@@ -4,13 +4,28 @@ import 'dart:ffi';
 import 'package:said_lite/model/item.dart';
 
 class InvoiceItem {
-  Item? item;
-  Float? total;
-  int? quantity;
-  Float? vat;
-  Float? get getTotla => this.total;
+  Item item;
+  double total;
+  int quantity;
+  double vat;
+  InvoiceItem({
+    required this.item,
+    required this.total,
+    required this.quantity,
+    required this.vat,
+  }) {
+    item = item;
+    total = total;
+    quantity = quantity;
+    vat = vat;
+  }
+  Item get getItem => this.item;
 
-  set setTotla(Float? total) => this.total = total;
+  set setItem(Item item) => this.item = item;
+
+  double get getTotal => this.total;
+
+  set setTotal(double total) => this.total = total;
 
   get getQuantity => this.quantity;
 
@@ -19,8 +34,4 @@ class InvoiceItem {
   get getVat => this.vat;
 
   set setVat(vat) => this.vat = vat;
-
-  InvoiceItem() {
-    item = Item();
-  }
 }
