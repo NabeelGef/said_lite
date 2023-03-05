@@ -226,8 +226,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       child: SingleChildScrollView(
                         child: SfDataGridTheme(
                           data: SfDataGridThemeData(
-                              gridLineColor: Colors.grey,
-                              gridLineStrokeWidth: 2),
+                            gridLineColor: Colors.grey,
+                            gridLineStrokeWidth: 2,
+                          ),
                           child: SfDataGrid(
                             verticalScrollController: _scrollControlGrid,
                             gridLinesVisibility: GridLinesVisibility.both,

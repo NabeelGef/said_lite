@@ -26,94 +26,114 @@ class _StartState extends State<Start> {
         width: viewport.getWidthscreen,
         height: viewport.getHeightscreen,
         child: Center(
-          child: LayoutBuilder(
-            builder: (context, constraint) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: viewport.getWidthscreen / 2,
+              child: Image.asset(
+                "assets/images/saidlogo.png",
+                fit: BoxFit.fill,
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                  top: Screen.getDeviceType(context) == 'tablet' ? 1.h : 10.dp,
+                  bottom:
+                      Screen.getDeviceType(context) == 'tablet' ? 1.h : 10.dp),
+              width: viewport.getWidthscreen / 2,
+              child: Column(
                 children: [
-                  Image.asset(
-                    "assets/images/saidlogo.png",
-                    width: viewport.getWidthscreen / 2,
-                    fit: BoxFit.fill,
+                  Text(
+                    "Said Lite",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: Values.fontFamily,
+                        fontSize: Screen.getDeviceType(context) == 'tablet'
+                            ? 20.w
+                            : 20.dp),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 10.dp, bottom: 10.h),
-                    width: constraint.maxWidth / 2,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Said Lite",
+                  Text(
+                    "المحاسبي",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: Values.fontFamily,
+                        fontSize: Screen.getDeviceType(context) == 'tablet'
+                            ? 15.w
+                            : 20.dp),
+                  )
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: viewport.getWidthscreen / 10,
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed("/register");
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                      height: viewport.getHeightscreen / 15,
+                      child: Text("تسجيل جديد",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.white,
+                              color: Colors.blue[300],
                               fontWeight: FontWeight.bold,
                               fontFamily: Values.fontFamily,
-                              fontSize: 20.dp),
-                        ),
-                        Text(
-                          "المحاسبي",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: Values.fontFamily,
-                              fontSize: 20.dp),
-                        )
-                      ],
+                              fontSize:
+                                  Screen.getDeviceType(context) == 'tablet'
+                                      ? 10.w
+                                      : 20.dp)),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.values[5],
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            Get.toNamed("/register");
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            width: viewport.getWidthscreen / 3,
-                            height: viewport.getHeightscreen / 20,
-                            child: Text("تسجيل جديد",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.blue[300],
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: Values.fontFamily,
-                                    fontSize: 20.dp)),
-                          )),
-                      InkWell(
-                          onTap: () {
-                            Get.toNamed("/login");
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            width: viewport.getWidthscreen / 3,
-                            height: viewport.getHeightscreen / 20,
-                            child: Text("تسجيل الدّخول",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.blue[300],
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: Values.fontFamily,
-                                    fontSize: 20.dp)),
-                          ))
-                    ],
-                  ),
-                  Values.showLanguages(viewport.getWidthscreen / 2,
-                      viewport.getHeightscreen / 10, context),
-                  InkWell(
+                ),
+                SizedBox(
+                  width: viewport.getWidthscreen / 10,
+                ),
+                Expanded(
+                  child: InkWell(
                       onTap: () {
-                        Values.getDialog(
-                            context, viewport.getWidthscreen / 1.1);
+                        Get.toNamed("/login");
                       },
-                      child: Values.speakWithSupport(context))
-                ],
-              );
-            },
-          ),
-        ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white),
+                        height: viewport.getHeightscreen / 15,
+                        child: Text("تسجيل الدّخول",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.blue[300],
+                                fontWeight: FontWeight.bold,
+                                fontFamily: Values.fontFamily,
+                                fontSize:
+                                    Screen.getDeviceType(context) == 'tablet'
+                                        ? 10.w
+                                        : 20.dp)),
+                      )),
+                ),
+                SizedBox(
+                  width: viewport.getWidthscreen / 10,
+                ),
+              ],
+            ),
+            Values.showLanguages(viewport.getWidthscreen / 2,
+                viewport.getHeightscreen / 10, context),
+            InkWell(
+                onTap: () {
+                  Values.getDialog(context, viewport.getWidthscreen / 1.1);
+                },
+                child: Values.speakWithSupport(context))
+          ],
+        )),
       ),
     );
   }

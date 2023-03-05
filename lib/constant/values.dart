@@ -48,9 +48,9 @@ class Values extends GetxController {
                 purchasePrice: 200,
                 salePrice: 500,
                 vatRate: 0.15),
-            total: 575,
-            quantity: 1,
-            vat: 75),
+            total: 1150,
+            quantity: 2,
+            vat: 150),
         InvoiceItem(
             item: Item(
                 name: "طحين",
@@ -66,17 +66,15 @@ class Values extends GetxController {
                 purchasePrice: 200,
                 salePrice: 1000,
                 vatRate: 0.15),
-            total: 1150,
-            quantity: 1,
-            vat: 150)
+            total: 3450,
+            quantity: 3,
+            vat: 450)
       ]);
 
   static RxString language = "اللّغة: العربيّة".obs;
   static List<String> langs = [
     "اللّغة: العربيّة",
     "اللّغة: الإنكليزيّة",
-    "اللّغة: التركيّة",
-    "اللّغة: الألمانيّة"
   ];
   static String getStringterm() {
     String s = "- ";
@@ -95,8 +93,8 @@ class Values extends GetxController {
             decoration: TextDecoration.underline,
             color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontFamily: "Lato",
-            fontSize: 20.dp),
+            fontFamily: Values.fontFamily,
+            fontSize: Screen.getDeviceType(context) == 'tablet' ? 10.w : 20.dp),
       ),
     );
   }
@@ -106,7 +104,7 @@ class Values extends GetxController {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        margin: EdgeInsets.only(top: 20.dp),
+        margin: EdgeInsets.only(top: width / 10),
         width: width,
         height: Height,
         child: DropdownButtonFormField<String?>(
@@ -125,7 +123,7 @@ class Values extends GetxController {
               language.value = value!;
             },
             icon: Icon(Icons.expand_more),
-            iconSize: 30.dp,
+            iconSize: Screen.getDeviceType(context) == 'tablet' ? 20.w : 30.dp,
             iconEnabledColor: Colors.white,
             items: langs.map((String value) {
               return DropdownMenuItem<String>(
@@ -136,8 +134,10 @@ class Values extends GetxController {
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontFamily: "Lato",
-                        fontSize: 20.dp),
+                        fontFamily: Values.fontFamily,
+                        fontSize: Screen.getDeviceType(context) == 'tablet'
+                            ? 10.w
+                            : 20.dp),
                   ));
             }).toList()),
       ),
@@ -965,12 +965,7 @@ class Values extends GetxController {
                                           double.parse(_controlTax.text);
                                       invoice.getInvoiceItems[index]
                                           .setQuantity = quantities.toInt();
-                                      dataGrid.editIndex(
-                                          index,
-                                          invoice.getInvoiceItems[index]
-                                                  .getQuantity
-                                                  .toDouble() -
-                                              1);
+                                      // YAMEN
                                       dataGrid.setList(invoice);
                                       dataGrid.updateDataGridSource();
                                       Navigator.pop(context);
@@ -1031,22 +1026,60 @@ class Values extends GetxController {
                           Text("00966 55 444 3333",
                               style: TextStyle(
                                   color: Colors.blue[700],
-                                  fontSize: 15,
-                                  fontFamily: fontFamily,
-                                  fontWeight: FontWeight.bold)),
-                          Text("مكالمة",
-                              style: TextStyle(
-                                  color: Colors.blue[700],
-                                  fontSize: 15,
+                                  fontSize:
+                                      Screen.getDeviceType(context) == 'tablet'
+                                          ? 10.w
+                                          : 15.dp,
                                   fontFamily: fontFamily,
                                   fontWeight: FontWeight.bold)),
                           Icon(
+                            size: Screen.getDeviceType(context) == 'tablet'
+                                ? 50.w
+                                : 20.dp,
                             Icons.phone,
                             color: Colors.blue[700],
                           )
                         ],
                       )),
                 ),
+                SizedBox(
+                    height: Screen.getDeviceType(context) == 'tablet'
+                        ? 10.w
+                        : 0.dp),
+                Container(
+                  width: width,
+                  child: TextButton(
+                      onPressed: (() {}),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll<Color>(Colors.white),
+                          shape: MaterialStatePropertyAll<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text("00966 55 444 3333",
+                              style: TextStyle(
+                                  color: Colors.blue[700],
+                                  fontSize:
+                                      Screen.getDeviceType(context) == 'tablet'
+                                          ? 10.w
+                                          : 15.dp,
+                                  fontFamily: fontFamily,
+                                  fontWeight: FontWeight.bold)),
+                          Image.asset(
+                            "assets/images/whatsapp.png",
+                            fit: BoxFit.fill,
+                          )
+                        ],
+                      )),
+                ),
+                SizedBox(
+                    height: Screen.getDeviceType(context) == 'tablet'
+                        ? 10.w
+                        : 0.dp),
                 Container(
                   width: width,
                   child: TextButton(
@@ -1064,7 +1097,10 @@ class Values extends GetxController {
                       child: Text("إالغاء",
                           style: TextStyle(
                               color: Colors.blue[700],
-                              fontSize: 15,
+                              fontSize:
+                                  Screen.getDeviceType(context) == 'tablet'
+                                      ? 10.w
+                                      : 15.dp,
                               fontFamily: fontFamily,
                               fontWeight: FontWeight.bold))),
                 )
@@ -1438,9 +1474,10 @@ class Values extends GetxController {
                                 ),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  invoice.getInvoiceItems.removeAt(rowIndex);
-                                  dataGrid.setList(invoice);
-                                  dataGrid.updateDataGridSource();
+                                  //invoice.getInvoiceItems.removeAt(rowIndex);
+                                  //dataGrid.setList(invoice);
+                                  //dataGrid.updateDataGridSource();
+                                  dataGrid.deleteRow(rowIndex);
                                 },
                               ),
                             ],

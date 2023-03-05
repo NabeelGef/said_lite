@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:numberpicker/numberpicker.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/person.dart';
 import 'package:said_lite/constant/values.dart';
@@ -29,7 +30,6 @@ class DataGrid extends DataGridSource {
       sumFinal.value += invoice.getInvoiceItems[i].getTotal;
       sumFirst.value += invoice.getInvoiceItems[i].getItem.getSalePrice;
       taxFinal.value += invoice.getInvoiceItems[i].getVat;
-      editIndex(i, invoice.getInvoiceItems[i].getQuantity.toDouble() - 1);
       invoices.add(DataGridRow(cells: [
         DataGridCell(columnName: 'element', value: [
           i,
@@ -56,6 +56,7 @@ class DataGrid extends DataGridSource {
     taxFinal.value = 0.0;
     invoices.clear();
     invoice = invoice;
+    print("Length is : ${invoice.getInvoiceItems.length}");
     for (int i = 0; i < invoice.getInvoiceItems.length; i++) {
       sumFinal.value += invoice.getInvoiceItems[i].getTotal;
       sumFirst.value += invoice.getInvoiceItems[i].getItem.getSalePrice;
@@ -94,11 +95,14 @@ class DataGrid extends DataGridSource {
   double get getTaxFinal => this.taxFinal.value;
   RxDouble sumFirst = 0.0.obs;
   double get getSumFirst => this.sumFirst.value;
-  void editIndex(int ind, double newIndex) {
-    indexes[ind].value = newIndex;
+
+  void deleteRow(int indexrow) {
+    invoice.getInvoiceItems.removeAt(indexrow);
+    invoiceController.EditInvoice(invoice);
+    setList(invoice);
+    updateDataGridSource();
   }
 
-  Rx<FixedExtentScrollController> _scroller = FixedExtentScrollController().obs;
   @override
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
@@ -132,26 +136,30 @@ class DataGrid extends DataGridSource {
           ],
         );
       } else if (datacell.columnName == "quantities") {
-        print("QuantitiesNew==> : ${datacell.value[1].toInt() - 1}\n");
+        print("QuantitiesNew==> : ${datacell.value[1].toInt()}\n");
 
-        return CupertinoPicker.builder(
-          childCount: 500,
-
-          itemBuilder: (context, index) {
-            return Text((index + 1).toString(),
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 20,
-                  fontFamily: Values.fontFamily,
-                  fontWeight: FontWeight.bold,
-                ));
-          },
-          itemExtent: 35,
-          scrollController: FixedExtentScrollController(
-              initialItem: datacell.value[1].toInt() - 1),
-          onSelectedItemChanged: (value) {
+        return NumberPicker(
+          value: datacell.value[1].toInt(),
+          minValue: 1,
+          maxValue: 100,
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 2),
+              borderRadius: BorderRadius.circular(15)),
+          textStyle: TextStyle(
+            color: Colors.grey[500],
+            fontSize: 15,
+            fontFamily: Values.fontFamily,
+            fontWeight: FontWeight.bold,
+          ),
+          selectedTextStyle: TextStyle(
+            color: Colors.grey[700],
+            fontSize: 20,
+            fontFamily: Values.fontFamily,
+            fontWeight: FontWeight.bold,
+          ),
+          onChanged: (value) {
             invoice.getInvoiceItems[datacell.value[0]].setQuantity =
-                (value + 1).toInt();
+                (value).toInt();
 
             invoice =
                 invoice.calculateVat(value + 1.toDouble(), datacell.value[0]);
@@ -160,12 +168,39 @@ class DataGrid extends DataGridSource {
             setList(invoice);
             updateDataGridSource();
           },
-          // children: [
-          //   for (int i = 2; i < 999; i++) ...[
-          //     //Divider(thickness: 5),
-          //   ]
-          //]
         );
+        // return CupertinoPicker.builder(
+        //   childCount: 500,
+        //
+        //   itemBuilder: (context, index) {
+        //     return Text((index + 1).toString(),
+        //         style: TextStyle(
+        //           color: Colors.grey,
+        //           fontSize: 20,
+        //           fontFamily: Values.fontFamily,
+        //           fontWeight: FontWeight.bold,
+        //         ));
+        //   },
+        //   itemExtent: 35,
+        //   scrollController: FixedExtentScrollController(
+        //       initialItem: datacell.value[1].toInt() - 1),
+        //   onSelectedItemChanged: (value) {
+        //     invoice.getInvoiceItems[datacell.value[0]].setQuantity =
+        //         (value + 1).toInt();
+        //
+        //     invoice =
+        //         invoice.calculateVat(value + 1.toDouble(), datacell.value[0]);
+        //     invoice =
+        //         invoice.calculateTotal(value + 1.toDouble(), datacell.value[0]);
+        //     setList(invoice);
+        //     updateDataGridSource();
+        //   },
+        //   // children: [
+        //   //   for (int i = 2; i < 999; i++) ...[
+        //   //     //Divider(thickness: 5),
+        //   //   ]
+        //   //]
+        // );
       } else {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
