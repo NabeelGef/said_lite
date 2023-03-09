@@ -7,6 +7,7 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/values.dart';
+import 'package:said_lite/locale/locale_controller.dart';
 import 'package:said_lite/view/about.dart';
 import 'package:said_lite/view/add_product.dart';
 import 'package:said_lite/view/bunches.dart';
@@ -24,10 +25,12 @@ import 'package:said_lite/view/register.dart';
 import 'package:said_lite/view/subscribe_management.dart';
 import 'package:said_lite/view/terms.dart';
 import 'package:said_lite/view/verified.dart';
+import 'locale/locale.dart';
 import 'view/building_info.dart';
 import 'view/login.dart';
 
 void main() async {
+  Get.put(LocalController());
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -39,6 +42,7 @@ void main() async {
           debugShowCheckedModeBanner: false,
           useInheritedMediaQuery: true,
           locale: DevicePreview.locale(context),
+          translations: MyLocale(),
           builder: (context, child) {
             ResponsiveWrapper.builder(
               BouncingScrollWrapper.builder(context, child!),

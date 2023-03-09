@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
+import 'package:said_lite/locale/locale_controller.dart';
 import 'package:said_lite/view/verified.dart';
 
 class Register extends StatefulWidget {
@@ -19,6 +21,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   Values values = Get.find();
+  LocalController localcontroller = Get.find();
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
@@ -34,16 +37,18 @@ class _RegisterState extends State<Register> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("فضلاً قم بإدخال رقم الجوال ",
+                    Text("فضلاً قم بإدخال رقم الجوال".tr,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: Screen.responsiveScreen(
+                                context, 12.w, 5.w, 5.w, 20.dp, 20.w),
                             fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
-                    Text("استخدم رقم الجوال لإكمال التّسجيل",
+                    Text("استخدم رقم الجوال لإكمال التّسجيل".tr,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 15,
+                            fontSize: Screen.responsiveScreen(
+                                context, 8.w, 4.w, 5.w, 15.dp, 15.w),
                             fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold))
                   ],
@@ -52,36 +57,55 @@ class _RegisterState extends State<Register> {
             ),
             Obx(
               () {
-                return values.showCountries(viewport.getWidthscreen / 1.4,
-                    _formState, widget.numberPhone);
+                return values.showCountries(
+                    context,
+                    viewport.getWidthscreen / 1.4,
+                    _formState,
+                    widget.numberPhone);
               },
             ),
             Container(
-              width: viewport.getWidthscreen / 1.4,
+              alignment: Alignment.center,
+              width: viewport.getWidthscreen,
               child: Row(
-                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.center,
+                textDirection: localcontroller.getLang.isFalse
+                    ? TextDirection.ltr
+                    : TextDirection.rtl,
                 children: [
+                  Text("لقد قرأت".tr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: Screen.responsiveScreen(
+                              context, 10.w, 4.w, 5.w, 15.dp, 15.w),
+                          fontFamily: Values.fontFamily,
+                          fontWeight: FontWeight.bold)),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed("/term");
+                    },
+                    child: Text("الشّروط والأحكام".tr,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: Screen.responsiveScreen(
+                                context, 10.w, 4.w, 5.w, 15.dp, 15.w),
+                            fontFamily: Values.fontFamily,
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  SizedBox(
+                    width: Screen.responsiveScreen(
+                        context, 5.w, 2.dp, 2.dp, 2.dp, 5.w),
+                  ),
                   Transform.scale(
-                    scale: 1.5,
+                    scale: Screen.responsiveScreen(
+                        context, 0.7.w, 1.5.dp, 1.5.dp, 1.5.dp, 1.w),
                     child: Checkbox(
                         shape: CircleBorder(),
                         side: BorderSide(color: Colors.white),
                         value: widget.isChecked,
                         onChanged: (value) {}),
                   ),
-                  Text("لقد قرأت",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: Values.fontFamily,
-                          fontWeight: FontWeight.bold)),
-                  Text("الشّروط والأحكام",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontFamily: Values.fontFamily,
-                          decoration: TextDecoration.underline,
-                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -102,13 +126,17 @@ class _RegisterState extends State<Register> {
                 },
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    minimumSize: Size.fromHeight(50),
+                        borderRadius: BorderRadius.circular(
+                            Screen.responsiveScreen(
+                                context, 50, 20, 20, 20, 50))),
+                    minimumSize: Size.fromHeight(
+                        Screen.responsiveScreen(context, 50, 50, 50, 50, 50)),
                     backgroundColor: Colors.white),
-                child: Text("التّالي ",
+                child: Text("التّالي".tr,
                     style: TextStyle(
                         color: Colors.blue,
-                        fontSize: 15,
+                        fontSize: Screen.responsiveScreen(
+                            context, 15.w, 10.w, 8.w, 8.w, 20.w),
                         fontFamily: Values.fontFamily,
                         fontWeight: FontWeight.bold)),
               ),

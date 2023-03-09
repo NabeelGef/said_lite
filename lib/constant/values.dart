@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/scalesize.dart';
 import 'package:said_lite/controller/invoice_controller.dart';
+import 'package:said_lite/locale/locale_controller.dart';
 import 'package:said_lite/view/list_buying_invoice.dart';
 import 'package:said_lite/view/list_sales_invoice.dart';
 import 'package:said_lite/view/sales_return.dart';
@@ -71,15 +72,23 @@ class Values extends GetxController {
             vat: 450)
       ]);
 
-  static RxString language = "اللّغة: العربيّة".obs;
+  static RxString language = "العربيّة".obs;
   static List<String> langs = [
-    "اللّغة: العربيّة",
-    "اللّغة: الإنكليزيّة",
+    "العربيّة",
+    "English",
   ];
   static String getStringterm() {
-    String s = "- ";
+    String s = " ";
     for (int i = 0; i < 120; i++) {
       s += ' نص نص ';
+    }
+    return s;
+  }
+
+  static String getStringtermEnglish() {
+    String s = " ";
+    for (int i = 0; i < 120; i++) {
+      s += 'word word';
     }
     return s;
   }
@@ -87,20 +96,19 @@ class Values extends GetxController {
   static Widget speakWithSupport(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 20.dp),
-      child: Text(
-        "التّواصل مع الدعم",
-        style: TextStyle(
-            decoration: TextDecoration.underline,
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontFamily: Values.fontFamily,
-            fontSize: Screen.getDeviceType(context) == 'tablet' ? 10.w : 20.dp),
-      ),
+      child: Text("التّواصل مع الدعم".tr,
+          style: TextStyle(
+              decoration: TextDecoration.underline,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontFamily: Values.fontFamily,
+              fontSize: Screen.responsiveScreen(
+                  context, 10.w, 20.dp, 20.dp, 20.dp, 15.w))),
     );
   }
 
-  static Widget showLanguages(
-      double width, double Height, BuildContext context) {
+  static Widget showLanguages(double width, double Height, BuildContext context,
+      LocalController locale) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -121,9 +129,15 @@ class Values extends GetxController {
             value: language.value,
             onChanged: (value) {
               language.value = value!;
+              if (value == "العربيّة") {
+                locale.changeLanguage("ar");
+              } else {
+                locale.changeLanguage("en");
+              }
             },
             icon: Icon(Icons.expand_more),
-            iconSize: Screen.getDeviceType(context) == 'tablet' ? 20.w : 30.dp,
+            iconSize: Screen.responsiveScreen(
+                context, 20.w, 30.dp, 30.dp, 30.dp, 25.w),
             iconEnabledColor: Colors.white,
             items: langs.map((String value) {
               return DropdownMenuItem<String>(
@@ -135,9 +149,8 @@ class Values extends GetxController {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: Values.fontFamily,
-                        fontSize: Screen.getDeviceType(context) == 'tablet'
-                            ? 10.w
-                            : 20.dp),
+                        fontSize: Screen.responsiveScreen(
+                            context, 10.w, 20.dp, 20.dp, 20.dp, 15.w)),
                   ));
             }).toList()),
       ),
@@ -1018,7 +1031,9 @@ class Values extends GetxController {
                               MaterialStatePropertyAll<Color>(Colors.white),
                           shape: MaterialStatePropertyAll<OutlinedBorder>(
                               RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(
+                                Screen.responsiveScreen(
+                                    context, 50, 20, 20, 20, 50)),
                           ))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1026,16 +1041,13 @@ class Values extends GetxController {
                           Text("00966 55 444 3333",
                               style: TextStyle(
                                   color: Colors.blue[700],
-                                  fontSize:
-                                      Screen.getDeviceType(context) == 'tablet'
-                                          ? 10.w
-                                          : 15.dp,
+                                  fontSize: Screen.responsiveScreen(
+                                      context, 10.w, 18.dp, 20.dp, 18.dp, 15.w),
                                   fontFamily: fontFamily,
                                   fontWeight: FontWeight.bold)),
                           Icon(
-                            size: Screen.getDeviceType(context) == 'tablet'
-                                ? 50.w
-                                : 20.dp,
+                            size: Screen.responsiveScreen(
+                                context, 20.w, 25.dp, 30.dp, 25.dp, 25.w),
                             Icons.phone,
                             color: Colors.blue[700],
                           )
@@ -1043,9 +1055,8 @@ class Values extends GetxController {
                       )),
                 ),
                 SizedBox(
-                    height: Screen.getDeviceType(context) == 'tablet'
-                        ? 10.w
-                        : 0.dp),
+                    height: Screen.responsiveScreen(
+                        context, 10.w, 5.w, 5.w, 5.w, 15.w)),
                 Container(
                   width: width,
                   child: TextButton(
@@ -1055,7 +1066,9 @@ class Values extends GetxController {
                               MaterialStatePropertyAll<Color>(Colors.white),
                           shape: MaterialStatePropertyAll<OutlinedBorder>(
                               RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(
+                                Screen.responsiveScreen(
+                                    context, 50, 20, 20, 20, 50)),
                           ))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -1063,23 +1076,24 @@ class Values extends GetxController {
                           Text("00966 55 444 3333",
                               style: TextStyle(
                                   color: Colors.blue[700],
-                                  fontSize:
-                                      Screen.getDeviceType(context) == 'tablet'
-                                          ? 10.w
-                                          : 15.dp,
+                                  fontSize: Screen.responsiveScreen(
+                                      context, 10.w, 18.dp, 20.dp, 18.dp, 15.w),
                                   fontFamily: fontFamily,
                                   fontWeight: FontWeight.bold)),
                           Image.asset(
                             "assets/images/whatsapp.png",
+                            width: Screen.responsiveScreen(
+                                context, 15.w, 25.dp, 30.dp, 20.dp, 20.w),
+                            height: Screen.responsiveScreen(
+                                context, 15.w, 25.dp, 30.dp, 20.dp, 20.w),
                             fit: BoxFit.fill,
                           )
                         ],
                       )),
                 ),
                 SizedBox(
-                    height: Screen.getDeviceType(context) == 'tablet'
-                        ? 10.w
-                        : 0.dp),
+                    height: Screen.responsiveScreen(
+                        context, 10.w, 5.w, 5.w, 5.w, 15.w)),
                 Container(
                   width: width,
                   child: TextButton(
@@ -1092,15 +1106,15 @@ class Values extends GetxController {
                               MaterialStatePropertyAll<Color>(Colors.white),
                           shape: MaterialStatePropertyAll<OutlinedBorder>(
                               RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(
+                                Screen.responsiveScreen(
+                                    context, 50, 20, 20, 20, 50)),
                           ))),
-                      child: Text("إالغاء",
+                      child: Text("إلغاء".tr,
                           style: TextStyle(
                               color: Colors.blue[700],
-                              fontSize:
-                                  Screen.getDeviceType(context) == 'tablet'
-                                      ? 10.w
-                                      : 15.dp,
+                              fontSize: Screen.responsiveScreen(
+                                  context, 10.w, 15.dp, 20.dp, 15.dp, 15.w),
                               fontFamily: fontFamily,
                               fontWeight: FontWeight.bold))),
                 )
@@ -1126,19 +1140,28 @@ class Values extends GetxController {
   //         EditCountry(value);
   //       }),
   // ),
-  Widget showCountries(
-      double width, GlobalKey<FormState> _formState, String? numberPhone) {
+  Widget showCountries(BuildContext context, double width,
+      GlobalKey<FormState> _formState, String? numberPhone) {
     return Container(
       width: width,
       height: width / 5,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(20)),
+          borderRadius: BorderRadius.circular(
+              Screen.responsiveScreen(context, 50, 20, 20, 20, 50))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(child: Image.asset("assets/images/saudi.png")),
+          Expanded(
+              child: Image.asset(
+            "assets/images/saudi.png",
+            fit: BoxFit.fill,
+            width: Screen.responsiveScreen(
+                context, 15.w, 25.dp, 25.dp, 25.dp, 20.w),
+            height: Screen.responsiveScreen(
+                context, 25.w, 50.dp, 50.dp, 50.dp, 50.w),
+          )),
           Expanded(
             flex: 3,
             child: Form(
@@ -1156,20 +1179,42 @@ class Values extends GetxController {
                 },
                 keyboardType: TextInputType.phone,
                 cursorColor: Colors.black,
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(
+                    fontSize: Screen.responsiveScreen(
+                        context, 12.w, 25.dp, 25.dp, 20.dp, 15.w)),
                 decoration: InputDecoration(
+                    contentPadding: EdgeInsets.zero,
                     border: InputBorder.none,
                     hintText: " 111 222 333",
+                    hintStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: fontFamily,
+                        fontSize: Screen.responsiveScreen(
+                            context, 10.w, 6.w, 6.w, 20.dp, 15.w)),
                     prefixIcon: Container(
-                      margin: EdgeInsets.only(top: 10),
-                      child: Text(
-                        code.value,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                      margin: EdgeInsets.only(
+                          top: Screen.responsiveScreen(
+                              context, 1.dp, 4.dp, 3.dp, 3.dp, 2.dp),
+                          left: Screen.responsiveScreen(
+                              context, 2.dp, 4.dp, 1.dp, 1.dp, 3.dp)),
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            top: Screen.responsiveScreen(
+                                context, 0, 5.dp, 5.dp, 5.dp, 0)),
+                        child: Text(
+                          code.value,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: Screen.responsiveScreen(
+                                  context, 10.w, 20.dp, 25.dp, 20.dp, 15.w),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    prefixStyle:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    prefixStyle: TextStyle(
+                        fontSize: Screen.responsiveScreen(
+                            context, 10.w, 6.w, 5.w, 20.dp, 15),
+                        fontWeight: FontWeight.bold)),
               ),
             ),
           )

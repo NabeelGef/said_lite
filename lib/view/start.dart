@@ -8,6 +8,7 @@ import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/scalesize.dart';
 import 'package:said_lite/constant/values.dart';
 import 'package:said_lite/constant/viewport.dart';
+import 'package:said_lite/locale/locale_controller.dart';
 
 class Start extends StatefulWidget {
   const Start({super.key});
@@ -17,6 +18,7 @@ class Start extends StatefulWidget {
 }
 
 class _StartState extends State<Start> {
+  LocalController localController = Get.find();
   @override
   Widget build(BuildContext context) {
     Screen viewport = Screen(context);
@@ -38,31 +40,28 @@ class _StartState extends State<Start> {
             ),
             Container(
               margin: EdgeInsets.only(
-                  top: Screen.getDeviceType(context) == 'tablet' ? 1.h : 10.dp,
-                  bottom:
-                      Screen.getDeviceType(context) == 'tablet' ? 1.h : 10.dp),
+                  top: Screen.responsiveScreen(
+                      context, 1.h, 10.dp, 10.dp, 10.dp, 2.h),
+                  bottom: Screen.responsiveScreen(
+                      context, 1.h, 10.dp, 10.dp, 10.dp, 2.h)),
               width: viewport.getWidthscreen / 2,
               child: Column(
                 children: [
+                  Text("Said Lite".tr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: Values.fontFamily,
+                          fontSize: Screen.responsiveScreen(
+                              context, 20.w, 10.w, 10.w, 20.dp, 25.w))),
                   Text(
-                    "Said Lite",
+                    "المحاسبي".tr,
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: Values.fontFamily,
-                        fontSize: Screen.getDeviceType(context) == 'tablet'
-                            ? 20.w
-                            : 20.dp),
-                  ),
-                  Text(
-                    "المحاسبي",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: Values.fontFamily,
-                        fontSize: Screen.getDeviceType(context) == 'tablet'
-                            ? 15.w
-                            : 20.dp),
+                        fontSize: Screen.responsiveScreen(
+                            context, 15.w, 8.w, 8.w, 20.dp, 20.w)),
                   )
                 ],
               ),
@@ -70,7 +69,7 @@ class _StartState extends State<Start> {
             Row(
               children: [
                 SizedBox(
-                  width: viewport.getWidthscreen / 10,
+                  width: viewport.getWidthscreen / 20,
                 ),
                 Expanded(
                   child: InkWell(
@@ -79,24 +78,24 @@ class _StartState extends State<Start> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(
+                              Screen.responsiveScreen(
+                                  context, 50, 20, 20, 20, 50)),
                           color: Colors.white),
                       height: viewport.getHeightscreen / 15,
-                      child: Text("تسجيل جديد",
+                      child: Text("تسجيل جديد".tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.blue[300],
                               fontWeight: FontWeight.bold,
                               fontFamily: Values.fontFamily,
-                              fontSize:
-                                  Screen.getDeviceType(context) == 'tablet'
-                                      ? 10.w
-                                      : 20.dp)),
+                              fontSize: Screen.responsiveScreen(
+                                  context, 10.w, 20.dp, 20.dp, 20.dp, 15.w))),
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: viewport.getWidthscreen / 10,
+                  width: viewport.getWidthscreen / 20,
                 ),
                 Expanded(
                   child: InkWell(
@@ -105,28 +104,28 @@ class _StartState extends State<Start> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(
+                                Screen.responsiveScreen(
+                                    context, 50, 20, 20, 20, 50)),
                             color: Colors.white),
                         height: viewport.getHeightscreen / 15,
-                        child: Text("تسجيل الدّخول",
+                        child: Text("تسجيل الدّخول".tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.blue[300],
                                 fontWeight: FontWeight.bold,
                                 fontFamily: Values.fontFamily,
-                                fontSize:
-                                    Screen.getDeviceType(context) == 'tablet'
-                                        ? 10.w
-                                        : 20.dp)),
+                                fontSize: Screen.responsiveScreen(
+                                    context, 10.w, 20.dp, 20.dp, 20.dp, 15.w))),
                       )),
                 ),
                 SizedBox(
-                  width: viewport.getWidthscreen / 10,
+                  width: viewport.getWidthscreen / 20,
                 ),
               ],
             ),
             Values.showLanguages(viewport.getWidthscreen / 2,
-                viewport.getHeightscreen / 10, context),
+                viewport.getHeightscreen / 10, context, localController),
             InkWell(
                 onTap: () {
                   Values.getDialog(context, viewport.getWidthscreen / 1.1);
