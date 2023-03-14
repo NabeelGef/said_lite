@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/viewport.dart';
@@ -31,27 +32,44 @@ class _VerifiedState extends State<Verified> {
       backgroundColor: Coloring.primary,
       body: Center(
         child: Container(
-          height: viewport.getHeightscreen / 1.5,
+          height: viewport.getHeightscreen / 1.1,
+          margin: EdgeInsets.only(top: 50),
           child: Column(
             children: [
-              Text("كود التّحقق",
+              Text("كود التّحقق".tr,
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontFamily: Values.fontFamily,
-                      fontSize: 35)),
-              Text("تم إرسال رقم التّحقق ",
+                      fontSize: Screen.responsiveScreen(
+                          context, 15.w, 10.w, 10.w, 5.w, 20.w))),
+              Text("تم إرسال رقم التّحقق".tr,
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontFamily: Values.fontFamily,
-                      fontSize: 25)),
-              Text("${widget.numberPhone}   إلى الرقم ",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: Values.fontFamily,
-                      fontSize: 15)),
+                      fontSize: Screen.responsiveScreen(
+                          context, 10.w, 8.w, 8.w, 5.w, 15.w))),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("إلى الرقم".tr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: Values.fontFamily,
+                          fontSize: Screen.responsiveScreen(
+                              context, 10.w, 5.w, 5.w, 5.w, 10.w))),
+                  Text("${widget.numberPhone}".tr,
+                      textDirection: TextDirection.ltr,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: Values.fontFamily,
+                          fontSize: Screen.responsiveScreen(
+                              context, 10.w, 5.w, 5.w, 5.w, 10.w)))
+                ],
+              ),
               Container(
                   margin: EdgeInsets.only(top: 20),
                   child: OtpTextField(
@@ -60,10 +78,14 @@ class _VerifiedState extends State<Verified> {
                     focusedBorderColor: Colors.white,
                     cursorColor: Colors.white,
                     borderWidth: 2,
-                    fieldWidth: 50,
+                    textStyle: TextStyle(
+                        fontSize: Screen.responsiveScreen(
+                            context, 10.w, 10.w, 8.w, 8.w, 20.w)),
+                    fieldWidth: Screen.responsiveScreen(
+                        context, 30.w, 20.w, 20.w, 15.w, 40.w),
                     filled: true,
                     showFieldAsBox: true,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(25),
                     borderColor: Colors.white,
                     onCodeChanged: (value) {
                       print(value);
@@ -81,20 +103,21 @@ class _VerifiedState extends State<Verified> {
                           borderRadius: BorderRadius.circular(20)),
                       minimumSize: Size.fromHeight(50),
                       backgroundColor: Colors.blue),
-                  child: Text("التّالي ",
+                  child: Text("التّالي".tr,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: Screen.responsiveScreen(
+                              context, 15.w, 10.w, 10.w, 5.w, 15.w),
                           fontFamily: Values.fontFamily,
                           fontWeight: FontWeight.bold)),
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: viewport.getHeightscreen / 25),
-                width: viewport.getWidthscreen / 1.2,
+                width: viewport.getWidthscreen / 1.1,
                 alignment: Alignment.center,
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Countdown(
                           controller: _countdownController,
@@ -112,7 +135,8 @@ class _VerifiedState extends State<Verified> {
                             return Text("(00:${time.toInt().toString()})",
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 15,
+                                    fontSize: Screen.responsiveScreen(
+                                        context, 10.w, 5.w, 6.w, 5.w, 12.w),
                                     fontFamily: Values.fontFamily,
                                     fontWeight: FontWeight.bold));
                           }),
@@ -127,10 +151,11 @@ class _VerifiedState extends State<Verified> {
                               });
                             }
                           },
-                          child: Text("إرسال رمز التّحقق مرّة أخرى ",
+                          child: Text("إرسال رمز التّحقق مرّة أخرى".tr,
                               style: TextStyle(
                                   color: colorCheck,
-                                  fontSize: 20,
+                                  fontSize: Screen.responsiveScreen(
+                                      context, 10.w, 5.w, 6.w, 5.w, 12.w),
                                   fontFamily: Values.fontFamily,
                                   decoration: TextDecoration.underline)),
                         ),
@@ -138,64 +163,65 @@ class _VerifiedState extends State<Verified> {
                     ]),
               ),
               Container(
-                margin: EdgeInsets.only(top: viewport.getHeightscreen / 20),
+                margin: EdgeInsets.only(top: viewport.getHeightscreen / 10),
                 child: InkWell(
                   onTap: () {
                     showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          content: Text("هل تريد تغيير رقم الجوال بالفعل؟",
+                          content: Text("هل تريد تغيير رقم الجوال بالفعل؟".tr,
                               style: TextStyle(
                                   color: Colors.blue[700],
-                                  fontSize: 20,
+                                  fontSize: Screen.responsiveScreen(
+                                      context, 15.w, 5.w, 10.w, 5.w, 15.w),
                                   fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           actionsAlignment: MainAxisAlignment.spaceAround,
                           actions: [
-                            TextButton(
+                            MaterialButton(
                                 onPressed: () {
                                   // no
                                   Navigator.pop(context);
                                 },
-                                style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStatePropertyAll<Color>(
-                                            Colors.blue),
-                                    shape: MaterialStatePropertyAll<
-                                        OutlinedBorder>(RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ))),
-                                child: Text("لا",
+                                color: Colors.blue,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Text("لا".tr,
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 15,
+                                        fontSize: Screen.responsiveScreen(
+                                            context,
+                                            10.w,
+                                            6.w,
+                                            10.w,
+                                            5.w,
+                                            12.w),
                                         fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold))),
-                            TextButton(
+                            MaterialButton(
                                 onPressed: () {
-                                  //yes
+                                  // no
                                   Navigator.pop(context);
-                                  Get.offAll(Register(
-                                      isChecked: true,
-                                      numberPhone: widget.numberPhone
-                                          .replaceAll('+966', '')));
                                 },
-                                style: ButtonStyle(
-                                    elevation: MaterialStatePropertyAll(5),
-                                    backgroundColor:
-                                        MaterialStatePropertyAll<Color>(
-                                            Colors.white),
-                                    shape: MaterialStatePropertyAll<
-                                        OutlinedBorder>(RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ))),
-                                child: Text("نعم",
+                                color: Colors.white,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Text("نعم".tr,
                                     style: TextStyle(
                                         color: Colors.blue,
-                                        fontSize: 15,
+                                        fontSize: Screen.responsiveScreen(
+                                            context,
+                                            10.w,
+                                            6.w,
+                                            10.w,
+                                            5.w,
+                                            12.w),
                                         fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold))),
                           ],
@@ -203,10 +229,11 @@ class _VerifiedState extends State<Verified> {
                       },
                     );
                   },
-                  child: Text("تغيير رقم الجوّال ",
+                  child: Text("تغيير رقم الجوّال".tr,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: Screen.responsiveScreen(
+                              context, 15.w, 10.w, 10.w, 5.w, 15.w),
                           fontFamily: Values.fontFamily,
                           decoration: TextDecoration.underline)),
                 ),

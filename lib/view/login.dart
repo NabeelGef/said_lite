@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/values.dart';
@@ -27,47 +28,43 @@ class _LoginState extends State<Login> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                LayoutBuilder(
-                  builder: (context, constraint) {
-                    return Container(
-                      margin:
-                          EdgeInsets.only(top: viewport.getHeightscreen / 20),
-                      child: Column(
-                        children: [
-                          Text("Said Lite",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: Values.fontFamily,
-                                  fontSize: 35)),
-                          Text("المحاسبي",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: Values.fontFamily,
-                                  fontSize: 35))
-                        ],
-                      ),
-                    );
-                  },
+                Container(
+                  margin: EdgeInsets.only(top: viewport.getHeightscreen / 20),
+                  child: Column(
+                    children: [
+                      Text("Said Lite".tr,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: Values.fontFamily,
+                              fontSize: Screen.responsiveScreen(
+                                  context, 15.w, 10.w, 10.w, 30.dp, 25.w))),
+                      Text("المحاسبي".tr,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: Values.fontFamily,
+                              fontSize: Screen.responsiveScreen(
+                                  context, 15.w, 10.w, 10.w, 30.dp, 25.w)))
+                    ],
+                  ),
                 ),
-                Center(child: LayoutBuilder(
-                  builder: (context, constraint) {
-                    return Container(
-                        margin:
-                            EdgeInsets.only(top: viewport.getHeightscreen / 12),
-                        child: Text("صفحة تسجيل الدّخول",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: Values.fontFamily,
-                                fontSize: 25)));
-                  },
-                )),
+                Center(
+                  child: Container(
+                      margin:
+                          EdgeInsets.only(top: viewport.getHeightscreen / 12),
+                      child: Text("صفحة تسجيل الدّخول".tr,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: Values.fontFamily,
+                              fontSize: Screen.responsiveScreen(
+                                  context, 15.w, 7.w, 10.w, 25.dp, 20.w)))),
+                ),
                 Form(
                     child: Container(
                   width: viewport.getWidthscreen / 1.1,
-                  height: viewport.getHeightscreen / 5,
+                  height: viewport.getHeightscreen / 4,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -79,9 +76,11 @@ class _LoginState extends State<Login> {
                               filled: true,
                               contentPadding:
                                   EdgeInsets.symmetric(vertical: 10),
-                              hintText: "رقم الجوال",
+                              hintText: "رقم الجوال".tr,
                               hintStyle: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: Screen.responsiveScreen(
+                                      context, 15.w, 7.w, 8.w, 20.dp, 20.w),
+                                  fontWeight: FontWeight.bold),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15))),
                         ),
@@ -92,9 +91,11 @@ class _LoginState extends State<Login> {
                             fillColor: Colors.white,
                             filled: true,
                             contentPadding: EdgeInsets.symmetric(vertical: 10),
-                            hintText: "كلمةالمرور",
+                            hintText: "كلمةالمرور".tr,
                             hintStyle: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: Screen.responsiveScreen(
+                                    context, 15.w, 7.w, 8.w, 20.dp, 20.w),
+                                fontWeight: FontWeight.bold),
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.white),
                                 borderRadius: BorderRadius.circular(15)),
@@ -108,40 +109,48 @@ class _LoginState extends State<Login> {
                     textDirection: TextDirection.rtl,
                     child: Row(
                       children: [
-                        Checkbox(
-                          onChanged: (value) {
-                            setState(() {
-                              isRemember = value!;
-                            });
-                          },
-                          value: isRemember,
-                          activeColor: Coloring.primary,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                        Transform.scale(
+                          scale:
+                              Screen.responsiveScreen(context, 3, 3, 2, 1, 3),
+                          child: Checkbox(
+                            onChanged: (value) {
+                              setState(() {
+                                isRemember = value!;
+                              });
+                            },
+                            value: isRemember,
+                            activeColor: Coloring.primary,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                          ),
                         ),
-                        Text("تذكرني",
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("تذكرني".tr,
                             style: TextStyle(
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold))
+                                fontWeight: FontWeight.bold,
+                                fontSize: Screen.responsiveScreen(
+                                    context, 10.w, 6.w, 7.w, 15.dp, 15.w)))
                       ],
                     ),
                   ),
                 ),
                 Container(
                   width: viewport.getWidthscreen / 1.1,
-                  child: ElevatedButton(
+                  child: MaterialButton(
                     onPressed: () {
                       //login
                     },
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        minimumSize: Size.fromHeight(50),
-                        backgroundColor: Colors.blue),
-                    child: Text("تسجيل الدّخول ",
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    color: Colors.blue,
+                    child: Text("تسجيل الدّخول".tr,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 15,
+                            fontSize: Screen.responsiveScreen(
+                                context, 15.w, 7.w, 8.w, 20.dp, 18.w),
                             fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -152,13 +161,14 @@ class _LoginState extends State<Login> {
                   },
                   child: Container(
                     margin: EdgeInsets.only(top: 20),
-                    child: Text("نسيت كلمة المرور",
+                    child: Text("نسيت كلمة المرور".tr,
                         style: TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontFamily: Values.fontFamily,
-                            fontSize: 15)),
+                            fontSize: Screen.responsiveScreen(
+                                context, 10.w, 5.w, 7.w, 15.dp, 15.w))),
                   ),
                 ),
                 Container(
@@ -167,13 +177,14 @@ class _LoginState extends State<Login> {
                     onTap: () {
                       Get.toNamed("/register");
                     },
-                    child: Text("ليس لديك حساب؟ اضغط هنا للتسجيل",
+                    child: Text("ليس لديك حساب؟ اضغط هنا للتسجيل".tr,
                         style: TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontFamily: Values.fontFamily,
-                            fontSize: 15)),
+                            fontSize: Screen.responsiveScreen(
+                                context, 10.w, 5.w, 5.w, 15.dp, 15.w))),
                   ),
                 ),
                 InkWell(

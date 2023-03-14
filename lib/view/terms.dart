@@ -89,7 +89,7 @@ class _TermState extends State<Term> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SizedBox(
-                          width: viewport.getWidthscreen / 10,
+                          width: viewport.getWidthscreen / 12,
                         ),
                         Expanded(
                           child: MaterialButton(
@@ -109,8 +109,7 @@ class _TermState extends State<Term> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(),
                               margin: EdgeInsets.only(top: 10, bottom: 20),
-                              height: viewport.getHeightscreen / 17,
-                              width: viewport.getWidthscreen / 2,
+                              height: viewport.getHeightscreen / 20,
                               child: Text("الموافقة".tr,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -122,7 +121,7 @@ class _TermState extends State<Term> {
                           ),
                         ),
                         SizedBox(
-                          width: viewport.getWidthscreen / 10,
+                          width: viewport.getWidthscreen / 20,
                         ),
                         Expanded(
                           child: MaterialButton(
@@ -153,7 +152,7 @@ class _TermState extends State<Term> {
                           ),
                         ),
                         SizedBox(
-                          width: viewport.getWidthscreen / 10,
+                          width: viewport.getWidthscreen / 12,
                         ),
                       ],
                     ),

@@ -8,7 +8,7 @@ class Screen {
         ? 'phone'
         : data.size.shortestSide < 500
             ? 'big phone'
-            : data.size.shortestSide > 1250
+            : data.size.shortestSide > 1023
                 ? 'large tablet'
                 : 'tablet';
   }

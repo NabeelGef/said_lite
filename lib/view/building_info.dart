@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_sizer/flutter_sizer.dart';
 import 'package:get/get.dart';
 import 'package:said_lite/constant/colors.dart';
 import 'package:said_lite/constant/values.dart';
@@ -38,10 +39,11 @@ class _BuildingInfoState extends State<BuildingInfo> {
                   alignment: Alignment.centerRight,
                   child: Directionality(
                     textDirection: TextDirection.rtl,
-                    child: Text("معلومات المنشأة:",
+                    child: Text("معلومات المنشأة:".tr,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: Screen.responsiveScreen(
+                                context, 15.w, 7.w, 10.w, 5.w, 20.w),
                             fontFamily: Values.fontFamily,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -61,10 +63,11 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               child: Container(
                                 alignment: Alignment.centerRight,
                                 margin: EdgeInsets.only(right: 10),
-                                child: Text("اسم المنشأة:",
+                                child: Text("اسم المنشأة:".tr,
                                     style: TextStyle(
                                         color: Coloring.primary,
-                                        fontSize: 15,
+                                        fontSize: Screen.responsiveScreen(
+                                            context, 10.w, 7.w, 7.w, 5.w, 20.w),
                                         fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
@@ -75,7 +78,9 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               color: Colors.transparent,
                               elevation: 20,
                               child: TextFormField(
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: Screen.responsiveScreen(
+                                        context, 12.w, 7.w, 10.w, 5.w, 20.w)),
                                 decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     filled: true,
@@ -90,61 +95,22 @@ class _BuildingInfoState extends State<BuildingInfo> {
                       ),
                       Column(
                         children: [
-                          Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Container(
-                                alignment: Alignment.centerRight,
-                                margin: EdgeInsets.all(10),
-                                child: Text("رقم السّجل التّجاريّ:",
-                                    style: TextStyle(
-                                        color: Coloring.primary,
-                                        fontSize: 15,
-                                        fontFamily: Values.fontFamily,
-                                        fontWeight: FontWeight.bold)),
-                              )),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.all(10),
+                            child: Text("رقم السّجل التّجاريّ:".tr,
+                                style: TextStyle(
+                                    color: Coloring.primary,
+                                    fontSize: Screen.responsiveScreen(
+                                        context, 10.w, 7.w, 7.w, 5.w, 20.w),
+                                    fontFamily: Values.fontFamily,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                           Row(
                             children: [
-                              const SizedBox(width: 10),
-                              Expanded(
-                                  flex: 2,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Values.getDialogFile(
-                                          context,
-                                          viewport.getWidthscreen / 1.1,
-                                          viewport.getHeightscreen / 3);
-                                    },
-                                    child: DottedBorder(
-                                        borderType: BorderType.RRect,
-                                        radius: Radius.circular(20),
-                                        color: Colors.green,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Directionality(
-                                              textDirection: TextDirection.rtl,
-                                              child: Text(
-                                                  "إرفاق السّجل التّجاري\n  بامتداد " +
-                                                      "PNG أو PDF",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.green,
-                                                      fontSize: 15,
-                                                      fontFamily:
-                                                          Values.fontFamily,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
-                                            Icon(
-                                              Icons.attach_file,
-                                              color: Colors.green,
-                                              size: 25,
-                                            ),
-                                          ],
-                                        )),
-                                  )),
-                              SizedBox(width: 10),
+                              SizedBox(
+                                  width: Screen.responsiveScreen(
+                                      context, 10.w, 3.w, 10.w, 5.w, 20.w)),
                               Expanded(
                                   child: Container(
                                 height: viewport.getHeightscreen / 20,
@@ -152,7 +118,16 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                   color: Colors.transparent,
                                   elevation: 20,
                                   child: TextFormField(
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(
+                                      fontSize: Screen.responsiveScreen(
+                                        context,
+                                        10.w,
+                                        7.w,
+                                        7.w,
+                                        5.w,
+                                        20.w,
+                                      ),
+                                    ),
                                     decoration: InputDecoration(
                                         fillColor: Colors.white,
                                         filled: true,
@@ -164,27 +139,9 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                   ),
                                 ),
                               )),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Container(
-                                alignment: Alignment.centerRight,
-                                margin: EdgeInsets.all(10),
-                                child: Text("الرقم الضّريبيّ:",
-                                    style: TextStyle(
-                                        color: Coloring.primary,
-                                        fontSize: 15,
-                                        fontFamily: Values.fontFamily,
-                                        fontWeight: FontWeight.bold)),
-                              )),
-                          Row(
-                            children: [
-                              const SizedBox(width: 5),
+                              SizedBox(
+                                  width: Screen.responsiveScreen(
+                                      context, 7.w, 3.w, 5.w, 5.w, 20.w)),
                               Expanded(
                                   flex: 2,
                                   child: InkWell(
@@ -195,6 +152,7 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                           viewport.getHeightscreen / 3);
                                     },
                                     child: DottedBorder(
+                                        strokeWidth: 5,
                                         borderType: BorderType.RRect,
                                         radius: Radius.circular(20),
                                         color: Colors.green,
@@ -202,29 +160,63 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Directionality(
-                                              textDirection: TextDirection.rtl,
-                                              child: Text(
-                                                  "إرفاق الشّهادة الضريبيّة\n  بامتداد " +
-                                                      "PNG أو PDF",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      color: Colors.green,
-                                                      fontSize: 15,
-                                                      fontFamily:
-                                                          Values.fontFamily,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                            ),
+                                            Text(
+                                                "إرفاق السّجل التّجاري\nبامتداد" +
+                                                    "PNG أو PDF".tr,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.green,
+                                                    fontSize:
+                                                        Screen.responsiveScreen(
+                                                            context,
+                                                            8.w,
+                                                            4.w,
+                                                            5.w,
+                                                            4.w,
+                                                            20.w),
+                                                    fontFamily:
+                                                        Values.fontFamily,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                             Icon(
                                               Icons.attach_file,
                                               color: Colors.green,
-                                              size: 25,
+                                              size: Screen.responsiveScreen(
+                                                  context,
+                                                  15.w,
+                                                  10.w,
+                                                  9.w,
+                                                  7.w,
+                                                  20.w),
                                             ),
                                           ],
                                         )),
                                   )),
-                              SizedBox(width: 5),
+                              SizedBox(
+                                  width: Screen.responsiveScreen(
+                                      context, 7.w, 5.w, 2.w, 2.w, 20.w)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.all(10),
+                            child: Text("الرقم الضّريبيّ:".tr,
+                                style: TextStyle(
+                                    color: Coloring.primary,
+                                    fontSize: Screen.responsiveScreen(
+                                        context, 10.w, 7.w, 7.w, 5.w, 20.w),
+                                    fontFamily: Values.fontFamily,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                  width: Screen.responsiveScreen(
+                                      context, 7.w, 3.w, 3.w, 5.w, 20.w)),
                               Expanded(
                                   child: SizedBox(
                                 height: viewport.getHeightscreen / 20,
@@ -232,7 +224,16 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                   color: Colors.transparent,
                                   elevation: 20,
                                   child: TextFormField(
-                                    style: TextStyle(fontSize: 20),
+                                    style: TextStyle(
+                                      fontSize: Screen.responsiveScreen(
+                                        context,
+                                        10.w,
+                                        7.w,
+                                        7.w,
+                                        5.w,
+                                        20.w,
+                                      ),
+                                    ),
                                     decoration: InputDecoration(
                                         fillColor: Colors.white,
                                         filled: true,
@@ -243,73 +244,89 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                                 color: Colors.white))),
                                   ),
                                 ),
-                              ))
+                              )),
+                              SizedBox(
+                                  width: Screen.responsiveScreen(
+                                      context, 10.w, 3.w, 2.w, 5.w, 20.w)),
+                              Expanded(
+                                  flex: 2,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Values.getDialogFile(
+                                          context,
+                                          viewport.getWidthscreen / 1.1,
+                                          viewport.getHeightscreen / 3);
+                                    },
+                                    child: DottedBorder(
+                                        strokeWidth: 5,
+                                        borderType: BorderType.RRect,
+                                        radius: Radius.circular(20),
+                                        color: Colors.green,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Directionality(
+                                              textDirection: TextDirection.rtl,
+                                              child: Text(
+                                                  "إرفاق الشّهادة الضريبيّة\nبامتداد" +
+                                                      "PNG أو PDF".tr,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.green,
+                                                      fontSize: Screen
+                                                          .responsiveScreen(
+                                                              context,
+                                                              8.w,
+                                                              4.w,
+                                                              5.w,
+                                                              4.w,
+                                                              20.w),
+                                                      fontFamily:
+                                                          Values.fontFamily,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                            ),
+                                            Icon(
+                                              Icons.attach_file,
+                                              color: Colors.green,
+                                              size: Screen.responsiveScreen(
+                                                  context,
+                                                  15.w,
+                                                  10.w,
+                                                  9.w,
+                                                  7.w,
+                                                  20.w),
+                                            ),
+                                          ],
+                                        )),
+                                  )),
+                              SizedBox(
+                                  width: Screen.responsiveScreen(
+                                      context, 10.w, 3.w, 1.w, 2.w, 20.w)),
                             ],
                           ),
                         ],
                       ),
                       Column(
                         children: [
-                          Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Container(
-                                alignment: Alignment.centerRight,
-                                margin: EdgeInsets.all(10),
-                                child: Text("هويّة المالك أو المفوّض:",
-                                    style: TextStyle(
-                                        color: Coloring.primary,
-                                        fontSize: 15,
-                                        fontFamily: Values.fontFamily,
-                                        fontWeight: FontWeight.bold)),
-                              )),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.all(10),
+                            child: Text("هويّة المالك أو المفوّض:".tr,
+                                style: TextStyle(
+                                    color: Coloring.primary,
+                                    fontSize: Screen.responsiveScreen(
+                                        context, 10.w, 7.w, 7.w, 5.w, 20.w),
+                                    fontFamily: Values.fontFamily,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: InkWell(
-                                  onTap: () {
-                                    Values.getDialogFile(
-                                        context,
-                                        viewport.getWidthscreen / 1.1,
-                                        viewport.getHeightscreen / 3);
-                                  },
-                                  child: DottedBorder(
-                                      borderType: BorderType.RRect,
-                                      radius: Radius.circular(20),
-                                      color: Colors.green,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Directionality(
-                                            textDirection: TextDirection.rtl,
-                                            child: Text(
-                                                "إرفاق الهويّة \n  بامتداد " +
-                                                    "PNG أو PDF",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.green,
-                                                    fontSize: 15,
-                                                    fontFamily:
-                                                        Values.fontFamily,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                          ),
-                                          Icon(
-                                            Icons.attach_file,
-                                            color: Colors.green,
-                                            size: 25,
-                                          ),
-                                        ],
-                                      )),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
+                              SizedBox(
+                                width: Screen.responsiveScreen(
+                                    context, 10.w, 3.w, 5.w, 5.w, 20.w),
                               ),
                               Expanded(
                                 child: Container(
@@ -318,7 +335,16 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     color: Colors.transparent,
                                     elevation: 20,
                                     child: TextFormField(
-                                      style: TextStyle(fontSize: 20),
+                                      style: TextStyle(
+                                        fontSize: Screen.responsiveScreen(
+                                          context,
+                                          10.w,
+                                          7.w,
+                                          7.w,
+                                          7.w,
+                                          20.w,
+                                        ),
+                                      ),
                                       decoration: InputDecoration(
                                           fillColor: Colors.white,
                                           filled: true,
@@ -330,7 +356,64 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
+                              SizedBox(
+                                width: Screen.responsiveScreen(
+                                    context, 10.w, 3.w, 5.w, 5.w, 20.w),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: InkWell(
+                                  onTap: () {
+                                    Values.getDialogFile(
+                                        context,
+                                        viewport.getWidthscreen / 1.1,
+                                        viewport.getHeightscreen / 3);
+                                  },
+                                  child: DottedBorder(
+                                      strokeWidth: 5,
+                                      borderType: BorderType.RRect,
+                                      radius: Radius.circular(20),
+                                      color: Colors.green,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                              "إرفاق الهويّة \n  بامتداد " +
+                                                  "PNG أو PDF".tr,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.green,
+                                                  fontSize:
+                                                      Screen.responsiveScreen(
+                                                          context,
+                                                          8.w,
+                                                          4.w,
+                                                          5.w,
+                                                          4.w,
+                                                          20.w),
+                                                  fontFamily: Values.fontFamily,
+                                                  fontWeight: FontWeight.bold)),
+                                          Icon(
+                                            Icons.attach_file,
+                                            color: Colors.green,
+                                            size: Screen.responsiveScreen(
+                                                context,
+                                                15.w,
+                                                10.w,
+                                                9.w,
+                                                7.w,
+                                                20.w),
+                                          ),
+                                        ],
+                                      )),
+                                ),
+                              ),
+                              SizedBox(
+                                width: Screen.responsiveScreen(
+                                    context, 10.w, 5.w, 2.w, 2.w, 20.w),
+                              ),
                             ],
                           )
                         ],
@@ -342,10 +425,17 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               child: Container(
                                 alignment: Alignment.centerRight,
                                 margin: EdgeInsets.all(10),
-                                child: Text("البريد الالكترونيّ:",
+                                child: Text("البريد الالكترونيّ:".tr,
                                     style: TextStyle(
                                         color: Coloring.primary,
-                                        fontSize: 15,
+                                        fontSize: Screen.responsiveScreen(
+                                          context,
+                                          10.w,
+                                          7.w,
+                                          7.w,
+                                          5.w,
+                                          20.w,
+                                        ),
                                         fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
@@ -356,7 +446,16 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               color: Colors.transparent,
                               elevation: 20,
                               child: TextFormField(
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                  fontSize: Screen.responsiveScreen(
+                                    context,
+                                    10.w,
+                                    7.w,
+                                    7.w,
+                                    5.w,
+                                    20.w,
+                                  ),
+                                ),
                                 decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     filled: true,
@@ -371,18 +470,23 @@ class _BuildingInfoState extends State<BuildingInfo> {
                       ),
                       Column(
                         children: [
-                          Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Container(
-                                alignment: Alignment.centerRight,
-                                margin: EdgeInsets.all(10),
-                                child: Text("رقم الجوّال :",
-                                    style: TextStyle(
-                                        color: Coloring.primary,
-                                        fontSize: 15,
-                                        fontFamily: Values.fontFamily,
-                                        fontWeight: FontWeight.bold)),
-                              )),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            margin: EdgeInsets.all(10),
+                            child: Text("رقم الجوّال :".tr,
+                                style: TextStyle(
+                                    color: Coloring.primary,
+                                    fontSize: Screen.responsiveScreen(
+                                      context,
+                                      10.w,
+                                      7.w,
+                                      7.w,
+                                      5.w,
+                                      20.w,
+                                    ),
+                                    fontFamily: Values.fontFamily,
+                                    fontWeight: FontWeight.bold)),
+                          ),
                           Container(
                             height: viewport.getHeightscreen / 20,
                             width: viewport.getWidthscreen / 1.2,
@@ -393,7 +497,16 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                 readOnly: true,
                                 initialValue: values.code.value +
                                     values.numberPhone.value,
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                  fontSize: Screen.responsiveScreen(
+                                    context,
+                                    10.w,
+                                    7.w,
+                                    7.w,
+                                    5.w,
+                                    20.w,
+                                  ),
+                                ),
                                 decoration: InputDecoration(
                                     fillColor: Colors.grey,
                                     filled: true,
@@ -418,10 +531,17 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               child: Container(
                                 alignment: Alignment.centerRight,
                                 margin: EdgeInsets.all(10),
-                                child: Text("المدينة: ",
+                                child: Text("المدينة: ".tr,
                                     style: TextStyle(
                                         color: Coloring.primary,
-                                        fontSize: 15,
+                                        fontSize: Screen.responsiveScreen(
+                                          context,
+                                          10.w,
+                                          7.w,
+                                          7.w,
+                                          5.w,
+                                          20.w,
+                                        ),
                                         fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
@@ -432,7 +552,16 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               color: Colors.transparent,
                               elevation: 20,
                               child: TextFormField(
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                  fontSize: Screen.responsiveScreen(
+                                    context,
+                                    10.w,
+                                    7.w,
+                                    7.w,
+                                    5.w,
+                                    20.w,
+                                  ),
+                                ),
                                 decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     filled: true,
@@ -452,10 +581,17 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               child: Container(
                                 alignment: Alignment.centerRight,
                                 margin: EdgeInsets.all(10),
-                                child: Text("الحيّ:",
+                                child: Text("الحيّ:".tr,
                                     style: TextStyle(
                                         color: Coloring.primary,
-                                        fontSize: 15,
+                                        fontSize: Screen.responsiveScreen(
+                                          context,
+                                          10.w,
+                                          7.w,
+                                          7.w,
+                                          5.w,
+                                          20.w,
+                                        ),
                                         fontFamily: Values.fontFamily,
                                         fontWeight: FontWeight.bold)),
                               )),
@@ -466,7 +602,15 @@ class _BuildingInfoState extends State<BuildingInfo> {
                               color: Colors.transparent,
                               elevation: 20,
                               child: TextFormField(
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(
+                                    fontSize: Screen.responsiveScreen(
+                                  context,
+                                  10.w,
+                                  7.w,
+                                  7.w,
+                                  5.w,
+                                  20.w,
+                                )),
                                 decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     filled: true,
@@ -490,10 +634,17 @@ class _BuildingInfoState extends State<BuildingInfo> {
                                   borderRadius: BorderRadius.circular(20)),
                               minimumSize: Size.fromHeight(50),
                               backgroundColor: Colors.blue),
-                          child: Text("حفظ ",
+                          child: Text("حفظ".tr,
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontSize: Screen.responsiveScreen(
+                                    context,
+                                    10.w,
+                                    7.w,
+                                    7.w,
+                                    5.w,
+                                    20.w,
+                                  ),
                                   fontFamily: Values.fontFamily,
                                   fontWeight: FontWeight.bold)),
                         ),
